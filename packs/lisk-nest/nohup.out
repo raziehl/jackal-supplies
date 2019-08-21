@@ -1,0 +1,5 @@
+[ 08/21/2019 11:32:58.579 parse_config_libconfig WARN ] Option `no-dock-shadow` is deprecated, and will be removed. Please use the wintype option `shadow` of `dock` instead.
+[ 08/21/2019 11:32:58.579 parse_config_libconfig WARN ] vsync option will take a boolean from now on. "none" is interpreted as "false" for compatibility, but this will stop working soon
+[ 08/21/2019 11:32:58.579 parse_config_libconfig WARN ] glx-swap-method has been deprecated since v6, your setting "undefined" should be removed.
+[ 08/21/2019 11:32:58.579 parse_config_libconfig WARN ] "clear-shadow" is removed as an option, and is always enabled now. Consider removing it from your config file
+[ 08/21/2019 11:32:58.579 parse_config_libconfig WARN ] "paint-on-overlay" has been removed as an option, and is enabled whenever possible

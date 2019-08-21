@@ -1,0 +1,33 @@
+{
+ "compilerOptions": {
+   "module": "esnext",
+   "baseUrl": "./",
+   "declaration": false,
+   "outDir": "./dist/out-tsc",
+   "noImplicitAny": false,
+   "removeComments": true,
+   "emitDecoratorMetadata": true,
+   "experimentalDecorators": true,
+   "moduleResolution": "node",
+   "importHelpers": true,
+   "target": "es2015",
+   "sourceMap": true,
+   "typeRoots": [
+      "node_modules/@types"
+   ],
+   "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@affiliate-push/models": ["libs/models/"],
+      "@root/*": ["./*"]
+    },
+    "rootDir": "."
+ },
+ "exclude": [
+   "node_modules",
+   "**/*.spec.ts"
+ ]
+}
+
