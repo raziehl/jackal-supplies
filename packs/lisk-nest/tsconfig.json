@@ -7,9 +7,12 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es2017",
+    "outDir": "dist/",
     "sourceMap": true,
-    "outDir": "./dist",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@nest-root/*": ["./*"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }
