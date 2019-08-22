@@ -3,7 +3,7 @@
    "module": "esnext",
    "baseUrl": "./",
    "declaration": false,
-   "outDir": "./dist/out-tsc",
+   "outDir": "./dist/",
    "noImplicitAny": false,
    "removeComments": true,
    "emitDecoratorMetadata": true,

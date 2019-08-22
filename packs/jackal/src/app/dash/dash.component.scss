@@ -1,0 +1,71 @@
+.dash {
+    width: 160px;
+}
+
+.dash-btn {
+    min-width: 0px;
+    width: 100%;
+    border-radius: 0;
+    text-align: left;
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+.dash-footer {
+    position: fixed;
+    width: 160px;
+    bottom: 0;
+}
+
+.dash-footer .dash-btn {
+    padding-top: 5px;
+    font-size: 10px;
+}
+
+i {
+    position: relative;
+    top: -2px;
+}
+
+i {
+    font-size: 20px;
+}
+
+@media (max-width: 700px) {
+    .dash {
+        width: 45px;
+    }
+
+    i {
+        font-size: 20px;
+    }
+
+    .larger-icon {
+        font-size: 25px;
+        left: -4px;
+        margin-right: 10px;
+    }
+
+    .larger-icon-diff {
+        font-size: 28px;
+        margin-right: 10px;
+        left: -2px;
+    }
+
+    .larger-cogs {
+        font-size: 25px;
+        left: -6px;
+    }
+
+    .fa-user-friends {
+        left: -5px;
+    }
+
+    .dash-footer {
+        width: 45px;
+    }
+
+    .sync-btn {
+        padding-left: 12px!important;
+    }
+}

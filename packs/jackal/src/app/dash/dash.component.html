@@ -1,1 +1,26 @@
-<p>dash works!</p>
+<div class="dash">
+    <div *ngIf="auth.user.is_superuser">
+        <button mat-button class="dash-btn"
+        routerLink="user-control"><i class="fas fa-user-friends larger-icon"></i> USERS</button>
+    </div>
+    <div *ngIf="auth.user.is_superuser">
+        <button mat-button class="dash-btn"
+        routerLink="domain-control"><i class="fas fa-table larger-icon"
+        ></i> DOMAINS</button>
+    </div>
+    <div *ngIf="!auth.user.is_superuser">
+        <button mat-button class="dash-btn"
+        routerLink="user-domains" ><i class="fas fa-clipboard-list larger-icon-diff" ></i> MY DOMAINS</button>
+    </div>
+    <div>
+        <button mat-button class="dash-btn"
+        routerLink="account-settings"><i class="fas fa-cogs larger-cogs"></i> SETTINGS</button>
+    </div>
+
+    <div class="dash-footer">
+        <div *ngIf="auth.user.is_superuser">
+            <button mat-raised-button color="warn" class="dash-btn sync-btn"
+            ><i class="fas fa-sync larger-icon"></i> Sync Domains with Fama</button>
+        </div>
+    </div>
+</div>

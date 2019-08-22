@@ -11,7 +11,7 @@
     "sourceMap": true,
     "incremental": true,
     "paths": {
-      "@nest-root/*": ["./*"]
+      "@nest-root/*": ["./packs/lisk-nest/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

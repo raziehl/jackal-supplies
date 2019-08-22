@@ -1,0 +1,22 @@
+.route-container {
+    min-height: 100vh;
+}
+
+.app-toolbar {
+    background-color: white;
+    z-index: 1;
+}
+
+.user-icon {
+    text-align: right;
+}
+
+.drawer {
+    position: fixed;
+    top: 64px;
+    z-index: 0;
+}
+
+.drawer-container {
+    z-index: 0;
+}

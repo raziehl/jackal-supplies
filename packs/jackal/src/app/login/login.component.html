@@ -1,0 +1,19 @@
+<div class="container login-component">
+    <form [formGroup]="loginForm">
+        
+        <mat-form-field class="form-general">
+            <mat-label>Passphrase</mat-label>
+            <input name="password" matInput
+            [type]="hide ? 'text' : 'password'"
+            formControlName="passwordControl"
+            >
+            <a matSuffix (click)="hide = !hide" class="suffix-icon">
+                <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </a>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="box-button" (click)="login()">Login</button>
+        <button mat-raised-button color="danger" class="box-button" (click)="generate()">Generate</button>
+
+    </form>
+</div>

@@ -23,12 +23,16 @@ import { hammerjs } from 'hammerjs';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptor } from './core/auth.interceptor';
 import { DashComponent } from './dash/dash.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashComponent
+    DashComponent,
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

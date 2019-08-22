@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { log } from '../../logger';
-import { c2ryptography } from 'lisk-sdk';
+import { cryptography as crypto } from 'lisk-sdk';
 
+// const { Mnemonic } = pass;
 
 @Injectable()
 export class CryptoService {
     
 
     generate() {
-        log.error('PIZDA');
+        log.error(crypto.constants)
     }
 
 }
