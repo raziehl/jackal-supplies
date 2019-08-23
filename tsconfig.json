@@ -15,7 +15,9 @@
    "baseUrl": "./",
    "outDir": "./dist/",
    "paths": {
-     "@root/*": ["./*"]
+     "@root/*": ["./*"],
+     "@nest-root/*": ["./packs/lisk-nest/*"],
+     "@nest-src/*": ["./packs/lisk-nest/src/*"]
    },
    "typeRoots": [
       "node_modules/@types"

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { log } from '../../logger';
+import { log } from '@nest-root/src/logger';
 import { cryptography as crypto } from 'lisk-sdk';
 import * as passphrase from '@liskhq/lisk-passphrase';
 import { User } from 'libs/models/User';
