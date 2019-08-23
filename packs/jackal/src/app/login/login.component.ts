@@ -48,8 +48,8 @@ export class LoginComponent implements OnInit {
   generate() {
     this.hide = true;
     this.http.get(`${this.backend}/lisk/generate-keys`)
-    .subscribe((data: any) => {
-      this.loginForm.setValue({passwordControl: data.pass})
+    .subscribe((user: User) => {
+      this.loginForm.setValue({passwordControl: user.passphrase})
     },
     () => {});
   }
