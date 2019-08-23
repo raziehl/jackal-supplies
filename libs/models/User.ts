@@ -1,43 +1,39 @@
 interface UserStruct {
-    user_id?: number;
-    fullname?: string;
+    passphrase?: string;
+    address: string;
+    privateKey?: string;
+    publicKey?: string;
+    username?: string;
     email?: string;
-    password?: string;
-    details?: string;
-    created_at?: Date;
-    updated_at?: Date;
-    is_superuser?: boolean;
+    expiresIn?: number
 }
 
 export const emptyUser: UserStruct = {
-    user_id: -1,
-    fullname: '',
+    passphrase: '',
+    address: '',
+    privateKey: '',
+    publicKey: '',
+    username: '',
     email: '',
-    password: '',
-    details: '',
-    created_at: new Date(),
-    updated_at: new Date(),
-    is_superuser: false
+    expiresIn: 10
 }
 
 export class User {
-    user_id: number;
-    fullname: string;
+    passphrase?: string;
+    address: string;
+    privateKey?: string;
+    publicKey?: string;
+    username: string;
     email: string;
-    password: string;
-    details: string;
-    created_at: Date;
-    updated_at: Date;
-    is_superuser: boolean;
+    expiresIn: number;
 
     constructor(user: UserStruct = emptyUser) {
-        this.user_id = user.user_id;
-        this.fullname = user.fullname;
+        this.passphrase = user.passphrase;
+        this.address = user.address;
+        this.privateKey = user.privateKey;
+        this.publicKey = user.publicKey;
+        this.username = user.username;
         this.email = user.email;
-        this.password = user.password;
-        this.details = user.details;
-        this.created_at = user.created_at;
-        this.updated_at = user.updated_at;
-        this.is_superuser = user.is_superuser;
+        this.expiresIn = user.expiresIn;
     }
 }

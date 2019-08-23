@@ -20,11 +20,13 @@
       "dom"
     ],
     "paths": {
-      "@affiliate-push/models": ["libs/models/"],
       "@root/*": ["./*"]
     },
     "rootDir": "."
  },
+ "include": [
+   "packs"
+ ],
  "exclude": [
    "node_modules",
    "**/*.spec.ts"

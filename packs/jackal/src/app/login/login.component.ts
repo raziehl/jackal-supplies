@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   login() {
     const val = this.loginForm.value;
  
-    this.user.password = val.passwordControl;
+    this.user.passphrase = val.passwordControl;
     
     if (val.passwordControl) {
       this.auth.login(this.user);
@@ -47,11 +47,9 @@ export class LoginComponent implements OnInit {
 
   generate() {
     this.hide = true;
-    this.http.get(`${this.backend}/lisk/generate-keys`, {responseType: 'text'})
-    .subscribe((data) => {
-      this.loginForm.setValue({passwordControl: data})
-
-      console.log(data)
+    this.http.get(`${this.backend}/lisk/generate-keys`)
+    .subscribe((data: any) => {
+      this.loginForm.setValue({passwordControl: data.pass})
     },
     () => {});
   }

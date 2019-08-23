@@ -6,14 +6,12 @@ import { User } from 'libs/models/User';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-// import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService implements OnInit {
 
-  serverhost: string = environment.backend;
+  backend: string = environment.backend;
   user: User;
 
   constructor(
@@ -24,49 +22,30 @@ export class AuthService implements OnInit {
   
   ngOnInit() {
     this.user = new User();
-    const user_obj = localStorage.getItem('user_obj');
-    if(user_obj)
-      this.user = JSON.parse(user_obj);
+    const user = localStorage.getItem('user');
+    if(user)
+      this.user = JSON.parse(user);
   }
 
   login(user: User) {
-    const loginSubscription = this.http.post<User>(`${this.serverhost}/login`, {
-      email: user.email,
-      password: user.password
-    }).subscribe((authResult) => {
-      this.setSession(authResult);
-      this.router.navigate(['/domain-control']);
-      loginSubscription.unsubscribe();
-    }, (err) => {
-      this.toast.error(err.message, 'Error');
-    });
-    return loginSubscription;
-  }
-  
-  private setSession(authResult) {
-    const expiresAt = moment().add(authResult.expiresIn, 'second');
-    
-    this.user = authResult.userObj;
-    localStorage.setItem('user_obj', JSON.stringify(authResult.userObj));
-    
-    localStorage.setItem('id_token', authResult.access_token);
-    localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    this.http.post(`${this.backend}/lisk/enrichPass`, user)
+    .subscribe((enrichedUser: User) => {
+      console.log(enrichedUser);
+      this.user = enrichedUser;
+      localStorage.setItem('user', JSON.stringify(enrichedUser));
+    },() => {});
+    return this.router.navigate(['/home']);
   }
 
   logout() {
-    localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
-    localStorage.removeItem('user_obj');
+    localStorage.removeItem('user');
     
     this.router.navigate(['/']);
   }
 
   public isLoggedIn() {
     return moment().isBefore(this.getExpiration());
-  }
-
-  isLoggedOut() {
-    return !this.isLoggedIn();
   }
 
   getExpiration() {
@@ -76,6 +55,6 @@ export class AuthService implements OnInit {
   }    
 
   generalGet(getPath: string = 'testGet') {
-    return fetch(`${this.serverhost}/${getPath}`);
+    return fetch(`${this.backend}/${getPath}`);
   }
 }
