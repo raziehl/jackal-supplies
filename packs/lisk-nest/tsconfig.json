@@ -1,18 +1,4 @@
 {
   "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es2017",
-    "outDir": "dist/",
-    "sourceMap": true,
-    "incremental": true,
-    "paths": {
-      "@nest-root/*": ["./packs/lisk-nest/*"]
-    }
-  },
   "exclude": ["node_modules", "dist"]
 }

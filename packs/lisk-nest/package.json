@@ -8,7 +8,7 @@
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts | bunyan -o short",
-    "start:dev": "tsc-watch --onSuccess \"ts-node -r tsconfig-paths/register dist/packs/lisk-nest/src/main.js\" | bunyan -o short",
+    "start:dev": "tsc-watch -p ./tsconfig.build.json --onSuccess \"ts-node -r tsconfig-paths/register dist/packs/lisk-nest/src/main.js\" | bunyan -o short",
     "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\" | bunyan -o short",
     "start:prod": "node dist/main.js | bunyan -o short",
     "lint": "tslint -p tsconfig.json -c tslint.json",

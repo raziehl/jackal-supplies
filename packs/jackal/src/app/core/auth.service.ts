@@ -30,7 +30,6 @@ export class AuthService implements OnInit {
   login(user: User) {
     this.http.post(`${this.backend}/lisk/enrichPass`, user)
     .subscribe((enrichedUser: User) => {
-      console.log(enrichedUser);
       this.user = enrichedUser;
       localStorage.setItem('user', JSON.stringify(enrichedUser));
     },() => {});

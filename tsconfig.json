@@ -1,28 +1,29 @@
 {
  "compilerOptions": {
-   "module": "esnext",
-   "baseUrl": "./",
+   "module": "commonjs",
+   "target": "es2015",
+   "rootDir": ".",
    "declaration": false,
-   "outDir": "./dist/",
+   "downlevelIteration": true,
    "noImplicitAny": false,
    "removeComments": true,
    "emitDecoratorMetadata": true,
    "experimentalDecorators": true,
    "moduleResolution": "node",
    "importHelpers": true,
-   "target": "es2015",
    "sourceMap": true,
+   "baseUrl": "./",
+   "outDir": "./dist/",
+   "paths": {
+     "@root/*": ["./*"]
+   },
    "typeRoots": [
       "node_modules/@types"
    ],
    "lib": [
       "es2018",
       "dom"
-    ],
-    "paths": {
-      "@root/*": ["./*"]
-    },
-    "rootDir": "."
+    ]
  },
  "include": [
    "packs"
