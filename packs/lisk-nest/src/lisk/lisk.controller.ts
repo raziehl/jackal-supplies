@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Request } from '@nestjs/common';
 import { CryptoService } from './crypto/crypto.service';
+import { TransactionService } from './transactions/transaction.service';
 
 import { User } from 'libs/models/User';
 
@@ -7,7 +8,8 @@ import { User } from 'libs/models/User';
 export class LiskController {
     
     constructor(
-        private crypto: CryptoService
+        private crypto: CryptoService,
+        private trans: TransactionService
     ) {}
 
     @Get('generate-keys')
@@ -19,5 +21,10 @@ export class LiskController {
     enrichPass(@Request() req) {
         const user: User = req.body;
         return this.crypto.enrichPass(user.passphrase);
+    }
+
+    @Get('transact')
+    transact() {
+        return this.trans.testTransact();
     }
 }

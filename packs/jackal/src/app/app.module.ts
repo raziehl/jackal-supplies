@@ -25,6 +25,7 @@ import { AuthInterceptor } from './core/auth.interceptor';
 import { DashComponent } from './dash/dash.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { LoginComponent } from './login/login.component';
     AppComponent,
     DashComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module, HttpModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LiskModule } from './lisk/lisk.module';
 
 @Module({
-  imports: [LiskModule],
+  imports: [LiskModule, HttpModule],
   controllers: [AppController],
   providers: [AppService],
 })

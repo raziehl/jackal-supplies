@@ -1,10 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Module, HttpModule } from '@nestjs/common';
 import { CryptoService } from './crypto/crypto.service';
 import { LiskService } from './lisk.service';
 import { LiskController } from './lisk.controller';
+import { TransactionService } from './transactions/transaction.service';
 
 @Module({
-  providers: [CryptoService, LiskService],
+  imports: [HttpModule],
+  providers: [CryptoService, LiskService, TransactionService],
   controllers: [LiskController]
 })
 export class LiskModule {}

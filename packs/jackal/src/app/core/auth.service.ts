@@ -31,7 +31,9 @@ export class AuthService implements OnInit {
     this.http.post(`${this.backend}/lisk/enrichPass`, user)
     .subscribe((enrichedUser: User) => {
       this.user = enrichedUser;
+      const expiresAt = moment().add(enrichedUser.expiresIn, 'second');
       localStorage.setItem('user', JSON.stringify(enrichedUser));
+      localStorage.setItem('expires_at', expiresAt.valueOf().toString());
     },() => {});
     return this.router.navigate(['/home']);
   }

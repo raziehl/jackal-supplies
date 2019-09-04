@@ -15,7 +15,7 @@ export const emptyUser: UserStruct = {
     publicKey: '',
     username: '',
     email: '',
-    expiresIn: 10
+    expiresIn: 1000000
 }
 
 export class User {
