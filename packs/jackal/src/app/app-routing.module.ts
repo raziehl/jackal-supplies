@@ -4,10 +4,12 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './core/auth.guard';
 import { SettingsComponent } from './settings/settings.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'spinner', component: SpinnerComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] }

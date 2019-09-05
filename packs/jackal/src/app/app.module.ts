@@ -17,6 +17,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material'
 import { MatSortModule } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { hammerjs } from 'hammerjs';
 
@@ -26,6 +27,7 @@ import { DashComponent } from './dash/dash.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { SettingsComponent } from './settings/settings.component';
     DashComponent,
     HomeComponent,
     LoginComponent,
-    SettingsComponent
+    SettingsComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,7 @@ import { SettingsComponent } from './settings/settings.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
 
     ToastrModule.forRoot() 
   ],

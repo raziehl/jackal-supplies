@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   hide;
+  loading;
 
   constructor(
     private fb: FormBuilder,
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
     if (val.passwordControl) {
       localStorage.setItem('passphrase', this.user.passphrase);
       this.auth.login(this.user);
+      this.loading = true;
     }
   }
 

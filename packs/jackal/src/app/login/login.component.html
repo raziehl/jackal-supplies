@@ -1,5 +1,5 @@
 <div class="container login-component">
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" [hidden]="loading">
         
         <mat-form-field class="form-general">
             <mat-label>Passphrase</mat-label>
@@ -16,4 +16,6 @@
         <button mat-raised-button color="danger" class="box-button" (click)="generate()">Generate</button>
 
     </form>
+
+    <app-spinner [hidden]="!loading" message="Creating new account, please wait..."></app-spinner>
 </div>
