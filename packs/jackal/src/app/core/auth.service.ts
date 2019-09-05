@@ -29,12 +29,14 @@ export class AuthService implements OnInit {
       this.user = JSON.parse(user);
     if(passphrase)
       this.passphrase = passphrase;
+    this.login(this.user);
   }
 
   login(user: User) {
     this.http.post(`${this.backend}/lisk/account`, user)
     .subscribe((user: User) => {
       this.user = user;
+      this.user.username = user.asset.user.username;
       console.log(user);
       const expiresAt = moment().add(user.expiresIn, 'second');
       localStorage.setItem('user', JSON.stringify(user));

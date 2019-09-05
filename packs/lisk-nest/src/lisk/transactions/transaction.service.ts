@@ -41,12 +41,11 @@ export class TransactionService {
         .catch(err => log.error(err));
     }
 
-    async updateAccount(user: User, ) {
+    async updateAccount(user: User) {
         const tx = new AccountTransaction({
             timestamp: timestamp(),
-            fee: `${trans.utils.convertLSKToBeddows('1')}`,
-            recipientId: '10881167371402274308L'
-        }, user);
+            asset: user
+        });
         tx.sign(user.passphrase);
         
         try {
@@ -70,7 +69,6 @@ export class TransactionService {
     async login(user: User) {
         let account: User = (await this.getAccount(user.address) as Partial<User>)[0];
         if(account) {
-            console.log(account)
             account = new User({ ...user, ...account });
             return account;
         } else {

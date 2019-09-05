@@ -30,4 +30,11 @@ export class LiskController {
         user.address = this.crypto.getAddress(user.passphrase);
         return await this.trans.login(user);
     }
+
+    @Post('updateUser')
+    async updateUser(@Request() req) {
+        console.log("UPDATE USER")
+        let user: User = req.body;
+        return await this.trans.updateAccount(user);
+    }
 }

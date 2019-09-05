@@ -1,1 +1,19 @@
-<p>settings works!</p>
+<div class="settings-container container">
+    <form [formGroup]="settingsForm" [hidden]="loading">
+
+        <div class="setting-section">
+            <h1 class="section-title">User</h1>
+            <div class="section-body">
+                <mat-form-field class="form-general">
+                    <mat-label>Username</mat-label>
+                    <input name="password" matInput
+                    formControlName="usernameControl">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <button mat-raised-button color="accent" class="box-button" (click)="saveSettings()">Save</button>
+        
+    </form>
+
+</div>

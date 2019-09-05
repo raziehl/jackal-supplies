@@ -10,7 +10,7 @@ export class AccountTransaction extends BaseTransaction {
         throw new Error("Method not implemented.");
     }
 
-    constructor(transObj, user) {
+    constructor(transObj) {
         super(transObj);
     }
 
@@ -19,7 +19,7 @@ export class AccountTransaction extends BaseTransaction {
     }
 
     static get FEE () {
-        return `${10 ** 8}`;
+        return `${0}`;
     };
 
     async prepare(store) {
@@ -43,10 +43,9 @@ export class AccountTransaction extends BaseTransaction {
         const asset: any = this.asset;
         let sender: any = store.account.get(this.senderId);
 
-        
-
-        // const newObj = { ...sender, asset: { hello: asset.hello } };
-        // store.account.set(sender.address, newObj);
+        console.log(sender);
+        const newObj = { ...sender, asset: { user: { username: asset.username } } };
+        store.account.set(sender.address, newObj);
 
         return errors;
     }
