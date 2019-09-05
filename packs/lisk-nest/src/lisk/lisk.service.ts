@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { lisk } from './lisk-config';
-import { TestTransaction } from './transactions/test-transaction';
+import { AccountTransaction } from './transactions/account-transaction';
 
 @Injectable()
 export class LiskService {
     constructor() {
-        lisk.registerTransaction(TestTransaction);
+        lisk.registerTransaction(AccountTransaction);
 
         lisk.run()
         .then(() => lisk.logger.info('App started...'))

@@ -3,6 +3,7 @@ import { log } from '@nest-root/src/logger';
 import { cryptography as crypto } from 'lisk-sdk';
 import * as passphrase from '@liskhq/lisk-passphrase';
 import { User } from 'libs/models/User';
+import { EnrichedPass } from 'libs/models/EnrichedPass';
 
 const { Mnemonic } = passphrase;
 
@@ -17,16 +18,16 @@ export class CryptoService {
         return crypto.getAddressFromPassphrase(pass);
     }
 
-    enrichPass(pass: string): User {
-        var user = new User();
-        user.passphrase = pass;
-        user.address = this.getAddress(pass);
-        user.privateKey = this.getKeys(pass).privateKey;
-        user.publicKey = this.getKeys(pass).publicKey;
-        return user;
+    enrichPass(passphrase: string): EnrichedPass {
+        var pass = new EnrichedPass();
+        pass.passphrase = passphrase;
+        pass.address = this.getAddress(passphrase);
+        pass.privateKey = this.getKeys(passphrase).privateKey;
+        pass.publicKey = this.getKeys(passphrase).publicKey;
+        return pass;
     }
 
-    generate(): User {
+    generate(): EnrichedPass {
         const pass = Mnemonic.generateMnemonic();
         return this.enrichPass(pass);
     }

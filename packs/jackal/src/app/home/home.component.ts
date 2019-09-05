@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { AuthService } from '../core/auth.service';
+const backend = environment.backend;
 
 @Component({
   selector: 'app-home',
@@ -7,9 +11,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public http: HttpClient,
+    public auth: AuthService
+  ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  testLogin() {
+    this.http.post(`${backend}/lisk/login`, this.auth.user)
+    .subscribe((data) => {
+      console.log(data)
+    }, () => {});
   }
-
 }

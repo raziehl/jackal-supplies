@@ -13,6 +13,7 @@ export class AuthService implements OnInit {
 
   backend: string = environment.backend;
   user: User;
+  passphrase: string;
 
   constructor(
     private http: HttpClient,
@@ -23,19 +24,23 @@ export class AuthService implements OnInit {
   ngOnInit() {
     this.user = new User();
     const user = localStorage.getItem('user');
+    const passphrase = localStorage.getItem('passphrase');
     if(user)
       this.user = JSON.parse(user);
+    if(passphrase)
+      this.passphrase = passphrase;
   }
 
   login(user: User) {
-    this.http.post(`${this.backend}/lisk/enrichPass`, user)
-    .subscribe((enrichedUser: User) => {
-      this.user = enrichedUser;
-      const expiresAt = moment().add(enrichedUser.expiresIn, 'second');
-      localStorage.setItem('user', JSON.stringify(enrichedUser));
+    this.http.post(`${this.backend}/lisk/account`, user)
+    .subscribe((user: User) => {
+      this.user = user;
+      console.log(user);
+      const expiresAt = moment().add(user.expiresIn, 'second');
+      localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('expires_at', expiresAt.valueOf().toString());
+      return this.router.navigate(['/home']);
     },() => {});
-    return this.router.navigate(['/home']);
   }
 
   logout() {

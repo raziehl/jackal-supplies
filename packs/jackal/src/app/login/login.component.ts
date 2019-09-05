@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../core/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'libs/models/User';
+import { EnrichedPass } from 'libs/models/EnrichedPass';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
     this.user.passphrase = val.passwordControl;
     
     if (val.passwordControl) {
+      localStorage.setItem('passphrase', this.user.passphrase);
       this.auth.login(this.user);
     }
   }
@@ -48,8 +50,8 @@ export class LoginComponent implements OnInit {
   generate() {
     this.hide = true;
     this.http.get(`${this.backend}/lisk/generate-keys`)
-    .subscribe((user: User) => {
-      this.loginForm.setValue({passwordControl: user.passphrase})
+    .subscribe((pass: EnrichedPass) => {
+      this.loginForm.setValue({passwordControl: pass.passphrase})
     },
     () => {});
   }

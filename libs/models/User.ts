@@ -1,39 +1,35 @@
-interface UserStruct {
-    passphrase?: string;
+export class Account { 
     address: string;
-    privateKey?: string;
-    publicKey?: string;
-    username?: string;
-    email?: string;
-    expiresIn?: number
+    publicKey: string;
+    balance: string;
+    secondPublicKey: string;
+    asset: any;
+
+    constructor(acc: Partial<User> = {}) {
+        this.address = acc.address || '';
+        this.publicKey = acc.publicKey || '';
+        this.balance = acc.balance || '';
+        this.secondPublicKey = acc.secondPublicKey || '';
+        this.asset = acc.asset || null;
+    }
 }
 
-export const emptyUser: UserStruct = {
-    passphrase: '',
-    address: '',
-    privateKey: '',
-    publicKey: '',
-    username: '',
-    email: '',
-    expiresIn: 1000000
-}
 
-export class User {
+export class User extends Account {
     passphrase?: string;
-    address: string;
-    privateKey?: string;
-    publicKey?: string;
     username: string;
     email: string;
     expiresIn: number;
 
-    constructor(user: UserStruct = emptyUser) {
-        this.passphrase = user.passphrase;
-        this.address = user.address;
-        this.privateKey = user.privateKey;
-        this.publicKey = user.publicKey;
-        this.username = user.username;
-        this.email = user.email;
-        this.expiresIn = user.expiresIn;
+    constructor(user: Partial<User> = {}) {
+        super(user);
+        this.passphrase = user.passphrase || '';
+        this.username = user.username || '';
+        this.email = user.email || '';
+        this.expiresIn = user.expiresIn || 1000000;
     }
+}
+
+export interface Credential {
+    passphrase: string;
 }

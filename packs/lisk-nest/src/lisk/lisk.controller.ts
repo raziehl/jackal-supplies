@@ -2,7 +2,8 @@ import { Controller, Get, Post, Request } from '@nestjs/common';
 import { CryptoService } from './crypto/crypto.service';
 import { TransactionService } from './transactions/transaction.service';
 
-import { User } from 'libs/models/User';
+import { User, Credential } from 'libs/models/User';
+import { EnrichedPass } from '@root/libs/models/EnrichedPass';
 
 @Controller('lisk')
 export class LiskController {
@@ -19,12 +20,14 @@ export class LiskController {
 
     @Post('enrichPass')
     enrichPass(@Request() req) {
-        const user: User = req.body;
-        return this.crypto.enrichPass(user.passphrase);
+        const passphrase: string = req.body;
+        return this.crypto.enrichPass(passphrase);
     }
 
-    @Get('transact')
-    transact() {
-        return this.trans.testTransact();
+    @Post('account')
+    async login(@Request() req) {
+        let user: User = req.body;
+        user.address = this.crypto.getAddress(user.passphrase);
+        return await this.trans.login(user);
     }
 }
