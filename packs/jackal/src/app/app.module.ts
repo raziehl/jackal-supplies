@@ -28,6 +28,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { CreateAssetComponent } from './create-asset/create-asset.component';
+import { PortforlioComponent } from './portforlio/portforlio.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     HomeComponent,
     LoginComponent,
     SettingsComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    CreateAssetComponent,
+    PortforlioComponent
   ],
   imports: [
     BrowserModule,
