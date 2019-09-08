@@ -42,6 +42,7 @@ export class TransactionService {
     }
 
     async updateAccount(user: User) {
+        console.log('UPODATE')
         const tx = new AccountTransaction({
             timestamp: timestamp(),
             asset: user
@@ -67,16 +68,14 @@ export class TransactionService {
     }
 
     async login(user: User) {
-        let account: User = (await this.getAccount(user.address) as Partial<User>)[0];
+        let account: Account = (await this.getAccount(user.address) as Partial<User>)[0];
+        user = new User({ ...user, ...account});
         if(account) {
-            account = new User({ ...user, ...account });
-            return account;
+            return user;
         } else {
             await this.createAccount(user.passphrase);
             await timeout(10000);
-            account = new User({ ...user, ...((await this.getAccount(user.address) as Partial<User>)[0]) });
-            console.log(account);
-            return account;
+            return user;
         }
     }
 }

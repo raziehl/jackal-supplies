@@ -1,3 +1,5 @@
+import { isEmptyObject } from './Utils';
+
 export class UserStuff {
     username: string;
 
@@ -20,11 +22,16 @@ export class AssetObject {
 
 export class Asset {
     userStuff?: UserStuff;
-    portfolio?: AssetObject[];
+    portfolio?: Array<AssetObject>;
 
     constructor(asset: Partial<Asset> = {}) {
-        this.userStuff = asset.userStuff || new UserStuff();
-        this.portfolio = asset.portfolio || new Array(new AssetObject());
+        this.userStuff = new UserStuff(asset.userStuff);
+        this.portfolio = new Array<AssetObject>();
+        if(asset.portfolio)
+            asset.portfolio.forEach(asset => {
+                this.portfolio.push(new AssetObject(asset))
+            });
+        else this.portfolio = new Array<AssetObject>();
     }
 }
 
@@ -40,7 +47,7 @@ export class Account {
         this.publicKey = acc.publicKey || '';
         this.balance = acc.balance || '';
         this.secondPublicKey = acc.secondPublicKey || '';
-        this.asset = acc.asset || null;
+        this.asset = new Asset(acc.asset);
     }
 }
 

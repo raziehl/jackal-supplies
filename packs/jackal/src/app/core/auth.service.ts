@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import * as moment from "moment";
 import { User, UserStuff, Asset } from 'libs/models/User';
+import { isEmptyObject } from 'libs/models/Utils';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,8 +15,6 @@ const backend: string = environment.backend;
 export class AuthService implements OnInit {
 
   user: User;
-  userStuff: UserStuff;
-  passphrase: string;
 
   constructor(
     private http: HttpClient,
@@ -28,19 +27,15 @@ export class AuthService implements OnInit {
     const user = localStorage.getItem('user');
     const passphrase = localStorage.getItem('passphrase');
     if(user) {
-      this.user = JSON.parse(user);
-      this.userStuff = this.user.asset.userStuff;
+      this.user = new User(JSON.parse(user));
+      this.login(this.user);
     }
-    if(passphrase)
-      this.passphrase = passphrase;
-    this.login(this.user);
   }
 
   login(user: User) {
     this.http.post(`${backend}/lisk/account`, user)
     .subscribe((user: User) => {
-      this.user = user;
-      this.userStuff = this.user.asset.userStuff;
+      this.user = new User(user);
       const expiresAt = moment().add(user.expiresIn, 'second');
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('expires_at', expiresAt.valueOf().toString());

@@ -33,7 +33,6 @@ export class SettingsComponent implements OnInit {
 
   saveSettings() {
     const userSettings = this.settingsForm.value;
-
     this.user.asset.userStuff.username = userSettings.usernameControl;
 
     this.http.post(`${backend}/lisk/updateUser`, this.user)
@@ -41,6 +40,10 @@ export class SettingsComponent implements OnInit {
       console.log(user)
       this.auth.user = user;
     },() => {});
+  }
+
+  showUser() {
+    console.log(this.auth.user)
   }
 
 }
