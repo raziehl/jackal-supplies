@@ -33,8 +33,14 @@ export class LiskController {
 
     @Post('updateUser')
     async updateUser(@Request() req) {
-        console.log("UPDATE USER")
         let user: User = req.body;
         return await this.trans.updateAccount(user);
+    }
+
+    @Post('addCash')
+    async createUser(@Request() req) {
+        console.log('Cash Added')
+        let user: User = req.body;
+        return await this.trans.createAccount(user.passphrase);
     }
 }

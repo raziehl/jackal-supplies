@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 headers: req.headers
                         .set("Authorization",
                             "Bearer " + idToken)
-                        .set("admin", this.auth.user.email)
+                        .set("admin", this.auth.user.asset.userStuff.username)
             });
 
             return next.handle(requestClone);

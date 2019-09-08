@@ -1,9 +1,39 @@
+export class UserStuff {
+    username: string;
+
+    constructor(userStuff: Partial<UserStuff> = {}) {
+        this.username = userStuff.username || '';
+    }
+}
+
+export class AssetObject {
+    assetName: string;
+    assetDescription: string;
+    transactionTimestamp: string;
+
+    constructor(assetObject: Partial<AssetObject> = {}) {
+        this.assetName = assetObject.assetName || '';
+        this.assetDescription = assetObject.assetDescription || '';
+        this.transactionTimestamp = assetObject.transactionTimestamp || '';
+    }
+}
+
+export class Asset {
+    userStuff?: UserStuff;
+    portfolio?: AssetObject[];
+
+    constructor(asset: Partial<Asset> = {}) {
+        this.userStuff = asset.userStuff || new UserStuff();
+        this.portfolio = asset.portfolio || new Array(new AssetObject());
+    }
+}
+
 export class Account { 
     address: string;
     publicKey: string;
     balance: string;
     secondPublicKey: string;
-    asset: any;
+    asset: Asset;
 
     constructor(acc: Partial<User> = {}) {
         this.address = acc.address || '';
@@ -17,15 +47,11 @@ export class Account {
 
 export class User extends Account {
     passphrase?: string;
-    username: string;
-    email: string;
     expiresIn: number;
 
     constructor(user: Partial<User> = {}) {
         super(user);
         this.passphrase = user.passphrase || '';
-        this.username = user.username || '';
-        this.email = user.email || '';
         this.expiresIn = user.expiresIn || 1000000;
     }
 }

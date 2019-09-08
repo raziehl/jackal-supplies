@@ -15,7 +15,7 @@ const backend = environment.backend;
 export class SettingsComponent implements OnInit {
 
   settingsForm: FormGroup;
-  user;
+  user: User;
   loading;
 
   constructor(
@@ -34,7 +34,7 @@ export class SettingsComponent implements OnInit {
   saveSettings() {
     const userSettings = this.settingsForm.value;
 
-    this.user.username = userSettings.usernameControl;
+    this.user.asset.userStuff.username = userSettings.usernameControl;
 
     this.http.post(`${backend}/lisk/updateUser`, this.user)
     .subscribe((user: User) => {

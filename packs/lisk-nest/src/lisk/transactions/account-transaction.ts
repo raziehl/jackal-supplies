@@ -1,5 +1,6 @@
 import { BaseTransaction, TransactionError, StateStore } from '@liskhq/lisk-transactions';
 import { log } from '../../logger'; 
+import { User } from '@root/libs/models/User';
 
 export class AccountTransaction extends BaseTransaction {
 
@@ -12,6 +13,7 @@ export class AccountTransaction extends BaseTransaction {
 
     constructor(transObj) {
         super(transObj);
+        console.log('UPDATE ACCOUNT TRANSACTION')
     }
 
     static get TYPE () {
@@ -40,11 +42,11 @@ export class AccountTransaction extends BaseTransaction {
 
     applyAsset(store: StateStore) {
         const errors = [];
-        const asset: any = this.asset;
+        const asset: Partial<User> = this.asset;
         let sender: any = store.account.get(this.senderId);
 
-        console.log(sender);
-        const newObj = { ...sender, asset: { user: { username: asset.username } } };
+        console.log(asset.asset);
+        const newObj = { ...sender, asset: { userStuff: asset.asset.userStuff } };
         store.account.set(sender.address, newObj);
 
         return errors;
