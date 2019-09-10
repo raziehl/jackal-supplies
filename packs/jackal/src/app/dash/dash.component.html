@@ -1,16 +1,26 @@
 <div class="dash">
     <div>
         <button mat-button class="dash-btn"
-        routerLink="home" ><i class="fas fa-home larger-icon-diff"></i> HOME</button>
+        routerLink="home" ><i class="fas fa-project-diagram larger-icon"></i> EXPLORE</button>
     </div>
+
+
     <div>
         <button mat-button class="dash-btn"
-        routerLink="settings"><i class="fas fa-cogs larger-cogs"></i> SETTINGS</button>
+        routerLink="portfolio" ><i class="fas fa-file-invoice larger-icon" style="left: 0px;"></i> PORTFOLIO</button>
+    </div>
+
+    <div>
+        <button mat-button class="dash-btn flex-container"
+        routerLink="settings">
+            <i class="fas fa-cogs larger-cogs col"></i>
+            <span class="col"> SETTINGS</span>
+        </button>
     </div>
 
     <div class="dash-footer">
-        <button mat-raised-button color="accent" class="dash-btn" (click)="auth.addCash()">
-            + Cash
+        <button mat-raised-button color="primary" class="dash-btn" (click)="auth.addCash()">
+            <i class="fa fa-lira-sign"></i> +
         </button>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { isEmptyObject } from './Utils';
+import { Asset } from './Asset';
 
 export class UserStuff {
     username: string;
@@ -8,30 +8,18 @@ export class UserStuff {
     }
 }
 
-export class AssetObject {
-    assetName: string;
-    assetDescription: string;
-    transactionTimestamp: string;
-
-    constructor(assetObject: Partial<AssetObject> = {}) {
-        this.assetName = assetObject.assetName || '';
-        this.assetDescription = assetObject.assetDescription || '';
-        this.transactionTimestamp = assetObject.transactionTimestamp || '';
-    }
-}
-
-export class Asset {
+export class AssetBlock {
     userStuff?: UserStuff;
-    portfolio?: Array<AssetObject>;
+    portfolio?: Array<Asset>;
 
-    constructor(asset: Partial<Asset> = {}) {
+    constructor(asset: Partial<AssetBlock> = {}) {
         this.userStuff = new UserStuff(asset.userStuff);
-        this.portfolio = new Array<AssetObject>();
+        this.portfolio = new Array<Asset>();
         if(asset.portfolio)
             asset.portfolio.forEach(asset => {
-                this.portfolio.push(new AssetObject(asset))
+                this.portfolio.push(new Asset(asset))
             });
-        else this.portfolio = new Array<AssetObject>();
+        else this.portfolio = new Array<Asset>();
     }
 }
 
@@ -40,14 +28,14 @@ export class Account {
     publicKey: string;
     balance: string;
     secondPublicKey: string;
-    asset: Asset;
+    asset: AssetBlock;
 
     constructor(acc: Partial<User> = {}) {
         this.address = acc.address || '';
         this.publicKey = acc.publicKey || '';
         this.balance = acc.balance || '';
         this.secondPublicKey = acc.secondPublicKey || '';
-        this.asset = new Asset(acc.asset);
+        this.asset = new AssetBlock(acc.asset);
     }
 }
 

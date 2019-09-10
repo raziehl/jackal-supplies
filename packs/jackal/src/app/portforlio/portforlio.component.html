@@ -1,3 +1,11 @@
 <div class="portfolio-container">
-    Portfolio
+    <div *ngIf="!auth.user.asset.portfolio.length">
+        <!-- You've got no assets yet -->
+    </div>
+
+    <div *ngIf="auth.user.asset.portfolio.length">
+        
+    </div>
+
+    <app-asset [asset]="exampleObject"></app-asset>
 </div>

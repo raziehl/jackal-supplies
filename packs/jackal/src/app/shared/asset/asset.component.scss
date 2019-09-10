@@ -1,0 +1,55 @@
+
+.asset {
+    border-radius: 15px;
+    width: 300px;
+    height: 420px;
+    overflow: hidden;
+    background-color: violet;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100px;
+
+   -moz-box-shadow:    0 3px 7px #000000;
+   -webkit-box-shadow: 0 3px 7px #000000;
+   box-shadow:         0 3px 7px #000000;
+   
+}
+
+.asset-header {
+    transition: transform 0.5s ease;
+}
+
+.asset-info {
+    position: relative;
+    height: 100%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.asset-title {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 15px;
+}
+
+.asset-description {
+    font-size: 15px;
+    word-wrap: break-word;
+    margin-bottom: 20px;
+    padding: 15px;
+    padding-right: 10px;
+}
+
+.box-btn {
+    width: 100%;
+    background-color: transparent;
+}
+
+.trading-card-img {
+    width: 100%;
+    height: 420px;
+}
+
+.asset:hover {
+    cursor: pointer;
+}

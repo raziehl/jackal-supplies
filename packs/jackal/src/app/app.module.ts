@@ -30,6 +30,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { CreateAssetComponent } from './create-asset/create-asset.component';
 import { PortforlioComponent } from './portforlio/portforlio.component';
+import { AssetComponent } from './shared/asset/asset.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { PortforlioComponent } from './portforlio/portforlio.component';
     SettingsComponent,
     SpinnerComponent,
     CreateAssetComponent,
-    PortforlioComponent
+    PortforlioComponent,
+    AssetComponent
   ],
   imports: [
     BrowserModule,

@@ -5,5 +5,9 @@
     "@types/node": "^12.7.2",
     "lerna": "^3.16.4",
     "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "class-validator": "^0.10.0",
+    "crypto-hash": "^1.2.2"
   }
 }

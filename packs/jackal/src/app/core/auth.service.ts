@@ -2,7 +2,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import * as moment from "moment";
-import { User, UserStuff, Asset } from 'libs/models/User';
+import { User, UserStuff } from 'libs/models/User';
+import { Asset } from 'libs/models/Asset';
 import { isEmptyObject } from 'libs/models/Utils';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -28,7 +29,7 @@ export class AuthService implements OnInit {
     const passphrase = localStorage.getItem('passphrase');
     if(user) {
       this.user = new User(JSON.parse(user));
-      this.login(this.user);
+      this.refresh(this.user);
     }
   }
 
@@ -39,7 +40,17 @@ export class AuthService implements OnInit {
       const expiresAt = moment().add(user.expiresIn, 'second');
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('expires_at', expiresAt.valueOf().toString());
-      return this.router.navigate(['/home']);
+      this.router.navigate(['/home']);
+    },() => {});
+  }
+
+  refresh(user: User) {
+    this.http.post(`${backend}/lisk/account`, user)
+    .subscribe((user: User) => {
+      this.user = new User(user);
+      const expiresAt = moment().add(user.expiresIn, 'second');
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('expires_at', expiresAt.valueOf().toString());
     },() => {});
   }
 

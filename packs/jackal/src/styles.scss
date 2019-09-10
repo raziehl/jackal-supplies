@@ -1,13 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'themes/indigo-pink.css';
+// @import 'themes/indigo-pink.css';
 // @import 'themes/deeppurple-derivate.css';
 // @import 'themes/purple-green.css';
-// @import 'themes/pink-bluegrey.css';
+@import 'themes/pink-bluegrey.css';
 
 @import '~ngx-toastr/toastr';
 
 html {
     color: silver;
+    background-color: #404040;
 }
 
 .container {
@@ -68,7 +69,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: transparent;
   }
   
   /* Handle */
