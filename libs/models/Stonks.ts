@@ -5,7 +5,7 @@ interface SpecificAssetInterface {
     valuate();
 }
 
-export class Stock extends Asset implements SpecificAssetInterface {
+export class Stonks extends Asset implements SpecificAssetInterface {
     
     constructor(asset: Partial<Asset> = {}) {
         super(asset);

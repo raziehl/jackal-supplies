@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/auth.service';
 import { Asset } from '@root/libs/models/Asset';
 import { lorem } from '@root/libs/models/Utils';
-import { Stock } from 'libs/models/Stonks'
+import { Stonk } from 'libs/models/Stonks'
 import { assetDetails } from '../shared/animations';
 
 @Component({
