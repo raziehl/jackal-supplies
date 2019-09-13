@@ -18,6 +18,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material'
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatGridListModule } from '@angular/material/grid-list';
+
 
 import { hammerjs } from 'hammerjs';
 
@@ -31,6 +33,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { CreateAssetComponent } from './create-asset/create-asset.component';
 import { PortforlioComponent } from './portforlio/portforlio.component';
 import { AssetComponent } from './shared/asset/asset.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 @NgModule({
@@ -73,6 +76,8 @@ import { AssetComponent } from './shared/asset/asset.component';
     MatNativeDateModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
+    MatGridListModule,
+    LayoutModule,
 
     ToastrModule.forRoot() 
   ],

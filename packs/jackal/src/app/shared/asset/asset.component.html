@@ -4,29 +4,32 @@
     [style.backgroundSize]="'cover'">
     <div class="asset-header"></div>
 
-    <div class="asset-info flex-container"
+    
+    <div class="asset-info"
     [@assetDetails]="isShown ? 'shown' : 'hidden'">
-        <div class="col-2x3">
-            <div class="asset-title">
-                {{asset.name}}
-            </div>
-            <div class="asset-description">
-                {{asset.description}}
-                <br>
-                <br>
-                <br>
-                <div class="asset-price">
-                    PricePerShare: ${{asset.PPS}}
-                </div>
-                <div class="asset-shares">
-                    Shares: {{asset.currentShares}}
-                </div>
-            </div>
+        <div class="asset-title">
+            {{asset.name}}
         </div>
-        <div class="col-1x3">
-            <button mat-raised-button class="box-btn">
-                <i class="fas fa-edit"></i>
-            </button>
+        <div class="flex-container">
+            <div class="asset-left col-2x3">
+                <div class="asset-description">
+                    {{asset.description}}
+                </div>
+
+                <div class="asset-details">
+                    <div class="asset-price">
+                        PricePerShare: {{LSK}}{{asset.PPS}}
+                    </div>
+                    <div class="asset-shares">
+                        Shares: {{asset.currentShares}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-1x3">
+                <button mat-raised-button class="box-btn">
+                    <i class="fas fa-edit"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>

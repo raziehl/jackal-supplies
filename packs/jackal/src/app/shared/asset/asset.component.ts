@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Asset } from '@root/libs/models/Asset';
-import { lorem } from '@root/libs/models/Utils';
+import { lorem, LSK } from '@root/libs/models/Utils';
 import { AuthService } from '../../core/auth.service';
 import { assetDetails } from '../animations';
 
@@ -14,6 +14,7 @@ export class AssetComponent implements OnInit {
 
   @Input() asset: Asset;
   isShown = false;
+  LSK = LSK;
 
   constructor(
     public auth: AuthService

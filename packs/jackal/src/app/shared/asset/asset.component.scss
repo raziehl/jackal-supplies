@@ -1,13 +1,12 @@
 
 .asset {
     border-radius: 15px;
-    width: 300px;
-    height: 420px;
+    height: 100%;
     overflow: hidden;
     background-color: violet;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 100px;
+    background-size: 100%;
 
    -moz-box-shadow:    0 3px 7px #000000;
    -webkit-box-shadow: 0 3px 7px #000000;
@@ -28,16 +27,34 @@
 
 .asset-title {
     font-size: 20px;
+    height: 50px;
+    word-break: break-all;
     font-weight: bold;
     padding: 15px;
+    text-align: center;
 }
 
 .asset-description {
-    font-size: 15px;
+    font-size: 13px;
     word-wrap: break-word;
     margin-bottom: 20px;
     padding: 15px;
+    padding-top: 0px;
     padding-right: 10px;
+}
+
+.flex-container {
+    height: 100%;
+}
+
+.asset-left {
+    height: 100%;
+}
+
+.asset-details {
+    position: absolute;
+    bottom: 20px;
+    padding-left: 10px;
 }
 
 .box-btn {
@@ -45,11 +62,13 @@
     background-color: transparent;
 }
 
-.trading-card-img {
-    width: 100%;
-    height: 420px;
-}
-
 .asset:hover {
     cursor: pointer;
+}
+
+@media (max-height: 367px) {
+    .asset {
+        width: 100%;
+        height: 100%;
+    }
 }
