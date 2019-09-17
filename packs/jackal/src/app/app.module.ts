@@ -30,11 +30,10 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
-import { CreateAssetComponent } from './create-asset/create-asset.component';
-import { PortforlioComponent } from './portforlio/portforlio.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 import { AssetComponent } from './shared/asset/asset.component';
 import { LayoutModule } from '@angular/cdk/layout';
-
+import { CreateAssetComponent } from './portfolio/create-asset/create-asset.component';
 
 @NgModule({
   declarations: [
@@ -44,9 +43,9 @@ import { LayoutModule } from '@angular/cdk/layout';
     LoginComponent,
     SettingsComponent,
     SpinnerComponent,
-    CreateAssetComponent,
-    PortforlioComponent,
-    AssetComponent
+    PortfolioComponent,
+    AssetComponent,
+    CreateAssetComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +96,9 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatDialogContent,
     MatDialogClose
   ],
-  entryComponents: [],
+  entryComponents: [
+    CreateAssetComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

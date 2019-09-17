@@ -5,8 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './core/auth.guard';
 import { SettingsComponent } from './settings/settings.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
-import { PortforlioComponent } from './portforlio/portforlio.component';
-import { CreateAssetComponent } from './create-asset/create-asset.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 
 const routes: Routes = [
@@ -15,8 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-  { path: 'portfolio', component: PortforlioComponent, canActivate: [AuthGuard] },
-  { path: 'create-asset', component: CreateAssetComponent, canActivate: [AuthGuard] }
+  { path: 'portfolio', component: PortfolioComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

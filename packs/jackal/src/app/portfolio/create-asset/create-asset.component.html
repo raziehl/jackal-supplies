@@ -1,0 +1,14 @@
+<div clas="create-asset-container">
+    <form [formGroup]="assetForm">
+        <mat-form-field>
+            <mat-label>Stuffs</mat-label>
+            <input matInput 
+            formControlName="nameControl">
+        </mat-form-field>
+
+        <button mat-button class="box-btn" 
+        (click)="createAsset()">
+            CREATE ASSET
+        </button>
+    </form>
+</div>

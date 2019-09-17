@@ -18,7 +18,7 @@ export class Asset {
     @Length(0, 20)
     name: string;
     description: string;
-    imageURL: string;
+    imageCID: string;
     divisible: boolean;
     issuedShares: number;
     currentShares: number;
@@ -35,7 +35,7 @@ export class Asset {
         this.name = assetObject.name || 'sahfsdjkffdsgsdfsdfdsfdjaskljdashajl';
         this.description = assetObject.description || '';
         this.divisible = assetObject.divisible || true;
-        this.imageURL = assetObject.imageURL || '';
+        this.imageCID = assetObject.imageCID || '';
         this.issuedShares = assetObject.issuedShares || 0;
         this.currentShares = assetObject.currentShares || 0;
         this.sellingShares = assetObject.sellingShares || 0;
@@ -55,7 +55,7 @@ export class Asset {
         let hashedProps = [
             this.name,
             this.description,
-            this.imageURL,
+            this.imageCID,
             this.divisible,
             timestamp()
         ];
