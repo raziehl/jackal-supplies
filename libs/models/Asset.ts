@@ -19,29 +19,23 @@ export class Asset {
     name: string;
     description: string;
     imageCID: string;
-    divisible: boolean;
     issuedShares: number;
     currentShares: number;
     sellingShares: number;
     PPS: number; // PricePerShare (LISK)
-    PPU: number; // PricePerUnit = PPS * currentShares (LISK)
-    units: number;
     type: AssetType;
     tags: string[];
     assetHash: string;
     transactionTimestamp: string;
 
     constructor(assetObject: Partial<Asset> = {}) {
-        this.name = assetObject.name || 'sahfsdjkffdsgsdfsdfdsfdjaskljdashajl';
+        this.name = assetObject.name || '';
         this.description = assetObject.description || '';
-        this.divisible = assetObject.divisible || true;
         this.imageCID = assetObject.imageCID || '';
         this.issuedShares = assetObject.issuedShares || 0;
         this.currentShares = assetObject.currentShares || 0;
         this.sellingShares = assetObject.sellingShares || 0;
         this.PPS = assetObject.PPS || 0;
-        this.PPU = assetObject.PPU || 0;
-        this.units = assetObject.units || 1;
         this.type = assetObject.type || AssetType.NotStonks; // cock-future
         this.tags = assetObject.tags;
         this.transactionTimestamp = assetObject.transactionTimestamp || '';
@@ -56,7 +50,6 @@ export class Asset {
             this.name,
             this.description,
             this.imageCID,
-            this.divisible,
             timestamp()
         ];
         // buffer.concat(hashedProps.values);
