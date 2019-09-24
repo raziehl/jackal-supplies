@@ -1,12 +1,54 @@
-<div clas="create-asset-container">
+<div class="create-asset-container">
     <form [formGroup]="assetForm">
-        <mat-form-field>
-            <mat-label>Stuffs</mat-label>
-            <input matInput 
-            formControlName="nameControl">
-        </mat-form-field>
+        <div class="asset-block">
+        <div class="flex-container">
+            <div class="col">
+                <mat-form-field>
+                    <mat-label>Asset Name</mat-label>
+                    <input matInput 
+                    formControlName="nameControl">
+                </mat-form-field>
 
-        <button mat-button class="box-btn" 
+                <div class="flex-container" 
+                    style="max-width: 100px;">
+                    <mat-form-field class="inline-form-field col">
+                        <mat-label>No. Issued</mat-label>
+                        <input matInput type="number"
+                        #issued value="0"
+                        formControlName="issuedControl">
+                    </mat-form-field>
+
+                    <mat-form-field class="inline-form-field col">
+                        <mat-label>No. Selling</mat-label>
+                        <input matInput type="number"
+                        [max]="issued.value"
+                        formControlName="sellingSharesControl">
+                    </mat-form-field>
+
+                    <mat-form-field class="inline-form-field col">
+                        <mat-label>Value</mat-label>
+                        <input matInput type="number"
+                        formControlName="valueControl">
+                    </mat-form-field>
+                </div>
+                
+                <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <textarea matInput 
+                    formControlName="descriptionControl">
+                    </textarea>
+                </mat-form-field>
+
+
+            </div>
+
+            <div class="col">
+                <input type="file" name="profile" (change)="onFileSelect($event)" />
+            </div>
+        </div>
+        </div>
+
+        <button mat-button class="box-button" 
         (click)="createAsset()">
             CREATE ASSET
         </button>

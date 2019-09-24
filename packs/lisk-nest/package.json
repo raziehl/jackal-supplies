@@ -18,6 +18,8 @@
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
     "@nestjs/platform-express": "^6.0.0",
+    "form-data": "^2.5.1",
+    "ipfs-http-client": "^37.0.2",
     "lisk-sdk": "^2.2.0",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",

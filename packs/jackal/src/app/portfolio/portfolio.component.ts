@@ -43,7 +43,7 @@ export class PortfolioComponent implements OnInit {
 
   createAsset() {
     const dialogRef = this.dialog.open(CreateAssetComponent, {
-      width: '250px',
+      // width: '250px',
       data: {name: 'PIZDA', animal: 'MARIJUANA'}
     });
 

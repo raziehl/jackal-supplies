@@ -19,7 +19,13 @@ export class CreateAssetComponent implements OnInit {
 
   ngOnInit() {
     this.assetForm = this.fb.group({
-      nameControl: ['', Validators.required]
+      nameControl: ['', Validators.required],
+      descriptionControl: ['', Validators.required],
+      issuedControl: ['', Validators.required],
+      sellingSharesControl: ['', Validators.required],
+      valueControl: ['', Validators.required],
+      typeControl: ['', Validators.required],
+      tags: ['', Validators.required]
     });
   }
 
@@ -27,4 +33,7 @@ export class CreateAssetComponent implements OnInit {
     console.log(this.assetForm.value);
   } 
 
+  onFileSelect($event) {
+    
+  }
 }
