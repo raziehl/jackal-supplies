@@ -21,3 +21,4 @@ function volatility (values) {
 }
 
 export const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae semper quis lectus nulla. Tempor orci dapibus ultrices in iaculis nunc sed augue lacus. Egestas sed tempus urna et pharetra pharetra massa massa. Mattis enim ut tellus elementum sagittis vitae et. Lacus suspendisse faucibus interdum posuere. Suspendisse potenti nullam ac tortor. Id semper risus in hendrerit. Aliquam id diam maecenas ultricies mi. Eu mi bibendum neque egestas.';
+

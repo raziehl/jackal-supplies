@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "class-validator": "^0.10.0",
-    "crypto-hash": "^1.2.2"
+    "crypto-hash": "^1.2.2",
+    "json-size": "^1.0.0"
   }
 }
