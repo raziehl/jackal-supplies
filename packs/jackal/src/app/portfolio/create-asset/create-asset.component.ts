@@ -1,6 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as sizeof from 'json-size';
+import {lorem} from 'libs/models/Utils';
+const b64 = {
+  a: 2,
+  b: 'Dorian',
+  c: 764534636,
+  d: 90325346354643634564564645
+};
 
 @Component({
   selector: 'app-create-asset',
@@ -31,6 +39,9 @@ export class CreateAssetComponent implements OnInit {
 
   createAsset() {
     console.log(this.assetForm.value);
+    console.log(lorem)
+    console.log(sizeof(lorem))
+
   } 
 
   onFileSelect($event) {

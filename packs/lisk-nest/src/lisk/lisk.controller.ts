@@ -4,6 +4,7 @@ import { TransactionService } from './transactions/transaction.service';
 
 import { User, Credential } from 'libs/models/User';
 import { EnrichedPass } from '@root/libs/models/EnrichedPass';
+import { Asset } from '@root/libs/models/Asset';
 
 @Controller('lisk')
 export class LiskController {
@@ -35,6 +36,12 @@ export class LiskController {
     async updateUser(@Request() req) {
         let user: User = req.body;
         return await this.trans.updateAccount(user);
+    }
+
+    @Post('createAsset')
+    async createAsset(@Request() req)  {
+        let asset: Asset = req.body;
+        return await this.trans.createAsset(asset);
     }
 
     @Post('addCash')

@@ -11,10 +11,13 @@ import { timestamp } from '../shared/Utils';
 import { User } from '@root/libs/models/User';
 import { APIResponse } from '@liskhq/lisk-api-client/dist-node/api_types';
 import { EnrichedPass } from '@root/libs/models/EnrichedPass';
+import { Asset } from '@root/libs/models/Asset';
 
 const { Mnemonic } = passphrase;
 
 const richPass = 'wagon stock borrow episode laundry kitten salute link globe zero feed marble';
+
+import {lorem} from 'libs/models/Utils';
 
 function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -45,7 +48,7 @@ export class TransactionService {
         console.log('UPODATE')
         const tx = new AccountTransaction({
             timestamp: timestamp(),
-            asset: user
+            asset: {asset: {userStuff: lorem}}
         });
         tx.sign(user.passphrase);
         
@@ -65,6 +68,10 @@ export class TransactionService {
             log.error(err);
             return;
         }
+    }
+
+    async createAsset(asset: Asset) {
+        
     }
 
     async login(user: User) {
