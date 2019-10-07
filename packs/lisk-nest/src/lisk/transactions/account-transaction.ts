@@ -1,4 +1,4 @@
-import { BaseTransaction, TransactionError, StateStore } from '@liskhq/lisk-transactions';
+import { BaseTransaction, TransactionError, StateStore, utils } from '@liskhq/lisk-transactions';
 import { log } from '../../logger'; 
 import { User } from '@root/libs/models/User';
 
@@ -45,8 +45,8 @@ export class AccountTransaction extends BaseTransaction {
         const asset: Partial<User> = this.asset;
         let sender: any = store.account.get(this.senderId);
 
-        console.log(asset.asset);
-        const newObj = { ...sender, asset: { userStuff: asset.asset.userStuff } };
+        console.log(asset);
+        const newObj = { ...sender, asset: asset };
         store.account.set(sender.address, newObj);
 
         return errors;

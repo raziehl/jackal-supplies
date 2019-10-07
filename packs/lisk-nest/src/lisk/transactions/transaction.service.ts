@@ -48,16 +48,13 @@ export class TransactionService {
         console.log('UPODATE')
         const tx = new AccountTransaction({
             timestamp: timestamp(),
-            asset: {asset: {userStuff: lorem}}
+            asset: user.asset
         });
         tx.sign(user.passphrase);
         
-        try {
-            const data = await lisknet.transactions.broadcast(tx.toJSON());
-            return log.info(data.data);
-        } catch (err) {
-            return log.error(err);
-        }
+        await lisknet.transactions.broadcast(tx.toJSON())
+        .then(data => log.info(data))
+        .catch(err => log.error(err));
     }
 
     async getAccount(userAddress: string) {
@@ -68,10 +65,6 @@ export class TransactionService {
             log.error(err);
             return;
         }
-    }
-
-    async createAsset(asset: Asset) {
-        
     }
 
     async login(user: User) {

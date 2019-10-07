@@ -7,6 +7,7 @@ import { assetDetails } from '../shared/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material';
 import { CreateAssetComponent } from './create-asset/create-asset.component';
+import { User } from '@root/libs/models/User';
 @Component({
   selector: 'app-portforlio',
   animations: [assetDetails],
@@ -17,6 +18,7 @@ export class PortfolioComponent implements OnInit {
 
   exampleObject: Asset;
   lorem = lorem;
+  user: User;
   assets: Asset[];
 
   isHandset = this.breakpointObserver
@@ -38,7 +40,9 @@ export class PortfolioComponent implements OnInit {
       currentShares: 576,
       imageCID: 'https://thumbor.forbes.com/thumbor/1280x868/https%3A%2F%2Fblogs-images.forbes.com%2Fstephenkey%2Ffiles%2F2018%2F01%2FImage-from-Stephen-Keys-patent-1200x1455.jpg'
     });
-    this.assets = [this.exampleObject];
+    this.user = this.auth.user;
+    this.assets = this.user.asset.portfolio;
+    console.log(this.assets)
   }
 
   createAsset() {

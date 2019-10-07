@@ -38,12 +38,6 @@ export class LiskController {
         return await this.trans.updateAccount(user);
     }
 
-    @Post('createAsset')
-    async createAsset(@Request() req)  {
-        let asset: Asset = req.body;
-        return await this.trans.createAsset(asset);
-    }
-
     @Post('addCash')
     async createUser(@Request() req) {
         console.log('Cash Added')
