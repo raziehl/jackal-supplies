@@ -6,12 +6,14 @@ import * as passphrase from '@liskhq/lisk-passphrase';
 import * as crypto from '@liskhq/lisk-cryptography';
 import { lisknet } from '../lisk-config';
 import { AxiosResponse } from 'axios';
-import { log } from '../../logger';
+import { Logger } from '../../Logger';
 import { timestamp } from '../shared/Utils';
 import { User } from '@root/libs/models/User';
 import { APIResponse } from '@liskhq/lisk-api-client/dist-node/api_types';
 import { EnrichedPass } from '@root/libs/models/EnrichedPass';
 import { Asset } from '@root/libs/models/Asset';
+
+const log = new Logger('Transaction');
 
 const { Mnemonic } = passphrase;
 
@@ -53,7 +55,7 @@ export class TransactionService {
         tx.sign(user.passphrase);
         
         await lisknet.transactions.broadcast(tx.toJSON())
-        .then(data => log.info(data))
+        .then(data => log.info('Transaction result: ', data))
         .catch(err => log.error(err));
     }
 

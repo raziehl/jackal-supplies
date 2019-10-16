@@ -1,6 +1,8 @@
 import { BaseTransaction, TransactionError, StateStore, utils } from '@liskhq/lisk-transactions';
-import { log } from '../../logger'; 
+import { Logger } from '../../Logger'; 
 import { User } from '@root/libs/models/User';
+
+const log = new Logger('AccountTransactions');
 
 export class AccountTransaction extends BaseTransaction {
 
