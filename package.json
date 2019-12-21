@@ -2,12 +2,12 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "@types/node": "^12.7.2",
-    "lerna": "^3.16.4",
-    "typescript": "^3.5.3"
+    "@types/node": "^12.12.14",
+    "lerna": "^3.19.0",
+    "typescript": "^3.7.3"
   },
   "dependencies": {
-    "class-validator": "^0.10.0",
+    "class-validator": "^0.10.2",
     "crypto-hash": "^1.2.2",
     "json-size": "^1.0.0"
   }

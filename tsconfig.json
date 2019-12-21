@@ -20,7 +20,8 @@
      "@nest-src/*": ["./packs/lisk-nest/src/*"]
    },
    "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "common/types"
    ],
    "lib": [
       "es2018",
@@ -29,6 +30,7 @@
  },
  "exclude": [
    "node_modules",
+   "common/types",
    "**/*.spec.ts"
  ]
 }

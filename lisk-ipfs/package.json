@@ -1,0 +1,44 @@
+{
+  "name": "lisk-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build:webpack": "rimraf dist && webpack --config ../webpack.config.js --entry ./src/main.ts",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "start:dev": "tsc-watch --onSuccess \"ts-node -r tsconfig-paths/register dist/lisk-ipfs/src/main.js\"",
+    "start:prod": "node dist/main"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@liskhq/lisk-passphrase": "^2.0.3",
+    "@nestjs/common": "6.10.5",
+    "@nestjs/core": "6.10.5",
+    "@nestjs/platform-express": "6.10.5",
+    "chalk": "^3.0.0",
+    "ipfs-http-client": "^40.0.1",
+    "lisk-sdk": "^2.3.6",
+    "reflect-metadata": "0.1.13",
+    "rimraf": "3.0.0",
+    "rxjs": "6.5.3",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "6.10.5",
+    "@types/express": "4.17.2",
+    "@types/jest": "24.0.23",
+    "@types/node": "12.12.14",
+    "@types/supertest": "2.0.8",
+    "jest": "24.9.0",
+    "prettier": "1.19.1",
+    "supertest": "4.0.2",
+    "ts-jest": "24.2.0",
+    "ts-node": "8.5.4",
+    "tsc-watch": "4.0.0",
+    "tsconfig-paths": "3.9.0",
+    "typescript": "3.7.3"
+  }
+}
