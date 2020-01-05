@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { NatsService } from '../nats/nats.service';
 import { logger, Logger } from '@root/common/logger';
-import { lisknet } from '../lisk/lisk.service';
+import { lisknet } from '../lisk/lisk.module';
 import { APIClient } from '@liskhq/lisk-client';
 import { DappTransaction, utils } from '@liskhq/lisk-transactions'
 import { InjectRepository } from '@nestjs/typeorm';

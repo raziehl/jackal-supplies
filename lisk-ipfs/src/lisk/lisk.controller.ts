@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Request } from '@nestjs/common';
 import { CryptoService } from './crypto.service';
-import { TransactionService } from './transactions/transaction.service';
 import { User } from '@root/common/models/User';
+import { LiskService } from './lisk.service';
 
 @Controller('lisk')
 export class LiskController {
 
   constructor(
     private crypto: CryptoService,
-    private trans: TransactionService
+    private lisk: LiskService
   ) {}
 
   @Get('generate-keys')
@@ -26,19 +26,19 @@ export class LiskController {
   async login(@Request() req) {
       let user: User = req.body;
       user.address = this.crypto.getAddress(user.passphrase);
-      return await this.trans.login(user);
+      return await this.lisk.login(user);
   }
 
   @Post('updateUser')
   async updateUser(@Request() req) {
       let user: User = req.body;
-      return await this.trans.updateAccount(user);
+      return await this.lisk.updateAccount(user);
   }
 
   @Post('addCash')
   async createUser(@Request() req) {
       console.log('Cash Added')
       let user: User = req.body;
-      return await this.trans.createAccount(user.passphrase);
+      return await this.lisk.createAccount(user.passphrase);
   }
 }

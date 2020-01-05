@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const common_1 = require("@nestjs/common");
 const crypto_service_1 = require("./crypto.service");
-const transaction_service_1 = require("./transactions/transaction.service");
+const lisk_service_1 = require("./lisk.service");
 let LiskController = class LiskController {
-    constructor(crypto, trans) {
+    constructor(crypto, lisk) {
         this.crypto = crypto;
-        this.trans = trans;
+        this.lisk = lisk;
     }
     generate() {
         return this.crypto.generate();
@@ -20,20 +20,20 @@ let LiskController = class LiskController {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let user = req.body;
             user.address = this.crypto.getAddress(user.passphrase);
-            return yield this.trans.login(user);
+            return yield this.lisk.login(user);
         });
     }
     updateUser(req) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let user = req.body;
-            return yield this.trans.updateAccount(user);
+            return yield this.lisk.updateAccount(user);
         });
     }
     createUser(req) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             console.log('Cash Added');
             let user = req.body;
-            return yield this.trans.createAccount(user.passphrase);
+            return yield this.lisk.createAccount(user.passphrase);
         });
     }
 };
@@ -74,7 +74,7 @@ tslib_1.__decorate([
 LiskController = tslib_1.__decorate([
     common_1.Controller('lisk'),
     tslib_1.__metadata("design:paramtypes", [crypto_service_1.CryptoService,
-        transaction_service_1.TransactionService])
+        lisk_service_1.LiskService])
 ], LiskController);
 exports.LiskController = LiskController;
 //# sourceMappingURL=lisk.controller.js.map
