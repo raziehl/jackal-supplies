@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const common_1 = require("@nestjs/common");
 const lisk_sdk_1 = require("lisk-sdk");
-const logger_1 = require("../logger");
+const logger_1 = require("@root/common/logger");
 lisk_sdk_1.configDevnet.components.logger.consoleLogLevel = process.env.LISK_LOG_LEVEL || 'error';
 lisk_sdk_1.configDevnet.components.logger.logFileName = './lisk.log';
 let LiskService = class LiskService {

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const lisk_transactions_1 = require("@liskhq/lisk-transactions");
-const logger_1 = require("../../logger");
+const logger_1 = require("@root/common/logger");
 class AccountTransaction extends lisk_transactions_1.BaseTransaction {
     constructor(transObj) {
         super(transObj);

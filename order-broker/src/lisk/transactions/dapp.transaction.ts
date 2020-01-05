@@ -1,8 +1,22 @@
-import { BaseTransaction, TransactionError, StateStore, utils } from '@liskhq/lisk-transactions';
+
+
+import { DappTransaction, TransactionError, StateStore } from '@liskhq/lisk-transactions';
 import { logger, Logger } from '@root/common/logger';
 import { User } from '@root/common/models/User';
+import { DappAsset } from '@liskhq/lisk-transactions/dist-node/5_dapp_transaction';
 
-export class AccountTransaction extends BaseTransaction {
+interface RegistrationForm {
+  name: string,
+  description: string,
+  tags: string,
+  link: string,
+  type: number,
+  category: number,
+  icon: string,
+  transactionId: string
+}
+
+export class DappRegistration extends DappTransaction {
 
   @logger()
   private log: Logger;
@@ -14,17 +28,17 @@ export class AccountTransaction extends BaseTransaction {
     throw new Error("Method not implemented.");
   }
 
-  constructor(transObj) {
+  constructor(transObj: RegistrationForm) {
     super(transObj);
-    console.log('UPDATE ACCOUNT TRANSACTION')
+    console.log('DAPP REGISTRATION')
   }
 
   static get TYPE() {
-    return 10;
+    return DappTransaction.TYPE;
   }
 
   static get FEE() {
-    return `${0}`;
+    return DappTransaction.FEE;
   };
 
   async prepare(store) {
@@ -45,7 +59,7 @@ export class AccountTransaction extends BaseTransaction {
 
   applyAsset(store: StateStore) {
     const errors = [];
-    const asset: Partial<User> = this.asset;
+    const asset: DappAsset = this.asset;
     let sender: any = store.account.get(this.senderId);
 
     console.log(asset);

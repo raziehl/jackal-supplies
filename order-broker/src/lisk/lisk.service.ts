@@ -1,10 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { Application, genesisBlockDevnet, configDevnet } from 'lisk-sdk';
+import { APIClient } from '@liskhq/lisk-api-client';
 import { logger, Logger } from '@root/common/logger';
 
 
 configDevnet.components.logger.consoleLogLevel = process.env.LISK_LOG_LEVEL || 'error';
 configDevnet.components.logger.logFileName = './lisk.log';
+
+export const lisknet = new APIClient(
+  process.env.MAINNET ? APIClient.constants.MAINNET_NODES : APIClient.constants.TESTNET_NODES
+);
 
 @Injectable()
 export class LiskService {
@@ -21,6 +26,6 @@ export class LiskService {
       this.log.error(err);
       process.exit(1);
     });
-  }
+  } 
 
 }
