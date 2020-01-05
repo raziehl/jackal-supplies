@@ -5,7 +5,7 @@ const common_1 = require("@nestjs/common");
 const lisk_sdk_1 = require("lisk-sdk");
 const passphrase = require("@liskhq/lisk-passphrase");
 const EnrichedPass_1 = require("@root/common/models/EnrichedPass");
-const logger_1 = require("../../logger");
+const logger_1 = require("@root/common/logger");
 const { Mnemonic } = passphrase;
 let CryptoService = class CryptoService {
     getKeys(pass) {

@@ -10,6 +10,10 @@ import { SellOrder } from './entities/sell-order.entity';
 
 const beddows2l = utils.convertBeddowsToLSK;
 
+async function timeout(time: number) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
 @Injectable()
 export class OrdersService {
 
@@ -28,8 +32,9 @@ export class OrdersService {
     .subscribe(this.buyOrder, err => this.log.error(err));
   }
 
-  sellOrder(order: any) {
-    
+  async sellOrder(order: any) {
+    // await timeout(10);
+    console.log(order.data)
   }
 
   buyOrder(order: any) {

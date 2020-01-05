@@ -15,14 +15,10 @@ enum AssetType {
 
 export class Asset {
 
-    @Length(0, 20)
+    // @Length(0, 20)
     name: string;
     description: string;
-    imageCID: string;
-    issuedShares: number;
-    currentShares: number;
-    sellingShares: number;
-    PPS: number; // PricePerShare (LISK)
+    cid: string;
     type: AssetType;
     tags: string[];
     assetHash: string;
@@ -31,12 +27,8 @@ export class Asset {
     constructor(assetObject: Partial<Asset> = {}) {
         this.name = assetObject.name || '';
         this.description = assetObject.description || '';
-        this.imageCID = assetObject.imageCID || '';
-        this.issuedShares = assetObject.issuedShares || 0;
-        this.currentShares = assetObject.currentShares || 0;
-        this.sellingShares = assetObject.sellingShares || 0;
-        this.PPS = assetObject.PPS || 0;
-        this.type = assetObject.type || AssetType.NotStonks; // cock-future
+        this.cid = assetObject.cid || '';
+        this.type = assetObject.type || AssetType.NotStonks
         this.tags = assetObject.tags;
         this.transactionTimestamp = assetObject.transactionTimestamp || '';
         this.hashAsset()
@@ -49,8 +41,8 @@ export class Asset {
         let hashedProps = [
             this.name,
             this.description,
-            this.imageCID,
-            timestamp()
+            this.cid,
+            this.transactionTimestamp
         ];
         // buffer.concat(hashedProps.values);
         let hash = await sha256(JSON.stringify(this));

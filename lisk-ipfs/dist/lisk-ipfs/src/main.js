@@ -6,6 +6,8 @@ const app_module_1 = require("./app.module");
 function bootstrap() {
     return tslib_1.__awaiter(this, void 0, void 0, function* () {
         const app = yield core_1.NestFactory.create(app_module_1.AppModule);
+        app.setGlobalPrefix('api');
+        app.enableCors();
         yield app.listen(3000);
     });
 }

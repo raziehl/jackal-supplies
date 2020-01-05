@@ -59,7 +59,7 @@ export class CreateAssetComponent implements OnInit {
       new Asset({
         description: lorem,
         name: 'Euripide',
-        imageCID: 'https://thumbor.forbes.com/thumbor/1280x868/https%3A%2F%2Fblogs-images.forbes.com%2Fstephenkey%2Ffiles%2F2018%2F01%2FImage-from-Stephen-Keys-patent-1200x1455.jpg'
+        cid: 'https://thumbor.forbes.com/thumbor/1280x868/https%3A%2F%2Fblogs-images.forbes.com%2Fstephenkey%2Ffiles%2F2018%2F01%2FImage-from-Stephen-Keys-patent-1200x1455.jpg'
     }))
     this.http.post(`${backend}/lisk/updateUser`, this.user)
     .subscribe((data) => {
