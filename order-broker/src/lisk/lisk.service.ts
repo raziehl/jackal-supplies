@@ -36,6 +36,15 @@ export class LiskService {
   test() {
     
   }
+  
+  async poll() {
+    while(true) {
+      await timeout(3000);
+      const ownerTransactions = await lisknet.transactions
+      .get({ senderId: getAddressFromPassphrase(richPass) });
+      console.log(ownerTransactions)
+    }
+  }
 
   async createAccount(pass: string) {
     let tx = trans.transfer({

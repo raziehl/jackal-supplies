@@ -20,6 +20,8 @@ export class Asset {
     description: string;
     cid: string;
     type: AssetType;
+    issued: number;
+    value: number;
     tags: string[];
     assetHash: string;
     transactionTimestamp: string;
@@ -28,7 +30,9 @@ export class Asset {
         this.name = assetObject.name || '';
         this.description = assetObject.description || '';
         this.cid = assetObject.cid || '';
-        this.type = assetObject.type || AssetType.NotStonks
+        this.type = assetObject.type || AssetType.NotStonks;
+        this.issued = assetObject.issued || 0;
+        this.value = assetObject.value || 0;
         this.tags = assetObject.tags;
         this.transactionTimestamp = assetObject.transactionTimestamp || '';
         this.hashAsset()

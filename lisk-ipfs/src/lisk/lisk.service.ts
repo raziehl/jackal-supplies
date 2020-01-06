@@ -1,8 +1,9 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import * as trans from '@liskhq/lisk-transactions';
+import { TransferTransaction } from '@liskhq/lisk-transactions';
 import * as passphrase from '@liskhq/lisk-passphrase';
 import * as crypto from '@liskhq/lisk-cryptography';
-import { lisknet } from './lisk.module';
+import { lisknet, devnet } from './lisk.module';
 import { AxiosResponse } from 'axios';
 import { logger, Logger } from '@root/common/logger';
 import { AccountTransaction } from './transactions/account.transaction';
@@ -10,12 +11,12 @@ import { User } from '@root/common/models/User';
 import { EnrichedPass } from '@root/common/models/EnrichedPass';
 import { Asset } from '@root/common/models/Asset';
 
-const { Mnemonic } = passphrase;
+import { getAddressFromPassphrase } from '@liskhq/lisk-cryptography';
+
 
 const richPass = 'wagon stock borrow episode laundry kitten salute link globe zero feed marble';
 
-import { lorem } from '@root/common/models/Utils';
-import { getAddressFromPassphrase } from '@liskhq/lisk-cryptography';
+const ownerPass = 'length shaft waste asset quote chair renew biology turkey before garage trophy';
 
 function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -33,33 +34,20 @@ export class LiskService {
     this.test();
   }
 
-  test() {
+  async test() {
     
-  }
-
-  async createAccount(pass: string) {
-    let tx = trans.transfer({
-      amount: '1000000000',
-      recipientId: crypto.getAddressFromPassphrase(pass),
-      passphrase: richPass
-    });
-
-    await lisknet.transactions.broadcast(tx)
-    .then(data => {
-      this.log.info(`Account Created: ${crypto.getAddressFromPassphrase(pass)}`);
-    })
-    .catch(err => this.log.error(err));
   }
 
   async updateAccount(user: User) {
     console.log('UPDATE')
     const tx = new AccountTransaction({
-      timestamp: +new Date(),
+      timestamp: new Date(),
       asset: user.asset
     });
+    console.log(user.asset.portfolio)
     tx.sign(user.passphrase);
 
-    await lisknet.transactions.broadcast(tx.toJSON())
+    await devnet.transactions.broadcast(tx.toJSON())
     .then(data => this.log.info('Transaction result: ', data))
     .catch(err => this.log.error(err));
   }
@@ -67,7 +55,7 @@ export class LiskService {
   async getAccount(userAddress: string): Promise<Partial<User>> {
     return new Promise(async (resolve, reject) => {
       try {
-        const account: Partial<User> = (await lisknet.accounts.get({ address: userAddress })).data;
+        const account: Partial<User> = (await devnet.accounts.get({ address: userAddress })).data;
         return resolve(account);
       } catch (err) {
         this.log.error(err);
@@ -76,40 +64,33 @@ export class LiskService {
     });
   }
 
+  async addCash(user: User) {
+    const recipient = getAddressFromPassphrase(richPass);
+
+    const transferForm = trans.transfer({
+      recipientId: recipient,
+      amount: '1',
+    });
+    const tx = new TransferTransaction(transferForm);
+    tx.sign(richPass);
+
+    devnet.transactions.broadcast(tx.toJSON())
+    .then(async (msg) => {
+      this.log.info(msg);
+      const account = await this.getAccount(recipient);
+      console.log(account);
+    })
+    .catch(this.log.error);
+  }
+
   async login(user: User) {
     let account: Account = (await this.getAccount(user.address) as Partial<User>)[0];
     user = new User({ ...user, ...account });
+    console.log(user)
     if (account) {
       return user;
-    } else {
-      await this.createAccount(user.passphrase);
-      await timeout(10000);
-      return user;
-    }
+    } else return;
   }
-
-  // CURRENTLY NOT ALLOWED
-  // createDapp() {
-  //   const dappForm = trans.createDapp({
-  //     options: {
-  //       name: 'testytestmctest',
-  //       category: 1,
-  //       description: 'Something',
-  //       icon: 'asd',
-  //       link: '',
-  //       tags: '',
-  //       type: 12
-  //     },
-  //     passphrase: richPass
-  //   });
-    
-  //   const tx = new trans.DappTransaction(dappForm)
-  //   tx.sign(richPass);
-  //   console.log(tx)
-  //   lisknet.transactions.broadcast(dappForm)
-  //   .then((data) => console.log('O mers maybe'))
-  //   .catch(err => console.log(err));
-  // }
 
 
 }
