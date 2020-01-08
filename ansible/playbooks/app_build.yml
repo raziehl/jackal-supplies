@@ -1,0 +1,69 @@
+---
+- name: "Building {{ app }} from git"
+  vars_files:
+    - "../config/{{ env }}.yml"
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: Clean up working folder [stage, prod]
+      shell: |
+        rm -rf {{ work_dir }}/{{ apps[app].branch }}
+      when: env_name != 'dev'
+
+    - name: Git pull [stage, prod]
+      git:
+        repo: "{{ apps[app].repo }}"
+        version: "{{ apps[app].branch }}"
+        dest: "{{ work_dir }}/{{ apps[app].branch }}"
+        force: yes
+      when: env_name != 'dev'
+
+    - name: Clean up and prepare build folder [stage, prod]
+      shell: |
+        echo {{ work_dir }}/{{ apps[app].branch }}/{{ item.dst }}
+        rm -rf {{ work_dir }}/{{ apps[app].branch }}/{{ item.dst }}
+        mkdir -p {{ work_dir }}/{{ apps[app].branch }}/{{ item.dst }}
+        cp -r {{ work_dir }}/{{ apps[app].branch }}/{{ item.src }} {{ work_dir }}/{{ apps[app].branch }}/{{ item.dst }}
+      with_items: "{{ apps[app].third_parties }}"
+      when:
+        - env_name != 'dev'
+        - apps[app].third_parties is defined
+
+    # https://docs.ansible.com/ansible/latest/modules/docker_image_module.html
+    - name: Prepare credentials
+      shell: |
+        $(aws ecr get-login --region {{ aws.region }} --no-include-email)
+
+    - name: Build image [stage, prod]
+      shell: |
+        docker-compose -f {{ work_dir }}/{{ apps[app].branch }}/{{ app }}/{{ apps[app].compose }} build {{ app }}
+      environment: "{{ apps[app].env_vars }}"
+      when: env_name != 'dev'
+
+    - name: Push image to ECR [stage, prod]
+      shell: |
+        docker-compose -f {{ work_dir }}/{{ apps[app].branch }}/{{ app }}/{{ apps[app].compose }} push {{ app }}
+      environment: "{{ apps[app].env_vars }}"
+      when: env_name != 'dev'
+
+    - name: Build image [dev]
+      shell: |
+        docker-compose -f ../../{{ app }}/{{ apps[app].compose }} build {{ app }}
+      environment: "{{ apps[app].env_vars }}"
+      when: env_name == 'dev'
+
+    - name: Push image to ECR [dev]
+      shell: |
+        docker-compose -f ../../{{ app }}/{{ apps[app].compose }} push {{ app }}
+      environment: "{{ apps[app].env_vars }}"
+      when: env_name == 'dev'
+
+    - name: Remove UNTAGGED images
+      shell: |
+        aws ecr list-images --repository-name {{ env_name }}-amethyst_apps --filter tagStatus=UNTAGGED --query 'imageIds[*]' --output text | while read imageId; do aws ecr batch-delete-image --repository-name {{ env_name }}-amethyst_apps --image-ids imageDigest=$imageId; done
+      environment: "{{ apps[app].env_vars }}"
+
+
+

@@ -1,0 +1,72 @@
+---
+- name: Deploy docker
+  import_playbook: docker_deploy.yml
+
+- name: Build VPN
+  import_playbook: vpn_build.yml build="{{ build|default(false) }}"
+
+- name: Deploy VPN
+  import_playbook: vpn_deploy.yml
+
+- name: Deploy Portainer
+  import_playbook: portainer_deploy.yml
+
+# - name: Deploy Grafana
+#   import_playbook: grafana_deploy.yml
+
+- name: Deploy Nats
+  import_playbook: nats_deploy.yml build="{{ build|default(false) }}"
+
+- name: Deploy pages
+  import_playbook: app_deploy.yml app='pages' build="{{ build|default(false) }}"
+
+- name: Deploy voice-api
+  import_playbook: app_deploy.yml app='voice-api' build="{{ build|default(false) }}"
+
+- name: Deploy sms-api
+  import_playbook: app_deploy.yml app='sms-api' build="{{ build|default(false) }}"
+
+#- name: Deploy mock-service
+#  import_playbook: app_deploy.yml app='mock-service' build="{{ build|default(false) }}"
+
+- name: Deploy bg-credit
+  import_playbook: app_deploy.yml app='bg-credit' build="{{ build|default(false) }}"
+
+- name: Deploy Affise
+  import_playbook: app_deploy.yml app='affise' build="{{ build|default(false) }}"
+
+- name: Deploy Cron
+  import_playbook: app_deploy.yml app='cron' build="{{ build|default(false) }}"
+
+# - name: Deploy enrich
+#   import_playbook: app_deploy.yml app='enrich' build="{{ build|default(false) }}"
+
+# - name: Deploy statistics
+#   import_playbook: app_deploy.yml app='statistics' build="{{ build|default(false) }}"
+
+# - name: Deploy google
+#   import_playbook: app_deploy.yml app='google' build="{{ build|default(false) }}"
+
+# - name: Deploy care
+#   import_playbook: app_deploy.yml app='care' build="{{ build|default(false) }}"
+
+# - name: Deploy rating
+#   import_playbook: app_deploy.yml app='rating' build="{{ build|default(false) }}"
+
+# - name: Deploy slack
+#   import_playbook: app_deploy.yml app='slack' build="{{ build|default(false) }}"
+
+# - name: Deploy healthcheck
+#   import_playbook: app_deploy.yml app='healthcheck' build="{{ build|default(false) }}"
+
+# - name: Deploy admin
+#   import_playbook: app_deploy.yml app='admin' build="{{ build|default(false) }}"
+
+# - name: Deploy msisdn
+#   import_playbook: app_deploy.yml app='msisdn' build="{{ build|default(false) }}"
+
+# - name: Deploy dashboard
+#   import_playbook: app_deploy.yml app='dashboard' build="{{ build|default(false) }}"
+
+- name: Deploy webserver
+  import_playbook: webserver_deploy.yml build="{{ build|default(false) }}"

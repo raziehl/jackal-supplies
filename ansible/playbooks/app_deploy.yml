@@ -1,0 +1,108 @@
+---
+- import_playbook: app_build.yml
+  when: build is defined and build == 'true'
+
+- name: Pull the latest version of the app from git
+  vars_files:
+    - "../config/{{ env }}.yml"
+  hosts: localhost
+  tasks:
+    - name: Git pull [stage, prod]
+      git:
+        repo: "{{ apps[app].repo }}"
+        version: "{{ apps[app].branch }}"
+        dest: "{{ work_dir }}/{{ apps[app].branch }}"
+        force: yes
+      when: env_name != 'dev'
+
+- name: "Deploy {{ app }}"
+  vars_files:
+    - "../config/{{ env }}.yml"
+
+  hosts: "{{ env }}"
+  become: yes
+
+  tasks:
+    - name: Clearing remote dir
+      file:
+        path: "/opt/{{ app }}"
+        state: absent
+
+    - name: Create remote dir
+      file:
+        path: "/opt/{{ app }}"
+        state: directory
+
+    - name: Upload docker-compose.yml [stage, prod]
+      copy:
+        src: "{{ work_dir }}/{{ apps[app].branch }}/{{ app }}/{{ apps[app].compose }}"
+        dest: "/opt/{{ app }}/{{ apps[app].compose }}"
+      when: env_name != 'dev'
+
+    # TS ADDED
+    - name: Upload {{ app }} local files [dev]
+      synchronize:
+        src: "../../{{ app }}/"
+        dest: "/opt/{{ app }}/"
+        copy_links: true
+        links: true
+        rsync_opts:
+          - "--rsh=ssh -F {{ playbook_dir }}/../ssh.cfg"
+          - "--exclude=node_modules"
+          - "--exclude=dist"
+        set_remote_user: false
+      when: env_name == 'dev'
+
+    - name: "Install node_modules for {{ app }}"
+      shell: |
+        cd /opt/{{ app }}
+        rm -rf node_modules
+        npm install
+      when: env_name == 'dev'
+
+    - name: Building landing pages [dev]
+      shell: |
+        cd /opt/{{ app }}
+        nohup npx gulp >/dev/null 2>&1 &
+      when: app == 'pages'
+    # TS ADDED path: "/opt/{{ app }}"
+    - name: Set permissions
+      file:
+        path: "/opt/"
+        owner: ubuntu
+        group: ubuntu
+        recurse: true
+      when: env_name == 'dev'
+      # We want to ignore errors when permissions are set for symlinks (e.g. dashboard)
+      ignore_errors: true
+
+    - name: Prepare credentials
+      shell: "$(aws ecr get-login --region {{ aws.region }} --no-include-email)"
+      environment:
+        HOME: /root
+
+    # https://docs.ansible.com/ansible/latest/modules/docker_swarm_service_module.html
+    - name: "Update service images {{ app }}"
+      shell: |
+        docker-compose -f /opt/{{ app }}/{{ apps[app].compose }} pull {{ app }}
+      environment: "{{ apps[app].env_vars }}"
+
+- name: "Deploy {{ app }}"
+  vars_files:
+    - "../config/{{ env }}.yml"
+
+  hosts: "{{ env }}[0]"
+  become: yes
+
+  tasks:
+    - name: "Deploy service {{ app }}"
+      shell: |
+        docker stack deploy --with-registry-auth --compose-file /opt/{{ app }}/{{ apps[app].compose }} {{ app }}
+      environment: "{{ apps[app].env_vars }}"
+    - name: "Update service {{ app }}"
+      shell: |
+        docker service update --with-registry-auth --force {{ app }}_{{ app }}
+      environment: "{{ apps[app].env_vars }}"
+      ignore_errors: true
+
+

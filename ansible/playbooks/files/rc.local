@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+INTERFACE=$(ifconfig | grep 'ens\|eth[0-9]: ' | cut -d: -f1)
+ifconfig $INTERFACE:0 172.16.0.2/24
+

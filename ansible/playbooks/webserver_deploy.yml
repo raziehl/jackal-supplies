@@ -1,0 +1,29 @@
+---
+- import_playbook: webserver_build.yml
+  when: build is defined and build == 'true'
+
+- name: Install webserver
+  vars_files:
+    - "../config/{{ env }}.yml"
+  become: yes
+  hosts: "{{ env }}"
+  tasks:
+    - name: Prepare credentials
+      shell: "$(aws ecr get-login --region {{ aws.region }} --no-include-email)"
+      environment:
+        HOME: /root
+
+    - name: Deploy webserver [copy docker-compose.yml]
+      template:
+        src: ../docker/webserver/docker-compose.yml
+        dest: /tmp/
+        owner: ubuntu
+        mode: 0755
+
+    - name: Deploy webserver [deploy stack]
+      shell: |
+        docker-compose -f /tmp/docker-compose.yml pull webserver
+        docker stack deploy  --with-registry-auth --compose-file /tmp/docker-compose.yml webserver
+        docker service update  --with-registry-auth --force webserver_webserver
+      environment:
+        IMAGE: "{{ docker.registry }}:webserver"

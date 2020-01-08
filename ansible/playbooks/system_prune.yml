@@ -1,0 +1,12 @@
+---
+- name: Remove unsuned data
+  vars_files:
+    - "../config/{{ env }}.yml"
+  hosts: "{{ env }}"
+  become: yes
+
+  tasks:
+    - name: Run docker system prune
+      shell:
+        docker system prune -f
+

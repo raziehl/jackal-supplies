@@ -6,13 +6,20 @@ import { CryptoService } from './crypto.service';
 import { Application, genesisBlockDevnet, configDevnet } from 'lisk-sdk';
 import { APIClient } from '@liskhq/lisk-api-client';
 import { logger, Logger } from '@root/common/logger';
+import { LiskController } from './lisk.controller';
 
+
+configDevnet.components.storage.host = 'petroschi.com';
 configDevnet.components.logger.consoleLogLevel = process.env.LISK_LOG_LEVEL || 'error';
 configDevnet.components.logger.logFileName = './lisk.log';
 
 export const lisknet = new APIClient(
   process.env.MAINNET ? APIClient.constants.MAINNET_NODES : APIClient.constants.TESTNET_NODES
 );
+
+export const devnet = new APIClient(
+  ['http:localhost:4000']
+)
 
 
 @Global()
@@ -34,6 +41,7 @@ export const lisknet = new APIClient(
     LiskService,
     CryptoService
   ],
-  exports: [LiskService]
+  exports: [LiskService],
+  controllers: [LiskController]
 })
 export class LiskModule {}

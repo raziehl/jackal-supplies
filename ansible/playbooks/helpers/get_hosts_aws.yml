@@ -1,0 +1,78 @@
+---
+- name: Get AWS hosts
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - "../../config/{{ env }}.yml"
+
+  tasks:
+
+    - name: Fetch master hosts from AWS
+
+      # Getting EC2 instance data:
+      # https://docs.ansible.com/ansible/2.4/ec2_instance_facts_module.html
+      ec2_instance_facts:
+        region: "{{ aws.region }}"
+
+        # Filters are described here:
+        # https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html
+        filters:
+          "tag:node_type": "{{ env }}_docker_master"
+          instance-state-name: running
+      register: ec2_master_hosts
+
+    - name: Add host instances to master_hosts group
+      no_log: true
+      add_host:
+        hostname: "{{ item.public_ip_address }}"
+        groupname: master_hosts
+        private_ip: "{{ item.private_ip_address }}"
+      with_items: "{{ ec2_master_hosts.instances }}"
+
+    - name: Add host instances to master_hosts_private group (private IP addresses)
+      no_log: true
+      add_host:
+        hostname: "{{ item.private_ip_address }}"
+        groupname: master_hosts_private
+        private_ip: "{{ item.private_ip_address }}"
+      with_items: "{{ ec2_master_hosts.instances }}"
+
+
+    - name: Add host instances to master_hosts_public group (public IP addresses)
+      no_log: true
+      add_host:
+        hostname: "{{ item.public_ip_address }}"
+        groupname: master_hosts_public
+        private_ip: "{{ item.public_ip_address }}"
+      with_items: "{{ ec2_master_hosts.instances }}"
+
+
+    - name: Fetch worker hosts from AWS
+
+      # Getting EC2 instance data:
+      # https://docs.ansible.com/ansible/2.4/ec2_instance_facts_module.html
+      ec2_instance_facts:
+        region: "{{ aws.region }}"
+
+        # Filters are described here:
+        # https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html
+        filters:
+          "tag:node_type": "{{ env }}_docker_worker"
+          instance-state-name: running
+      register: ec2_worker_hosts
+
+    - name: Add host instances to worker_hosts group
+      no_log: true
+      add_host:
+        hostname: "{{ item.public_ip_address }}"
+        groupname: worker_hosts
+        private_ip: "{{ item.private_ip_address }}"
+      with_items: "{{ ec2_worker_hosts.instances }}"
+
+
+# Most commonly used vars:
+# hostvars, groups, group_names, inventory_hostname
+
+

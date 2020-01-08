@@ -1,0 +1,18 @@
+---
+
+- name: Install portainer
+  hosts: "{{ env }}[0]"
+  become: yes
+
+  tasks:
+
+    - name: Copy compose file to server
+      template:
+        src: ../docker/portainer/portainer-agent-stack.yml
+        dest: /tmp/
+        owner: ubuntu
+        mode: 0755
+
+    - name: Deploy portainer
+      shell: docker stack deploy --compose-file=/tmp/portainer-agent-stack.yml portainer
+

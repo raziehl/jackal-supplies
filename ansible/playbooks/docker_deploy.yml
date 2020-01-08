@@ -1,0 +1,147 @@
+---
+- name: Install python
+  hosts: "{{ env }}"
+  gather_facts: false
+  become: yes
+  tasks:
+    - raw: apt update && apt install -y python
+
+- name: Set hostname
+  hosts: "{{ env }}"
+  become: yes
+  tasks:
+
+    - name: Set hostname
+      hostname:
+        name: "{{ inventory_hostname }}"
+
+    - name: Set hosts file
+      template: src=files/hosts.j2 dest=/etc/hosts mode=0644 owner=root group=root
+
+    - name: Set .bashrc file (ubuntu)
+      copy: src=files/bashrc.ubuntu dest=/home/ubuntu/.bashrc mode=0644 owner=ubuntu group=ubuntu
+
+    - name: Set .bashrc file (root)
+      copy: src=files/bashrc.root dest=/root/.bashrc mode=0644 owner=root group=root
+
+
+- name: Install docker and various packages
+  hosts: "{{ env }}"
+  become: yes
+  tasks:
+
+    - name: Remove unwanted packages
+      ignore_errors: true
+      apt:
+        state: absent
+        pkg: ['kubelet', 'kubectl', 'kubernetes-cni', 'docker', 'docker-engine', 'docker.io', 'containerd', 'runc', 'nodejs', 'npm']
+
+    - name: Install add-apt-repository
+      apt:
+        update_cache: true
+        state: present
+        pkg: ['software-properties-common', 'dirmngr', 'apt-transport-https', 'lsb-release', 'ca-certificates']
+
+    - name: Install Docker APT authorization key
+      shell: |
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        add-apt-repository \
+          "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+    - name: Install wanted packages
+      apt:
+        update_cache: true
+        state: present
+        pkg: ['docker-ce', 'python-setuptools', 'python-pip', 'build-essential',
+              'git', 'awscli', 'fail2ban', 'inetutils-ping',
+              'telnet', 'htop', 'strace', 'bash-completion']
+
+    - name: Install Nodejs 10
+      shell: |
+        curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+
+    - name: Install docker python sdk
+      pip:
+        name: docker, docker-compose, boto, boto3
+
+    # Docker bash completion
+    # https://docs.docker.com/machine/completion/
+    - name: Install docker bash autocompletion
+      shell: curl -L https://raw.githubusercontent.com/docker/machine/v0.16.0/contrib/completion/bash/docker-machine.bash -o /etc/bash_completion.d/docker-machine
+
+
+
+- name: Setup first node in Docker swarm
+  hosts: "{{ env }}"
+  become: yes
+  vars_files:
+    - "../config/{{ env }}.yml"
+  tasks:
+
+    # https://docs.ansible.com/ansible/latest/modules/docker_swarm_module.html
+    - name: Get facts about existing managers
+      docker_swarm_info:
+      ignore_errors: yes
+      register: swarm_results
+
+    - name: Initialize swarm cluster
+      docker_swarm:
+        state: present
+        advertise_addr: "{{ private_ip }}"
+      register: swarm_info
+      when: docker_init|default('inactive') == 'active' and swarm_results['swarm_facts'] is not defined
+
+    - name: Create shared cluster network
+      shell: |
+        docker network ls | if ! grep {{ item }}; then
+          docker network create --driver overlay --attachable {{ item }}
+        fi
+      with_items: "{{ docker.networks }}"
+      when: docker_init|default('inactive') == 'active' and swarm_results['swarm_facts'] is not defined
+
+
+- name: Pick manager node to join and get joining details
+  hosts: "{{ env }}"
+  become: yes
+  tasks:
+
+    - name: Get facts about existing managers
+      docker_swarm_info:
+      ignore_errors: yes
+      register: swarm_results
+      when:
+
+    - name: Add info about managers nodes
+      set_fact:
+        swarm_active: true
+        manager_token: "{{ swarm_results['swarm_facts']['JoinTokens']['Manager'] }}"
+        worker_token: "{{ swarm_results['swarm_facts']['JoinTokens']['Worker'] }}"
+      when: swarm_results['swarm_facts'] is defined
+
+    - name: Add info about manager nodes
+      set_fact:
+        swarm_active: false
+      when: swarm_results['swarm_facts'] is not defined
+
+
+- name: Add nodes in cluster
+  hosts: "{{ env }}"
+  become: yes
+  tasks:
+
+    - name: Get manager variables
+      set_fact:
+        join_token: "{{ hostvars[item].manager_token }}"
+        remote_address: "{{ hostvars[item].private_ip }}"
+      with_items: "{{ groups[env] }}"
+      when: hostvars[item].swarm_active
+
+    # https://docs.ansible.com/ansible/latest/modules/docker_swarm_module.html
+    - name: Join managers in swarm cluster
+      docker_swarm:
+        state: join
+        remote_addrs: [ "{{ remote_address }}" ]
+        advertise_addr: "{{ private_ip }}"
+        join_token: "{{ join_token }}"
+      when: swarm_active == false

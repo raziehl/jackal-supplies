@@ -1,0 +1,27 @@
+---
+- name: "Building webserver"
+  vars_files:
+    - "../config/{{ env }}.yml"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Prepare credentials
+      shell: |
+        $(aws ecr get-login --region {{ aws.region }} --no-include-email)
+
+    - name: Build image
+      shell: |
+        docker-compose -f ../docker/webserver/docker-compose.yml build webserver
+      environment:
+        IMAGE: "{{ docker.registry }}:webserver"
+
+    - name: Push image to ECR
+      shell: |
+        docker-compose -f ../docker/webserver/docker-compose.yml push webserver
+      environment:
+        IMAGE: "{{ docker.registry }}:webserver"
+
+
+

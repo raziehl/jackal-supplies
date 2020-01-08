@@ -1,0 +1,29 @@
+version: '3'
+services:
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "4000:3000"
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,goshposh-metaqueries-datasource
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_NAME=Hypercentage
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+
+    entrypoint:
+      - /run.sh
+      - cfg:default.database.type=mysql
+      - cfg:default.server.root_url=%(protocol)s://%(domain)s:%(http_port)s/grafana/
+      - cfg:default.database.host={{ db.host }}
+      - cfg:default.database.name={{ db.name }}
+      - cfg:default.database.user={{ db.user }}
+      - cfg:default.database.password={{ db.password }}
+    networks:
+      - main
+
+networks:
+  main:
+    external:
+      name: main
+
+    

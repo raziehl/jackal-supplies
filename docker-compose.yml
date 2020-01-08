@@ -1,0 +1,20 @@
+version: "3.3"
+services:
+  order-broker:
+    image: rhaziel/order-broker
+    build: .
+    environment:
+      - "SOMETHING=SOMETHING"
+    networks:
+      - main
+    volumes:
+      - .:/opt/order-broker
+    deploy:
+      replicas: 1
+    working_dir: /opt
+    command: npm run start:order-broker
+
+networks:
+ main:
+   external:
+     name: main 

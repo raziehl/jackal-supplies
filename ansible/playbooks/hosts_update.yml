@@ -1,0 +1,22 @@
+---
+
+- name: Update /etc/hosts
+  hosts: localhost
+  become: true
+  vars:
+    first_host: "{{ groups[env][0] }}"
+  vars_files:
+    - "../config/{{ env }}.yml"
+
+  tasks:
+    - name: Add the public host name entry in /etc/hosts for quick access
+      hosts_file:
+        name: "{{ item }}"
+        ip: "{{ hostvars[item].public_ip }}"
+      with_items:
+        - "{{ groups[env] }}"
+
+    - name: Add the private host name entry in /etc/hosts for quick access
+      hosts_file:
+        name: "{{ hostname }}"
+        ip: "{{ hostvars[first_host].private_ip }}"

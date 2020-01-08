@@ -12,6 +12,7 @@ import { EnrichedPass } from '@root/common/models/EnrichedPass';
 import { Asset } from '@root/common/models/Asset';
 
 import { getAddressFromPassphrase } from '@liskhq/lisk-cryptography';
+import { APIClient } from '@liskhq/lisk-api-client';
 
 
 const richPass = 'wagon stock borrow episode laundry kitten salute link globe zero feed marble';
@@ -67,11 +68,10 @@ export class LiskService {
   async addCash(user: User) {
     const recipient = getAddressFromPassphrase(richPass);
 
-    const transferForm = trans.transfer({
-      recipientId: recipient,
-      amount: '1',
+    const tx = new TransferTransaction({
+      amount: '1000',
+      recipientId: recipient
     });
-    const tx = new TransferTransaction(transferForm);
     tx.sign(richPass);
 
     devnet.transactions.broadcast(tx.toJSON())
@@ -86,10 +86,11 @@ export class LiskService {
   async login(user: User) {
     let account: Account = (await this.getAccount(user.address) as Partial<User>)[0];
     user = new User({ ...user, ...account });
-    console.log(user)
-    if (account) {
-      return user;
-    } else return;
+    this.log.info(account)
+    // if (account) {
+    //   return user;
+    // } else return;
+    return user;
   }
 
 

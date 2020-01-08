@@ -2,7 +2,7 @@ import { Injectable, HttpService } from '@nestjs/common';
 import * as trans from '@liskhq/lisk-transactions';
 import * as passphrase from '@liskhq/lisk-passphrase';
 import * as crypto from '@liskhq/lisk-cryptography';
-import { lisknet } from './lisk.module';
+import { lisknet, devnet } from './lisk.module';
 import { AxiosResponse } from 'axios';
 import { logger, Logger } from '@root/common/logger';
 import { AccountTransaction } from './transactions/account.transaction';
@@ -17,7 +17,7 @@ const richPass = 'wagon stock borrow episode laundry kitten salute link globe ze
 import { lorem } from '@root/common/models/Utils';
 import { getAddressFromPassphrase } from '@liskhq/lisk-cryptography';
 
-function timeout(ms) {
+function timeout(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -30,10 +30,6 @@ export class LiskService {
   constructor(
     public http: HttpService
   ) {  
-    this.test();
-  }
-
-  test() {
     
   }
   
@@ -53,7 +49,21 @@ export class LiskService {
       passphrase: richPass
     });
 
-    await lisknet.transactions.broadcast(tx)
+    await devnet.transactions.broadcast(tx)
+    .then(data => {
+      this.log.info(`Account Created: ${crypto.getAddressFromPassphrase(pass)}`);
+    })
+    .catch(err => this.log.error(err));
+  }
+
+  async addCash(pass: string) {
+    let tx = trans.transfer({
+      amount: '1000000000',
+      recipientId: crypto.getAddressFromPassphrase(pass),
+      passphrase: richPass
+    });
+
+    await devnet.transactions.broadcast(tx)
     .then(data => {
       this.log.info(`Account Created: ${crypto.getAddressFromPassphrase(pass)}`);
     })

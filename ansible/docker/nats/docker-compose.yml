@@ -1,0 +1,12 @@
+version: '3'
+services:
+  nats:
+    build: .
+    image: ${IMAGE}
+    networks:
+      - main
+
+networks:
+  main:
+    external:
+      name: main

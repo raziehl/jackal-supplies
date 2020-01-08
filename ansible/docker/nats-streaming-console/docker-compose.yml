@@ -1,0 +1,19 @@
+version: '3'
+services:
+  nats-streaming-console:
+    build: .
+    image: ${IMAGE}
+    #image: kuali/nats-streaming-console:latest
+    #image: mozgoo/nats-streaming-console:latest
+    environment:
+      - STAN_CLUSTER=pandora-cluster
+      - STAN_URL=nats://nats-streaming:4222
+      - STAN_MONITOR_URL=http://nats-streaming:8222
+    ports:
+      - 8282:8282
+    networks:
+      - main
+networks:
+  main:
+    external:
+      name: main

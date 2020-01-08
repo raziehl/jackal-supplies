@@ -1,0 +1,32 @@
+{
+  "DomainName": "{{ env }}",
+  "ElasticsearchVersion": "{{ es.version }}",
+  "ElasticsearchClusterConfig": {
+    "InstanceType": "{{ es.instance_type }}",
+    "InstanceCount": {{ es.instance_count }},
+    "ZoneAwarenessEnabled": {{ (es.instance_count == 1) | ternary('false', 'true') }},
+    "DedicatedMasterEnabled": {{ es.dedicated_masters_enabled | lower }},
+    {% if es.dedicated_masters_enabled %}
+    "DedicatedMasterType": "{{ es.dedicated_masters_type }}",
+    "DedicatedMasterCount": {{ es.dedicated_masters_count }},
+    {% endif %}
+  },
+  "EBSOptions": {
+    "EBSEnabled": true,
+    "VolumeType": "gp2",
+    "VolumeSize": {{ es.ebs_size_gb }},
+  },
+  "AccessPolicies": "{{ lookup('template', '../files/elasticsearch-access-policy.json.j2') | to_json | regex_replace('\"', '\\\"') }}",
+  "SnapshotOptions": {
+    "AutomatedSnapshotStartHour": 14
+  },
+  "VPCOptions": {
+    "SubnetIds": [
+      "{{ subnet_results['results'][0]['subnet']['id'] }}"
+{#      "{{ subnet_results['results'][1]['subnet']['id'] }}"#}
+    ]
+{#    "SecurityGroupIds": [#}
+{#      "{{ vpc_security_group_ids['vpc'] }}"#}
+{#    ]#}
+  }
+}

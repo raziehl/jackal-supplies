@@ -1,0 +1,14 @@
+version: '3'
+services:
+  webserver:
+    build: .
+    image: ${IMAGE}
+    ports:
+      - "80:80"
+    networks:
+      - main
+
+networks:
+  main:
+    external:
+      name: main

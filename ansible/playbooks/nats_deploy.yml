@@ -1,0 +1,80 @@
+---
+- import_playbook: nats_build.yml
+  when: build is defined and build == 'true'
+
+- import_playbook: nats_stream_console_build.yml
+  when: build is defined and build == 'true'
+
+- name: Install NATS streaming server
+  vars_files:
+    - "../config/{{ env }}.yml"
+  become: yes
+  hosts: "{{ env }}[0]"
+  tasks:
+    - name: Prepare credentials
+      shell: "$(aws ecr get-login --region {{ aws.region }} --no-include-email)"
+      environment:
+        HOME: /root
+    - name: Deploy NATS
+      docker_swarm_service:
+        name: nats
+        image: "{{ docker.registry }}:nats"
+        force_update: true
+        args:
+          - "--store"
+          - "file"
+          - "--dir"
+          - "/data"
+          - "--cluster_id"
+          - "pandora-cluster"
+          - "--max_age"
+          - "60m"
+          - "--max_inactivity"
+          - "60m"
+          - "--http_port"
+          - "8222"
+          - "--config"
+          - "/opt/nats/nats-server.conf"
+        networks: main
+        user: null
+
+#    - name: Deploy NATS Monitor
+#      docker_swarm_service:
+#        name: monitor
+#        image: 207389111491.dkr.ecr.ap-south-1.amazonaws.com/dev-amethyst_apps:natsboard
+#        force_update: true
+#        env:
+#          - "NATS_MONITOR_URL=http://nats:8222"
+#        publish:
+#          - published_port: 3000
+#            target_port: 3000
+#          - published_port: 3001
+#            target_port: 3001
+#        networks: main
+#        user: null
+
+#    - name: Deploy NATS Streaming Console [copy docker-compose.yml]
+#      template:
+#        src: ../docker/nats-streaming-console/docker-compose.yml
+#        dest: /tmp/
+#        owner: ubuntu
+#        mode: 0755
+
+    - name: Deploy NATS Streaming Console [deploy stack]
+#      shell: docker stack deploy --compose-file /tmp/docker-compose.yml nats-streaming-console
+#      environment:
+#        IMAGE: "{{ docker.registry }}:nats-streaming-console"
+      docker_swarm_service:
+        name: nats-streaming-console
+        image: "{{ docker.registry }}:nats-streaming-console"
+        force_update: true
+        command: node server
+        publish:
+          - published_port: 8282
+            target_port: 8282
+        env:
+          - "STAN_CLUSTER=pandora-cluster"
+          - "STAN_URL=nats://nats:4222"
+          - "STAN_MONITOR_URL=http://nats:8222"
+        networks: main
+        user: null

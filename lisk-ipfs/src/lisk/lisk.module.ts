@@ -17,7 +17,7 @@ export const lisknet = new APIClient(
 );
 
 export const devnet = new APIClient(
-  ['http://localhost:4000']
+  ['http://petroschi.com:4000']
 );
 
 

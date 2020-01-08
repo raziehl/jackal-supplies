@@ -1,0 +1,226 @@
+---
+- name: Prepare AWS environment
+
+  # Ansible is usually running tasks on remote hosts. 
+  # Since we now interact with AWS API, Ansible will execute the tasks on localhost.
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  # These are the configuration files.
+  # You can find these files in config dir.
+  vars_files:
+    - "../config/{{ env }}.yml"
+  tasks:
+    - name: Get VPC details
+      ec2_vpc_net_facts:
+        filters:
+          "tag:Name": "{{ env }}"
+      register: vpc_results
+
+    - name: Get subnets details
+      ec2_vpc_subnet_facts:
+        filters:
+          "tag:environment": "{{ env }}"
+      register: subnet_results
+
+    - name: Create EC2 instances for docker masters
+      # Prepare the EC2 cluster using ec2_module.
+      # Doc: https://docs.ansible.com/ansible/latest/modules/ec2_module.html
+      ec2:
+        # Basic instance details
+        instance_type: "{{ ec2.instance_type }}"
+        assign_public_ip: true
+        key_name: "{{ ec2.key_name }}"
+        image: "{{ ec2.ami_id }}"
+        region: "{{ aws.region }}"
+        group: ec2_docker
+        vpc_subnet_id: "{{ subnet_results['subnets'][1]['id'] }}"
+
+        instance_profile_name: ecr_readonly
+
+        # Instance tags
+        instance_tags:
+          Name: "{{ env }}_docker_master"
+          node_type: "{{ env }}_docker_master"
+
+        # Ansible will spin up this many instances.
+        # The count_tag is used to filter the instances.
+        # This translates in: we need x many instances with tag node_type = docker_master.
+        exact_count: "{{ docker.master_nodes }}"
+        count_tag:
+          node_type: "{{ env }}_docker_master"
+
+        # Wait for the instances to be created,
+        # (vs) hit and run.
+        wait: true
+
+        # Deploy initial configuration using AWS user_data.
+        # https://docs.ansible.com/ansible/2.4/playbooks_lookups.html
+        user_data: "{{ lookup('template', '../files/user_data.j2') }}"
+
+      # Register stores the results of the tast in a variable, to be used later.
+      register: ec2_master_results
+
+    - name: Create EC2 instances for docker workers
+      # Prepare the EC2 cluster using ec2_module.
+      # Doc: https://docs.ansible.com/ansible/latest/modules/ec2_module.html
+      ec2:
+        # Basic instance details
+        instance_type: "{{ ec2.instance_type }}"
+        assign_public_ip: true
+        key_name: "{{ ec2.key_name }}"
+        image: "{{ ec2.ami_id }}"
+        group: ec2_docker
+        region: "{{ aws.region }}"
+        vpc_subnet_id: "{{ subnet_results['subnets'][1]['id'] }}"
+
+        instance_profile_name: ecr_readonly
+
+        # Instance tags
+        instance_tags:
+          Name: "{{ env }}_docker_worker"
+          node_type: "{{ env }}_docker_worker"
+
+        # Ansible will spin up this many instances.
+        # The count_tag is used to filter the instances.
+        # This translates in: we need x many instances with tag node_type = docker_worker.
+        exact_count: "{{ docker.worker_nodes }}"
+        count_tag:
+          node_type: "{{ env }}_docker_worker"
+
+        # Wait for the instances to be created,
+        # (vs) hit and run.
+        wait: true
+
+        # Deploy initial configuration using AWS user_data.
+        # https://docs.ansible.com/ansible/2.4/playbooks_lookups.html
+        user_data: "{{ lookup('template', '../files/user_data.j2') }}"
+
+      # Register stores the results of the last in a variable, to be used later.
+      register: ec2_worker_results
+
+    - name: Wait for the servers to come up
+      pause:
+        minutes: 3
+
+    # Displays some debugging text with created instances.
+    - debug:
+        msg: "MASTERS - {{ ec2_master_results.instances }}"
+    - debug:
+        msg: "WORKERS - {{ ec2_worker_results.instances }}"
+
+
+- name: Prepopulate data from AWS - add hosts in master_hosts and worker_hosts, if there are any
+  import_playbook: ../helpers/get_hosts_aws.yml
+
+- name: Install python
+  hosts: master_hosts
+  gather_facts: false
+  become: yes
+  tasks:
+    - raw: apt-get update
+    - raw: apt-get install -y python
+
+- name: Install docker on first master and init swarm
+  hosts: master_hosts
+  become: yes
+  vars_files:
+    - "../config/{{ env }}.yml"
+
+  tasks:
+    - name: Remove unwanted packages
+      ignore_errors: true
+      apt:
+        state: absent
+        pkg: ['kubelet', 'kubectl', 'kubernetes-cni', 'docker', 'docker-engine', 'docker.io', 'containerd', 'runc']
+
+    - name: Install Docker APT authorization key
+      shell: |
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        add-apt-repository \
+          "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+    - name: Install wanted packages (Docker, Python, AWS, Fail2Ban)
+      apt:
+        update_cache: true
+        state: present
+        pkg: ['docker-ce', 'python-setuptools', 'python-pip', 'awscli', 'fail2ban']
+
+    - name: Install Docker python sdk
+      pip:
+        name: docker, docker-compose, boto, boto3
+
+
+- name: Getting status about master nodes
+  hosts: master_hosts
+  become: yes
+  vars_files:
+    - "../config/{{ env }}.yml"
+  tasks:
+
+    - name: Get facts about existing masters
+      docker_swarm:
+        state: inspect
+      register: swarm_results
+
+
+    - name: Adding info about master nodes
+      set_fact:
+        swarm_active: true
+        master_token: "{{ swarm_results['swarm_facts']['JoinTokens']['Manager'] }}"
+        worker_token: "{{ swarm_results['swarm_facts']['JoinTokens']['Worker'] }}"
+      when: swarm_results['swarm_facts'] is defined
+
+    - name: Adding info about master nodes
+      set_fact:
+        swarm_active: false
+      when: swarm_results['swarm_facts'] is not defined
+
+- name: Preparing masters
+  hosts: master_hosts
+  become: yes
+  vars_files:
+    - "../config/{{ env }}.yml"
+  tasks:
+    - name: Get master variables
+      set_fact:
+        join_token: "{{ hostvars[item].master_token }}"
+        remote_address: "{{ hostvars[item].private_ip }}"
+      with_items: "{{ groups.master_hosts }}"
+      when: hostvars[item].swarm_active
+
+    - debug:
+        msg: "PRIVATE IP - {{ hostvars[item].private_ip }}"
+      with_items: "{{ groups.master_hosts }}"
+      when: hostvars[item].swarm_active
+
+    # https://docs.ansible.com/ansible/latest/modules/docker_swarm_module.html
+    - name: Masters joining swarm cluster
+      docker_swarm:
+        state: join
+        remote_addrs: [ "{{ remote_address }}" ]
+        advertise_addr: "{{ private_ip }}"
+        join_token: "{{ join_token }}"
+      when: hostvars[inventory_hostname].swarm_active == false
+
+
+- name: Preparing worker nodes
+  hosts: worker_hosts
+  become: yes
+  tasks:
+
+    - name: Get master variables
+      set_fact:
+        join_token: "{{ hostvars[item].worker_token }}"
+        remote_address: "{{ hostvars[item].private_ip }}"
+      with_items: "{{ groups.master_hosts }}"
+      when: hostvars[item].swarm_active
+
+    # https://docs.ansible.com/ansible/latest/modules/docker_swarm_module.html
+    - name: Workers joining swarm cluster
+      docker_swarm:
+        state: join
+        remote_addrs: [ "{{ remote_address }}" ]
+        advertise_addr: "{{ private_ip }}"
+        join_token: "{{ join_token }}"

@@ -1,0 +1,13 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "{{ aws.account_id }}"
+      },
+      "Action": "es:*",
+      "Resource": "arn:aws:es:{{ aws.region }}:{{ aws.account_id }}:domain/{{ env }}/*"
+    }
+  ]
+}
