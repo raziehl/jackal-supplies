@@ -7,11 +7,11 @@ import * as passphrase from '@liskhq/lisk-passphrase';
 import * as crypto from '@liskhq/lisk-cryptography';
 import { lisknet, devnet } from './lisk.module';
 import { AxiosResponse } from 'axios';
-import { Logger } from '@root/common/logger';
+import { Logger } from '../../../common/logger';
 import { AccountTransaction } from './transactions/account.transaction';
-import { User } from '@root/common/models/User';
-import { EnrichedPass } from '@root/common/models/EnrichedPass';
-import { Asset } from '@root/common/models/Asset';
+import { User } from '../../../common/models/User';
+import { EnrichedPass } from '../../../common/models/EnrichedPass';
+import { Asset } from '../../../common/models/Asset';
 
 import { getAddressFromPassphrase } from '@liskhq/lisk-cryptography';
 import { APIClient } from '@liskhq/lisk-api-client';
@@ -46,7 +46,7 @@ export class LiskService {
   }
 
   async test() {
-     
+    
   }
 
   async updateAccount(user: User) {
@@ -75,26 +75,30 @@ export class LiskService {
   }
 
   async addCash(user: User) {
-    // const tx = new TransferTransaction({
-    //   id: 'asdasf234',
-    //   timestamp: 0,
-    //   recipientId: user.address,
-    //   amount: '100000'
-    // });
-    const tx = new TransferTransaction({
-      timestamp: timestamp(),
+    const tx = trans.transfer({
       amount: '10000',
-      recipientId: user.address, 
-    })
-    tx.sign(richPass);
+      networkIdentifier: '7158c297294a540bc9ac6e474529c3da38d03ece056e3fa2d98141e6ec54132d',
+      recipientId: user.address,
+      passphrase: richPass
+    });
+    // const tx = new TransferTransaction({
+    //   timestamp: timestamp(),
+    //   amount: '10000',
+    //   recipientId: user.address
+    // })
+    // tx.sign(richPass);
     console.log('ADD CASH')
 
-    devnet.transactions.broadcast(tx.toJSON())
+    devnet.transactions.broadcast(tx)
     .then(async (msg) => {
-      log.info(msg);
+      console.log(msg);
       const account = await this.getAccount(user.address);
     })
-    .catch(log.error);
+    .catch(console.log);
+  }
+
+  async initialization() {
+    
   }
 
   async login(user: User) {

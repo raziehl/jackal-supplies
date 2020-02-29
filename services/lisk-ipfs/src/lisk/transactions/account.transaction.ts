@@ -1,12 +1,12 @@
 import { BaseTransaction, TransactionError, utils } from '@liskhq/lisk-transactions';
-import { Logger } from '@root/common/logger';
-import { User } from '@root/common/models/User';
+import { Logger } from '../../../../common/logger';
+import { User } from '../../../../common/models/User';
 
 const logger = new Logger('info');
 
 export class AccountTransaction extends BaseTransaction {
 
-  private asset: any;
+  private accountAsset: any;
 
   protected verifyAgainstTransactions(transactions: readonly import("@liskhq/lisk-transactions").TransactionJSON[]): readonly TransactionError[] {
     throw new Error("Method not implemented.");
@@ -68,7 +68,7 @@ export class AccountTransaction extends BaseTransaction {
   }
 
   assetToJSON() {
-    return JSON.parse(this.asset);
+    return this.asset;
   }
 
 }

@@ -6,14 +6,15 @@ import { CryptoService } from './crypto.service';
 
 import { Application, genesisBlockDevnet, configDevnet } from 'lisk-sdk';
 import { APIClient } from '@liskhq/lisk-api-client';
-import { Logger } from '@root/common/logger';
+import { Logger } from '../../../common/logger';
 import { AccountTransaction } from './transactions/account.transaction';
 
-import { DEVNET_URL } from '@root/common/env_vars';
+import { DEVNET_URL } from '../../../common/env_vars';
 
 configDevnet.components.logger.consoleLogLevel = process.env.LISK_LOG_LEVEL || 'error';
 // configDevnet.components.logger.logFileName = './lisk.log';
-console.log(genesisBlockDevnet.transactions[0])
+console.log(genesisBlockDevnet.transactions[0]);
+console.log(configDevnet);
 
 // genesisBlockDevnet.transactions[0] = {
 //   id: '7646387794267587684',

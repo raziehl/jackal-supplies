@@ -18,7 +18,8 @@ export class LiskController {
 
   @Post('enrichPass')
   enrichPass(@Request() req) {
-      const passphrase: string = req.body;
+      const passphrase: string = req.body.passphrase;
+      console.log(req.body)
       return this.crypto.enrichPass(passphrase);
   }
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { cryptography as crypto } from 'lisk-sdk';
 import * as passphrase from '@liskhq/lisk-passphrase';
-import { EnrichedPass } from '@root/common/models/EnrichedPass';
-import { Logger } from '@root/common/logger';
+import { EnrichedPass } from '../../../common/models/EnrichedPass';
+import { Logger } from '../../../common/logger';
 
 const { Mnemonic } = passphrase;
 
