@@ -4,7 +4,7 @@ import { TransferTransaction } from '@liskhq/lisk-transactions';
 import * as transactions from '@liskhq/lisk-transactions';
 import { EPOCH_TIME } from '@liskhq/lisk-constants';
 import * as passphrase from '@liskhq/lisk-passphrase';
-import * as crypto from '@liskhq/lisk-cryptography';
+import { getNetworkIdentifier } from '@liskhq/lisk-cryptography';
 import { lisknet, devnet } from './lisk.module';
 import { AxiosResponse } from 'axios';
 import { Logger } from '../../../common/logger';
@@ -14,14 +14,10 @@ import { EnrichedPass } from '../../../common/models/EnrichedPass';
 import { Asset } from '../../../common/models/Asset';
 
 import { getAddressFromPassphrase } from '@liskhq/lisk-cryptography';
-import { APIClient } from '@liskhq/lisk-api-client';
 import { convertBeddowsToLSK, convertLSKToBeddows } from '@liskhq/lisk-transactions/dist-node/utils';
-import { HexBase64BinaryEncoding } from 'crypto';
 
 
 const richPass = 'wagon stock borrow episode laundry kitten salute link globe zero feed marble';
-
-const ownerPass = 'satisfy sorry fuel image garden maple bone sweet pet ocean flash escape';
 
 const log = new Logger('info');
 
@@ -77,16 +73,13 @@ export class LiskService {
   async addCash(user: User) {
     const tx = trans.transfer({
       amount: '10000',
-      networkIdentifier: '7158c297294a540bc9ac6e474529c3da38d03ece056e3fa2d98141e6ec54132d',
+      networkIdentifier: getNetworkIdentifier(
+        "23ce0366ef0a14a91e5fd4b1591fc880ffbef9d988ff8bebf8f3666b0c09597d",
+        "Lisk",
+      ),
       recipientId: user.address,
       passphrase: richPass
     });
-    // const tx = new TransferTransaction({
-    //   timestamp: timestamp(),
-    //   amount: '10000',
-    //   recipientId: user.address
-    // })
-    // tx.sign(richPass);
     console.log('ADD CASH')
 
     devnet.transactions.broadcast(tx)

@@ -1,6 +1,6 @@
 import { BaseTransaction, TransactionError, StateStore, utils } from '@liskhq/lisk-transactions';
-import { Logger } from '@root/common/logger';
-import { User } from '@root/common/models/User';
+import { Logger } from '../../../../common/logger';
+import { User } from '../../../../common/models/User';
 
 const log = new Logger('info');
 
