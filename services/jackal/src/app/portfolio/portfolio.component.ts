@@ -37,6 +37,7 @@ export class PortfolioComponent implements OnInit {
       description: lorem.substring(0, 100),
       cid: 'https://thumbor.forbes.com/thumbor/1280x868/https%3A%2F%2Fblogs-images.forbes.com%2Fstephenkey%2Ffiles%2F2018%2F01%2FImage-from-Stephen-Keys-patent-1200x1455.jpg'
     });
+    console.log(this.exampleObject)
     this.user = this.auth.user;
     this.assets = this.user.asset.portfolio;
     console.log(this.assets)

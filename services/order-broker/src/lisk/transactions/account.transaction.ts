@@ -44,12 +44,11 @@ export class AccountTransaction extends BaseTransaction {
 
   applyAsset(store: StateStore) {
     const errors = [];
-    const asset: Partial<User> = this.asset;
-    let sender: any = store.account.get(this.senderId);
+    // const asset: Partial<User> = this.asset;
+    // let sender: any = store.account.get(this.senderId);
 
-    console.log(asset);
-    const newObj = { ...sender, asset: asset };
-    store.account.set(sender.address, newObj);
+    // const newObj = { ...sender, asset: asset };
+    // store.account.set(sender.address, newObj);
 
     return errors;
   }

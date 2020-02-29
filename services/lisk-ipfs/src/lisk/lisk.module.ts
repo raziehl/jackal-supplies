@@ -2,6 +2,7 @@ import { Module, HttpModule } from '@nestjs/common';
 import { LiskService } from './lisk.service';
 import { LiskController } from './lisk.controller';
 import { CryptoService } from './crypto.service';
+import { getNetworkIdentifier } from '@liskhq/lisk-cryptography';
 
 
 import { Application, genesisBlockDevnet, configDevnet } from 'lisk-sdk';
@@ -23,15 +24,17 @@ genesisBlockDevnet.transactions[0] = {
   asset: { amount: '10000000000000000', recipientId: '16313739661670634666L' }
 }
 
-console.log(genesisBlockDevnet.transactions[0]);
-console.log(configDevnet);
-
 export const lisknet = new APIClient(
   process.env.MAINNET ? APIClient.constants.MAINNET_NODES : APIClient.constants.TESTNET_NODES
 );
 
 export const devnet = new APIClient(
   [DEVNET_URL]
+);
+
+export const networkIdentifier = getNetworkIdentifier(
+  "23ce0366ef0a14a91e5fd4b1591fc880ffbef9d988ff8bebf8f3666b0c09597d",
+  "Lisk",
 );
 
 @Module({

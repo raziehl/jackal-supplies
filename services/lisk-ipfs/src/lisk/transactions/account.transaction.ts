@@ -25,7 +25,7 @@ export class AccountTransaction extends BaseTransaction {
   }
 
   static get FEE() {
-    return `${0}`;
+    return `0`;
   };
 
   async prepare(store) {
@@ -49,7 +49,6 @@ export class AccountTransaction extends BaseTransaction {
     const asset: Partial<User> = this.asset;
     let sender: any = store.account.get(this.senderId);
 
-    console.log(asset);
     const newObj = { ...sender, asset: asset };
     store.account.set(sender.address, newObj);
 
@@ -64,7 +63,7 @@ export class AccountTransaction extends BaseTransaction {
   }
 
   assetToBytes() {
-    return Buffer.from(this.asset);
+    return Buffer.from(JSON.stringify(this.asset));
   }
 
   assetToJSON() {
