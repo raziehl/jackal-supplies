@@ -71,7 +71,7 @@ export class User extends Account {
     constructor(user: Partial<User> = {}) {
         super(user);
         this.passphrase = user.passphrase || '';
-        this.expiresIn = user.expiresIn || 1000000;
+        this.expiresIn = user.expiresIn || 28800000;
     }
 }
 

@@ -48,8 +48,6 @@ export class LiskService {
     });
     tx.sign(user.passphrase);
 
-    console.log(user);
-
     await devnet.transactions.broadcast(tx.toJSON())
     .then(data => log.info('Transaction result: ', data))
     .catch(err => log.error(err));
@@ -74,7 +72,6 @@ export class LiskService {
       recipientId: user.address,
       passphrase: richPass
     });
-    console.log('ADD CASH')
 
     devnet.transactions.broadcast(tx)
     .then(async (msg) => {
