@@ -8,16 +8,11 @@
   become: yes
   hosts: "{{ env }}"
   tasks:
-    - name: Prepare credentials
-      shell: "$(aws ecr get-login --region {{ aws.region }} --no-include-email)"
-      environment:
-        HOME: /root
-
     - name: Deploy webserver [copy docker-compose.yml]
       template:
         src: ../docker/webserver/docker-compose.yml
         dest: /tmp/
-        owner: ubuntu
+        owner: raziel
         mode: 0755
 
     - name: Deploy webserver [deploy stack]
@@ -26,4 +21,4 @@
         docker stack deploy  --with-registry-auth --compose-file /tmp/docker-compose.yml webserver
         docker service update  --with-registry-auth --force webserver_webserver
       environment:
-        IMAGE: "{{ docker.registry }}:webserver"
+        IMAGE: "rhaziel/webserver"

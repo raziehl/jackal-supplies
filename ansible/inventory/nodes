@@ -1,2 +1,2 @@
 [jackal]
-jackal      public_ip=139.59.136.223    private_ip=139.59.136.223     server_type=docker  docker_type=manager  docker_init=active
+jackal-supplies      public_ip=139.59.136.223    private_ip=139.59.136.223     server_type=docker  docker_type=manager  docker_init=active

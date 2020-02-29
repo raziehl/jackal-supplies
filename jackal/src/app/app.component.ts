@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { AuthService } from './core/auth.service';
 import { Router } from '@angular/router';
+import { UserInfo } from '@root/common/models/User';
 
 @Component({
   selector: 'app-root',

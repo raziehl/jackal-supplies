@@ -1,4 +1,4 @@
-import { BaseTransaction, TransactionError, StateStore, utils } from '@liskhq/lisk-transactions';
+import { BaseTransaction, TransactionError, utils } from '@liskhq/lisk-transactions';
 import { logger, Logger } from '@root/common/logger';
 import { User } from '@root/common/models/User';
 
@@ -6,6 +6,7 @@ export class AccountTransaction extends BaseTransaction {
 
   @logger()
   private log: Logger;
+  private asset: any;
 
   protected verifyAgainstTransactions(transactions: readonly import("@liskhq/lisk-transactions").TransactionJSON[]): readonly TransactionError[] {
     throw new Error("Method not implemented.");
@@ -20,7 +21,7 @@ export class AccountTransaction extends BaseTransaction {
   }
 
   static get TYPE() {
-    return 10;
+    return 13;
   }
 
   static get FEE() {
@@ -43,7 +44,7 @@ export class AccountTransaction extends BaseTransaction {
     return errors;
   }
 
-  applyAsset(store: StateStore) {
+  applyAsset(store) {
     const errors = [];
     const asset: Partial<User> = this.asset;
     let sender: any = store.account.get(this.senderId);
@@ -55,11 +56,19 @@ export class AccountTransaction extends BaseTransaction {
     return errors;
   }
 
-  undoAsset(store: StateStore) {
+  undoAsset(store) {
     const sender = store.account.get(this.senderId);
     const nullAssetObj = { ...sender, asset: null };
     store.account.set(sender.address, nullAssetObj);
     return [];
+  }
+
+  assetToBytes() {
+    return Buffer.from(this.asset);
+  }
+
+  assetToJSON() {
+    return JSON.parse(this.asset);
   }
 
 }

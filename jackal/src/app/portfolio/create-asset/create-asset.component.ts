@@ -50,7 +50,6 @@ export class CreateAssetComponent implements OnInit {
     });
 
     this.user = this.auth.user;
-    console.log(sizeof(this.user.asset));
   }
 
   createAsset() {

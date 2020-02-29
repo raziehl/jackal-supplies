@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import * as moment from "moment";
-import { User, UserStuff } from '@root/common/models/User';
+import { User, UserInfo } from '@root/common/models/User';
 import { Asset } from '@root/common/models/Asset';
 import { isEmptyObject } from '@root/common/models/Utils';
 import { Router } from '@angular/router';

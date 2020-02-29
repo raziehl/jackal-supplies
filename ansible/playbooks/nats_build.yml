@@ -1,0 +1,23 @@
+---
+- name: "Building NATS"
+  vars_files:
+    - "../config/{{ env }}.yml"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Build image
+      shell: |
+        docker-compose -f ../docker/nats/docker-compose.yml build nats
+      environment:
+        IMAGE: "rhaziel/nats"
+
+    - name: Push image to DockerHub
+      shell: |
+        docker-compose -f ../docker/nats/docker-compose.yml push nats
+      environment:
+        IMAGE: "rhaziel/nats"
+
+
+

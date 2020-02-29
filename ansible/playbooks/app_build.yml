@@ -31,11 +31,6 @@
         - env_name != 'dev'
         - apps[app].third_parties is defined
 
-    # https://docs.ansible.com/ansible/latest/modules/docker_image_module.html
-    - name: Prepare credentials
-      shell: |
-        $(aws ecr get-login --region {{ aws.region }} --no-include-email)
-
     - name: Build image [stage, prod]
       shell: |
         docker-compose -f {{ work_dir }}/{{ apps[app].branch }}/{{ app }}/{{ apps[app].compose }} build {{ app }}

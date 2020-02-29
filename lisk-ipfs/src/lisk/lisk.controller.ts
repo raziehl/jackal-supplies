@@ -37,7 +37,6 @@ export class LiskController {
 
   @Post('addCash')
   async createUser(@Request() req) {
-      console.log('Cash Added')
       let user: User = req.body;
       return await this.lisk.addCash(user);
   }

@@ -56,16 +56,21 @@ export class LiskService {
     .catch(err => this.log.error(err));
   }
 
-  async addCash(pass: string) {
-    let tx = trans.transfer({
+  async addCash(user: User) {
+    // let tx = trans.transfer({
+    //   amount: '1000000000',
+    //   recipientId: crypto.getAddressFromPassphrase(pass),
+    //   passphrase: richPass
+    // });
+    let tx = new trans.TransferTransaction({
       amount: '1000000000',
-      recipientId: crypto.getAddressFromPassphrase(pass),
-      passphrase: richPass
-    });
+      recipientId: user.address
+    })
+    tx.sign(richPass);
 
-    await devnet.transactions.broadcast(tx)
+    await devnet.transactions.broadcast(tx.toJSON())
     .then(data => {
-      this.log.info(`Account Created: ${crypto.getAddressFromPassphrase(pass)}`);
+      this.log.info(`Account Created: ${user.address}`);
     })
     .catch(err => this.log.error(err));
   }

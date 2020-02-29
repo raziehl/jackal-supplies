@@ -1,6 +1,8 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import * as trans from '@liskhq/lisk-transactions';
 import { TransferTransaction } from '@liskhq/lisk-transactions';
+import * as transactions from '@liskhq/lisk-transactions';
+import { EPOCH_TIME } from '@liskhq/lisk-constants';
 import * as passphrase from '@liskhq/lisk-passphrase';
 import * as crypto from '@liskhq/lisk-cryptography';
 import { lisknet, devnet } from './lisk.module';
@@ -13,15 +15,24 @@ import { Asset } from '@root/common/models/Asset';
 
 import { getAddressFromPassphrase } from '@liskhq/lisk-cryptography';
 import { APIClient } from '@liskhq/lisk-api-client';
+import { convertBeddowsToLSK, convertLSKToBeddows } from '@liskhq/lisk-transactions/dist-node/utils';
+import { HexBase64BinaryEncoding } from 'crypto';
 
 
 const richPass = 'wagon stock borrow episode laundry kitten salute link globe zero feed marble';
 
-const ownerPass = 'length shaft waste asset quote chair renew biology turkey before garage trophy';
+const ownerPass = 'satisfy sorry fuel image garden maple bone sweet pet ocean flash escape';
 
 function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+export function timestamp() {
+    const millisSinceEpoc = Date.now() - Date.parse(EPOCH_TIME.toString());
+    const inSeconds = ((millisSinceEpoc) / 1000).toFixed(0);
+    return  parseInt(inSeconds);
+}
+
 
 @Injectable()
 export class LiskService {
@@ -36,13 +47,12 @@ export class LiskService {
   }
 
   async test() {
-    
+     
   }
 
   async updateAccount(user: User) {
-    console.log('UPDATE')
     const tx = new AccountTransaction({
-      timestamp: new Date(),
+      timestamp: timestamp(),
       asset: user.asset
     });
     console.log(user.asset.portfolio)
@@ -66,19 +76,24 @@ export class LiskService {
   }
 
   async addCash(user: User) {
-    const recipient = getAddressFromPassphrase(richPass);
-
+    // const tx = new TransferTransaction({
+    //   id: 'asdasf234',
+    //   timestamp: 0,
+    //   recipientId: user.address,
+    //   amount: '100000'
+    // });
     const tx = new TransferTransaction({
-      amount: '1000',
-      recipientId: recipient
-    });
+      timestamp: timestamp(),
+      amount: '10000',
+      recipientId: user.address, 
+    })
     tx.sign(richPass);
+    console.log('ADD CASH')
 
     devnet.transactions.broadcast(tx.toJSON())
     .then(async (msg) => {
       this.log.info(msg);
-      const account = await this.getAccount(recipient);
-      console.log(account);
+      const account = await this.getAccount(user.address);
     })
     .catch(this.log.error);
   }
@@ -86,11 +101,12 @@ export class LiskService {
   async login(user: User) {
     let account: Account = (await this.getAccount(user.address) as Partial<User>)[0];
     user = new User({ ...user, ...account });
-    this.log.info(account)
-    // if (account) {
-    //   return user;
-    // } else return;
-    return user;
+    if (account)
+      return user;
+    return new User({
+      address: getAddressFromPassphrase(user.passphrase),
+      passphrase: user.passphrase
+    });
   }
 
 

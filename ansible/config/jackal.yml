@@ -1,36 +1,32 @@
 ---
 env_name: dev
 work_dir: /tmp/repos
-hostname: dev.pandora
+hostname: jackal-supplies
+user: raziel
 
 db:
-  host: pandora-dev.c1mwemzun879.ap-south-1.rds.amazonaws.com
-  name: dev_pandora
-  user: dev_pandora
-  password: wyfKAA3aqkDRKP3g
+  host: petroschi.com
+  name: lisk_dev
+  user: lisk
+  password: password
 
 
 nats:
   servers: nats://nats:4222
 
 docker:
+  registry: 'registry-1.docker.io'
   networks:
     - main
 
 apps:
   order-broker:
-    repo: git@github.com:relario/hypercentage-pandora.git
+    repo: git@github.com:raziehl/jackal-supplies.git
     branch: development
-    compose: docker-compose.yml
+    compose: order-broker.compose.yml
     env_vars:
       ENV: "{{ env_name }}"
-      ECR_REPOSITORY: "{{ docker.registry }}"
-      ES_ENDPOINT: "{{ elasticsearch.endpoint }}"
-      ES_PORT: "{{ elasticsearch.port }}"
-      ES_TIME_FORMAT: "{{ elasticsearch.date_format }}"
-      REDIS_ENDPOINT: "{{ redis.endpoint }}"
-      REDIS_PORT: "{{ redis.port }}"
       NATS_SERVERS: "{{ nats.servers }}"
       REPLICAS: 1
-      VOLUME_PATH: "/opt/affise"
+      VOLUME_PATH: "/opt/order-broker"
 

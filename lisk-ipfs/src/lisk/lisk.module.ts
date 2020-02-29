@@ -9,27 +9,37 @@ import { APIClient } from '@liskhq/lisk-api-client';
 import { logger, Logger } from '@root/common/logger';
 import { AccountTransaction } from './transactions/account.transaction';
 
+import { DEVNET_URL } from '@root/common/env_vars';
+
 configDevnet.components.logger.consoleLogLevel = process.env.LISK_LOG_LEVEL || 'error';
-configDevnet.components.logger.logFileName = './lisk.log';
+// configDevnet.components.logger.logFileName = './lisk.log';
+console.log(genesisBlockDevnet.transactions[0])
+
+// genesisBlockDevnet.transactions[0] = {
+//   id: '7646387794267587684',
+//   type: 8,
+//   timestamp: 0,
+//   senderPublicKey: 'edf5786bef965f1836b8009e2c566463d62b6edd94e9cced49c1f098c972b92b',
+//   signature: '9f1282585cf91c9da0355f8e75c53363e50c0c1d41e96756b2bda02991ecb351bf67a5b0206050044f341a283725ecb1e78526cc6ee6fd045455d210f3a81f02',
+//   asset: { amount: '10000000000000000', recipientId: '5112211285022629405L' }
+// }
+
 
 export const lisknet = new APIClient(
   process.env.MAINNET ? APIClient.constants.MAINNET_NODES : APIClient.constants.TESTNET_NODES
 );
 
 export const devnet = new APIClient(
-  ['http://petroschi.com:4000']
+  [DEVNET_URL]
 );
-
 
 @Module({
   imports: [HttpModule],
   providers: [{
       provide: 'LISK_SETUP',
       useFactory: () => {
-        const app = new Application(genesisBlockDevnet)
-        
+        const app = new Application(genesisBlockDevnet, configDevnet);
         app.registerTransaction(AccountTransaction);
-        console.log(devnet.nodes);
         app
         .run()
         .then(() => console.log('Lisk Connected'))

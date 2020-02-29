@@ -9,7 +9,7 @@ import { logger, Logger } from '@root/common/logger';
 import { LiskController } from './lisk.controller';
 
 
-configDevnet.components.storage.host = 'petroschi.com';
+// configDevnet.components.storage.host = 'petroschi.com';
 configDevnet.components.logger.consoleLogLevel = process.env.LISK_LOG_LEVEL || 'error';
 configDevnet.components.logger.logFileName = './lisk.log';
 

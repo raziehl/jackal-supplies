@@ -1,19 +1,19 @@
 import { Asset } from './Asset';
 
-export class UserStuff {
+export class UserInfo {
     username: string;
 
-    constructor(userStuff: Partial<UserStuff> = {}) {
-        this.username = userStuff.username || '';
+    constructor(userInfo: Partial<UserInfo> = {}) {
+        this.username = userInfo.username || '';
     }
 }
 
 export class AssetBlock {
-    userStuff?: UserStuff;
+    userInfo?: UserInfo;
     portfolio?: Array<Asset>;
 
     constructor(asset: Partial<AssetBlock> = {}) {
-        this.userStuff = new UserStuff(asset.userStuff);
+        this.userInfo = new UserInfo(asset.userInfo);
         this.portfolio = new Array<Asset>();
         if(asset.portfolio)
             asset.portfolio.forEach(asset => {

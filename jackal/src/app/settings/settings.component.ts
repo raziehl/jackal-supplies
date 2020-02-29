@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
 
   saveSettings() {
     const userSettings = this.settingsForm.value;
-    this.user.asset.userStuff.username = userSettings.usernameControl;
+    this.user.asset.userInfo.username = userSettings.usernameControl;
 
     this.http.post(`${backend}/lisk/updateUser`, this.user)
     .subscribe((user: User) => {

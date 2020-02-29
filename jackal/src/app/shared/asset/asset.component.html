@@ -1,6 +1,6 @@
 <div class="asset"
     (click)="showDetails(asset)"
-    [style.background]="'url('+asset.imageCID+')'"
+    [style.background]="'url('+asset.cid+')'"
     [style.backgroundSize]="'cover'">
     <div class="asset-header"></div>
 
@@ -18,10 +18,10 @@
 
                 <div class="asset-details">
                     <div class="asset-price">
-                        PricePerShare: {{LSK}}{{asset.PPS}}
+                        PricePerShare: {{LSK}}{{asset.value}}
                     </div>
                     <div class="asset-shares">
-                        Shares: {{asset.currentShares}}
+                        Shares: {{asset.issued}}
                     </div>
                 </div>
             </div>

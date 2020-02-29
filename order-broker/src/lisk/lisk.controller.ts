@@ -9,11 +9,16 @@ export class LiskController {
     private lisk: LiskService
   ) {}
 
+  @Post('account')
+  async getAccount(@Request() req) {
+    const user: User = req.body;
+    return await this.lisk.login(user);
+  }
+
   @Post('addCash')
   async createUser(@Request() req) {
-      console.log('Cash Added')
       let user: User = req.body;
-      return await this.lisk.addCash(user.passphrase);
+      return await this.lisk.addCash(user);
   }
 
 }
