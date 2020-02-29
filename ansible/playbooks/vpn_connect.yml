@@ -1,0 +1,15 @@
+---
+
+- name: Connect VPN
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Launch OpenVPN
+      shell: |
+        OPENVPN_PID=$(pidof openvpn)
+        if [ "$OPENVPN_PID" != "" ]; then
+          kill $(pidof openvpn)
+        fi
+        openvpn --daemon --config ../config/{{ env }}.ovpn
+

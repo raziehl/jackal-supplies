@@ -1,0 +1,26 @@
+---
+
+- name: Build and push VPN service
+  vars_files:
+    - "../config/{{ env }}.yml"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Prepare credentials
+      shell: |
+        $(aws ecr get-login --region {{ aws.region }} --no-include-email)
+
+    - name: Build VPN docker image
+      docker_image:
+        build:
+          path: ../docker/vpn
+          pull: false
+        name: "vpn"
+        repository: "{{ docker.registry }}:vpn"
+        push: yes
+        state: present
+        force: true
+        rm: true
+

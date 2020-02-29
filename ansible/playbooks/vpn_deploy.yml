@@ -1,0 +1,42 @@
+---
+- import_playbook: vpn_build.yml
+  when: build is defined and build == 'true'
+- name: Install VPN
+  vars_files:
+    - "../config/{{ env }}.yml"
+  hosts: "{{ env }}[0]"
+  become: yes
+  tasks:
+    - name: Prepare credentials
+      shell: |
+        $(aws ecr get-login --region {{ aws.region }} --no-include-email)
+
+    - name: Deploy VPN
+      docker_container:
+        pull: true
+        name: vpn
+        image: "{{ docker.registry }}:vpn"
+        privileged: true
+        ports:
+          - "1194:1194/udp"
+        networks:
+          - name: main
+
+
+- name: Get VPN client configuration
+  vars_files:
+    - "../config/{{ env }}.yml"
+  hosts: "{{ env }}[0]"
+  become: yes
+  tasks:
+    - name: Copy the VPN config file from the container
+      shell: |
+        sleep 10
+        CONTAINER_ID=$(docker ps | grep ':vpn' | awk '{print $1}')
+        docker cp $CONTAINER_ID:/etc/openvpn/client.ovpn /
+
+    - name: Copy the client.ovpn locally
+      fetch:
+        src: /client.ovpn
+        dest: "../config/{{ env }}.ovpn"
+        flat: true

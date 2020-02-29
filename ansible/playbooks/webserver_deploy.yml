@@ -8,6 +8,11 @@
   become: yes
   hosts: "{{ env }}"
   tasks:
+    - name: Prepare credentials
+      shell: "$(aws ecr get-login --region {{ aws.region }} --no-include-email)"
+      environment:
+        HOME: /root
+
     - name: Deploy webserver [copy docker-compose.yml]
       template:
         src: ../docker/webserver/docker-compose.yml

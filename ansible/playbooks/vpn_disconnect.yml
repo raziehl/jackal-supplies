@@ -1,0 +1,15 @@
+---
+
+- name: Disconnect VPN
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Kill OpenVPN processes
+      ignore_errors: true
+      shell: |
+        OPENVPN_PID=$(pidof openvpn)
+        if [ "$OPENVPN_PID" != "" ]; then
+          kill $(pidof openvpn)
+        fi
+

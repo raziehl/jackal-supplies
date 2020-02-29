@@ -42,7 +42,7 @@
     # TS ADDED
     - name: Upload {{ app }} local files [dev]
       synchronize:
-        src: "../../{{ app }}/"
+        src: "../../services/{{ app }}/"
         dest: "/opt/{{ app }}/"
         copy_links: true
         links: true
@@ -53,6 +53,39 @@
         set_remote_user: false
       when: env_name == 'dev'
 
+    - name: Upload Common Libraries local files [dev]
+      synchronize:
+        src: "../../services/common/"
+        dest: "/opt/common/"
+        copy_links: true
+        links: true
+        rsync_opts:
+          - "--rsh=ssh -F {{ playbook_dir }}/../ssh.cfg"
+          - "--exclude=node_modules"
+          - "--exclude=dist"
+        set_remote_user: false
+      when: env_name == 'dev'
+
+    - name: Upload /services/package.json local [dev]
+      synchronize:
+        src: "../../services/package.json"
+        dest: "/opt/package.json"
+        copy_links: true
+        links: true
+        rsync_opts:
+          - "--rsh=ssh -F {{ playbook_dir }}/../ssh.cfg"
+          - "--exclude=node_modules"
+          - "--exclude=dist"
+        set_remote_user: false
+      when: env_name == 'dev'
+
+    - name: "Install TransService node_modules"
+      shell: |
+        cd /opt
+        rm -rf node_modules
+        npm install
+      when: env_name == 'dev'
+
     - name: "Install node_modules for {{ app }}"
       shell: |
         cd /opt/{{ app }}
@@ -60,11 +93,13 @@
         npm install
       when: env_name == 'dev'
 
-    - name: Building landing pages [dev]
+    - name: "Build {{ app }}"
       shell: |
         cd /opt/{{ app }}
-        nohup npx gulp >/dev/null 2>&1 &
-      when: app == 'pages'
+        npm run build:dev
+      when: env_name == 'dev'
+      ignore_errors: true
+
     # TS ADDED path: "/opt/{{ app }}"
     - name: Set permissions
       file:

@@ -11,6 +11,10 @@
   become: yes
   hosts: "{{ env }}[0]"
   tasks:
+    - name: Prepare credentials
+      shell: "$(aws ecr get-login --region {{ aws.region }} --no-include-email)"
+      environment:
+        HOME: /root
     - name: Deploy NATS
       docker_swarm_service:
         name: nats

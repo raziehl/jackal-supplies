@@ -18,11 +18,11 @@
     - name: Set hosts file
       template: src=files/hosts.j2 dest=/etc/hosts mode=0644 owner=root group=root
 
-    # - name: Set .bashrc file (ubuntu)
-    #   copy: src=files/bashrc.ubuntu dest=/home/ubuntu/.bashrc mode=0644 owner=ubuntu group=ubuntu
+    - name: Set .bashrc file (ubuntu)
+      copy: src=files/bashrc.ubuntu dest=/home/ubuntu/.bashrc mode=0644 owner=ubuntu group=ubuntu
 
-    # - name: Set .bashrc file (root)
-    #   copy: src=files/bashrc.root dest=/root/.bashrc mode=0644 owner=root group=root
+    - name: Set .bashrc file (root)
+      copy: src=files/bashrc.root dest=/root/.bashrc mode=0644 owner=root group=root
 
 
 - name: Install docker and various packages

@@ -1,0 +1,16 @@
+---
+- name: Install grafana
+  vars_files:
+    - "../config/{{ env }}.yml"
+  hosts: "{{ env }}[0]"
+  become: yes
+  tasks:
+    - name: Copy compose file to server
+      template:
+        src: ../docker/grafana/docker-compose.yml
+        dest: /tmp/
+        owner: ubuntu
+        mode: 0755
+
+    - name: Deploy grafana
+      shell: docker stack deploy --compose-file /tmp/docker-compose.yml grafana

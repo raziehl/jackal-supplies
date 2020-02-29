@@ -7,13 +7,17 @@
   gather_facts: false
 
   tasks:
+    - name: Prepare credentials
+      shell: |
+        $(aws ecr get-login --region {{ aws.region }} --no-include-email)
+
     - name: Build image
       shell: |
         docker-compose -f ../docker/nats/docker-compose.yml build nats
       environment:
         IMAGE: "rhaziel/nats"
 
-    - name: Push image to DockerHub
+    - name: Push image to ECR
       shell: |
         docker-compose -f ../docker/nats/docker-compose.yml push nats
       environment:

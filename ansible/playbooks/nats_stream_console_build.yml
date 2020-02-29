@@ -1,0 +1,27 @@
+---
+- name: "Building NATS streaming console"
+  vars_files:
+    - "../config/{{ env }}.yml"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Prepare credentials
+      shell: |
+        $(aws ecr get-login --region {{ aws.region }} --no-include-email)
+
+    - name: Build image
+      shell: |
+        docker-compose -f ../docker/nats-streaming-console/docker-compose.yml build nats-streaming-console
+      environment:
+        IMAGE: "{{ docker.registry }}:nats-streaming-console"
+
+    - name: Push image to ECR
+      shell: |
+        docker-compose -f ../docker/nats-streaming-console/docker-compose.yml push nats-streaming-console
+      environment:
+        IMAGE: "{{ docker.registry }}:nats-streaming-console"
+
+
+

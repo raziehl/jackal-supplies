@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true
+  },
+  "include": [
+    "**/src/**/*.ts"
+  ]
+}

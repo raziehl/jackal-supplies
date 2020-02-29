@@ -31,6 +31,11 @@
         - env_name != 'dev'
         - apps[app].third_parties is defined
 
+    # https://docs.ansible.com/ansible/latest/modules/docker_image_module.html
+    - name: Prepare credentials
+      shell: |
+        $(aws ecr get-login --region {{ aws.region }} --no-include-email)
+
     - name: Build image [stage, prod]
       shell: |
         docker-compose -f {{ work_dir }}/{{ apps[app].branch }}/{{ app }}/{{ apps[app].compose }} build {{ app }}
@@ -45,13 +50,13 @@
 
     - name: Build image [dev]
       shell: |
-        docker-compose -f ../../{{ app }}/{{ apps[app].compose }} build {{ app }}
+        docker-compose -f ../../services/{{ app }}/{{ apps[app].compose }} build {{ app }}
       environment: "{{ apps[app].env_vars }}"
       when: env_name == 'dev'
 
     - name: Push image to ECR [dev]
       shell: |
-        docker-compose -f ../../{{ app }}/{{ apps[app].compose }} push {{ app }}
+        docker-compose -f ../../services/{{ app }}/{{ apps[app].compose }} push {{ app }}
       environment: "{{ apps[app].env_vars }}"
       when: env_name == 'dev'
 
