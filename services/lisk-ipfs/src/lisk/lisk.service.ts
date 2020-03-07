@@ -87,7 +87,7 @@ export class LiskService {
     
   }
 
-  async login(user: User) {
+  async account(user: User) {
     let account: User = (await this.getAccount(user.address) as Partial<User>)[0];
     user = new User({ ...user, ...account });
     if (account)

@@ -27,7 +27,7 @@ export class LiskController {
   async login(@Request() req) {
       let user: User = req.body;
       user.address = this.crypto.getAddress(user.passphrase);
-      return await this.lisk.login(user);
+      return await this.lisk.account(user);
   }
 
   @Post('updateUser')
