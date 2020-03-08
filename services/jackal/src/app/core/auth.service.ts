@@ -16,6 +16,7 @@ const backend: string = environment.backend;
 export class AuthService implements OnInit {
 
   user: User;
+  isGlobalLoading: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -80,5 +81,12 @@ export class AuthService implements OnInit {
     .subscribe(() => {
       console.log('Cash added')
     }, () => {});
+  }
+
+  loadingTimeout(timeMillis: number) {
+    this.isGlobalLoading = true;
+    setTimeout(() => {
+      this.isGlobalLoading = false;
+    }, timeMillis);
   }
 }

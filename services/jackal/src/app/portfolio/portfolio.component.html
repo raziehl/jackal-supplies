@@ -1,4 +1,4 @@
-<div class="portfolio-container">
+<div class="portfolio-container" [hidden]="auth.isGlobalLoading">
     <div *ngIf="!auth.user.asset.portfolio.length">
         <!-- You've got no assets yet -->
     </div>
