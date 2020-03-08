@@ -97,7 +97,8 @@ import { CreateAssetComponent } from './portfolio/create-asset/create-asset.comp
     MatDialogClose
   ],
   entryComponents: [
-    CreateAssetComponent
+    CreateAssetComponent,
+    SpinnerComponent
   ],
   bootstrap: [AppComponent]
 })

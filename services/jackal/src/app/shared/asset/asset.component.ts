@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
+import { AssetManager } from 'src/app/core/asset-management.service';
+import { UtilService } from 'src/app/core/util.service';
 
 const backend = environment.backend;
 
@@ -27,22 +29,25 @@ export class AssetComponent implements OnInit {
   constructor(
     public auth: AuthService,
     public http: HttpClient,
-    public router: Router
+    public router: Router,
+    public manager: AssetManager,
+    public util: UtilService
   ) { }
 
   ngOnInit() {
     this.isPortfolio = this.router.url == '/portfolio';
   }
 
-  destroyAsset() {
+  async destroyAsset() {
     this.auth.user.asset.portfolio.splice(this.index, 1);
     
     this.http.post(`${backend}/lisk/updateUser`, this.auth.user)
     .subscribe(console.log, console.error);
-    this.auth.loadingTimeout(3000);
+
+    await this.manager.reloadUserData();
   }
 
-  showDetails(asset: Asset) {
+  showDetails() {
     this.isShown = !this.isShown;
   }
 }

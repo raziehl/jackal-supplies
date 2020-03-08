@@ -2,9 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import * as moment from "moment";
-import { User, UserInfo } from '@root/common/models/User';
-import { Asset } from '@root/common/models/Asset';
-import { isEmptyObject } from '@root/common/models/Utils';
+import { User } from '@root/common/models/User';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -16,7 +14,6 @@ const backend: string = environment.backend;
 export class AuthService implements OnInit {
 
   user: User;
-  isGlobalLoading: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -83,10 +80,4 @@ export class AuthService implements OnInit {
     }, () => {});
   }
 
-  loadingTimeout(timeMillis: number) {
-    this.isGlobalLoading = true;
-    setTimeout(() => {
-      this.isGlobalLoading = false;
-    }, timeMillis);
-  }
 }

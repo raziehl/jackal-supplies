@@ -7,6 +7,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material';
 import { CreateAssetComponent } from './create-asset/create-asset.component';
 import { User } from '@root/common/models/User';
+import { AssetManager } from '../core/asset-management.service';
+import { UtilService } from '../core/util.service';
 @Component({
   selector: 'app-portforlio',
   animations: [assetDetails],
@@ -27,6 +29,8 @@ export class PortfolioComponent implements OnInit {
 
   constructor(
     public auth: AuthService,
+    public manager: AssetManager,
+    public util: UtilService,
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog
   ) { }
@@ -44,14 +48,10 @@ export class PortfolioComponent implements OnInit {
   createAsset() {
     const dialogRef = this.dialog.open(CreateAssetComponent, {
       // width: '250px',
-      data: {name: 'PIZDA', animal: 'MARIJUANA'}
+      data: {},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    dialogRef.afterClosed().subscribe();
   }
 
-  destroyAsset() {
-    
-  }
 }

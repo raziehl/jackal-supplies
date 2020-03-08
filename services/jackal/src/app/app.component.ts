@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { AuthService } from './core/auth.service';
 import { Router } from '@angular/router';
+import { UtilService } from './core/util.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent {
 
   constructor(
     public auth: AuthService,
-    private router: Router
+    private router: Router,
+    public util: UtilService
   ) {}
 
   ngOnInit() {

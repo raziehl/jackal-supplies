@@ -1,11 +1,11 @@
-<div class="portfolio-container" [hidden]="auth.isGlobalLoading">
+<div class="portfolio-container" [hidden]="util.isGlobalLoading">
     <div *ngIf="!auth.user.asset.portfolio.length">
         <!-- You've got no assets yet -->
     </div>
 
     <mat-grid-list [cols]="(isHandset | async).matches ? 1 : 4"
     rowHeight="5:7" gutterSize="7px">
-        <mat-grid-tile *ngFor="let asset of assets; let i=index">
+        <mat-grid-tile *ngFor="let asset of manager.portfolio | async; let i=index">
             <app-asset [asset]="asset" [index]="i"></app-asset>
         </mat-grid-tile>
         <mat-grid-tile
