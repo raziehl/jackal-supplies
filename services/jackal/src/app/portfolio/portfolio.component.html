@@ -5,8 +5,8 @@
 
     <mat-grid-list [cols]="(isHandset | async).matches ? 1 : 4"
     rowHeight="5:7" gutterSize="7px">
-        <mat-grid-tile *ngFor="let asset of assets">
-            <app-asset [asset]="asset"></app-asset>
+        <mat-grid-tile *ngFor="let asset of assets; let i=index">
+            <app-asset [asset]="asset" [index]="i"></app-asset>
         </mat-grid-tile>
         <mat-grid-tile
         matTooltip="Create Asset">

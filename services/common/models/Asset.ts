@@ -15,7 +15,6 @@ enum AssetType {
 
 export class Asset {
 
-    // @Length(0, 20)
     name: string;
     description: string;
     cid: string;
@@ -25,6 +24,7 @@ export class Asset {
     tags: string[];
     assetHash: string;
     transactionTimestamp: string;
+    content?: Buffer;
 
     constructor(assetObject: Partial<Asset> = {}) {
         this.name = assetObject.name || '';

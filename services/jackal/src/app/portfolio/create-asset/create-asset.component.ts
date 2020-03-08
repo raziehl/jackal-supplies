@@ -6,19 +6,11 @@ import {lorem} from '@root/common/models/Utils';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Asset } from '@root/common/models/Asset';
-import { User, AssetBlock } from '@root/common/models/User';
+import { User } from '@root/common/models/User';
 import { AuthService } from '../../core/auth.service';
-const b64 = {
-  a: 2,
-  b: 'Dorian',
-  c: 764534636,
-  d: 90325346354643634564564645
-};
-
-// const g64: User = new User({asset: new AssetBlock({portfolio: [new Asset({description: lorem, name: 'Euripide'})]})});
-
 
 const backend: string = environment.backend;
+let contentDataUrl: string;
 
 @Component({
   selector: 'app-create-asset',
@@ -53,21 +45,34 @@ export class CreateAssetComponent implements OnInit {
   }
 
   createAsset() {
-    console.log(this.assetForm.value);
     this.user.asset.portfolio.push(
       new Asset({
         description: lorem,
         name: 'Euripide',
         value: 0,
         cid: 'https://thumbor.forbes.com/thumbor/1280x868/https%3A%2F%2Fblogs-images.forbes.com%2Fstephenkey%2Ffiles%2F2018%2F01%2FImage-from-Stephen-Keys-patent-1200x1455.jpg'
-    }))
+      }
+    ));
+
     this.http.post(`${backend}/lisk/updateUser`, this.user)
-    .subscribe((data) => {
-      console.log(data)
-    },() => {});
+    .subscribe(console.log, console.error);
+
+    // this.http.post(`${backend}/ipfs/store`, contentDataUrl)
+    // .subscribe(console.log, console.error);
   } 
 
-  onFileSelect($event) {
-    
+  handleFileInput(files: FileList) {
+    let reader = new FileReader();
+
+    reader.readAsDataURL(files[0]);
+
+    reader.onload = function() {
+      contentDataUrl = reader.result.toString();
+      console.log(contentDataUrl);
+    };
+
+    reader.onerror = function() {
+      reader.error;
+    };
   }
 }

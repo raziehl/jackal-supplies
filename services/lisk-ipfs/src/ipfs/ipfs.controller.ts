@@ -1,4 +1,5 @@
-import { Controller, Post, Get, Request, Param, Query } from '@nestjs/common';
+import { Controller, Post, Get, Request, Param, Query, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { IpfsService } from './ipfs.service';
 
 @Controller('ipfs')
@@ -15,8 +16,8 @@ export class IpfsController {
 
     @Post('store')
     storeAsset(@Request() req) {
-      const asset = req.body;
-      return this.ipfsService.storeAsset(asset);
+      console.log(req.body)
+      return this.ipfsService.storeAsset(req);
     }
 
 }
