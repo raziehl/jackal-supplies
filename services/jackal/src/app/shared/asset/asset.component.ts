@@ -40,11 +40,7 @@ export class AssetComponent implements OnInit {
 
   async destroyAsset() {
     this.auth.user.asset.portfolio.splice(this.index, 1);
-    
-    this.http.post(`${backend}/lisk/updateUser`, this.auth.user)
-    .subscribe(console.log, console.error);
-
-    await this.manager.reloadUserData();
+    await this.manager.updateUserData();
   }
 
   showDetails() {

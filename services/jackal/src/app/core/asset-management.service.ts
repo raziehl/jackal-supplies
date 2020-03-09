@@ -33,6 +33,13 @@ export class AssetManager implements OnInit {
     this.portfolioSubject.next(this.auth.user.asset.portfolio);
   }
 
+  async updateUserData() {
+    this.http.post(`${backend}/lisk/updateUser`, this.auth.user)
+    .subscribe(console.log, console.error);
+
+    await this.reloadUserData();
+  }
+
   async reloadUserData() {
     this.refreshPortfolio();
     this.toast.info('Asset operation in progress...');

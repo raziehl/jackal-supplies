@@ -18,26 +18,26 @@ export class LiskController {
 
   @Post('enrichPass')
   enrichPass(@Request() req) {
-      const passphrase: string = req.body.passphrase;
-      return this.crypto.enrichPass(passphrase);
+    const passphrase: string = req.body.passphrase;
+    return this.crypto.enrichPass(passphrase);
   }
 
   @Post('account')
   async login(@Request() req) {
-      let user: User = req.body;
-      user.address = this.crypto.getAddress(user.passphrase);
-      return await this.lisk.account(user);
+    let user: User = req.body;
+    user.address = this.crypto.getAddress(user.passphrase);
+    return await this.lisk.account(user);
   }
 
   @Post('updateUser')
   async updateUser(@Request() req) {
-      let user: User = req.body;
-      return await this.lisk.updateAccount(user);
+    let user: User = req.body;
+    return await this.lisk.updateAccount(user);
   }
 
   @Post('addCash')
   async createUser(@Request() req) {
-      let user: User = req.body;
-      return await this.lisk.addCash(user);
+    let user: User = req.body;
+    return await this.lisk.addCash(user);
   }
 }

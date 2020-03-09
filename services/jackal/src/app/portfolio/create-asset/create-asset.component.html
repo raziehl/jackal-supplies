@@ -1,5 +1,5 @@
 <div class="create-asset-container">
-    <form [formGroup]="assetForm">
+    <form [formGroup]="assetForm" (ngSubmit)="onSubmit(assetForm.value)">
         <div class="asset-block">
         <div class="flex-container">
             <div class="col">
@@ -48,8 +48,7 @@
         </div>
         </div>
 
-        <button mat-button class="box-button" type="submit"
-        (click)="createAsset()">
+        <button mat-button class="box-button">
             CREATE ASSET
         </button>
     </form>

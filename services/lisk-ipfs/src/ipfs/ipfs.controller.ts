@@ -16,7 +16,11 @@ export class IpfsController {
 
     @Post('store')
     storeAsset(@Request() req) {
-      console.log(req.body)
+      const buffer = Buffer.from(req.body.data.split(',')[1], 'base64');
+      const content = buffer.toString('utf-8');
+
+      console.log(content);
+
       return this.ipfsService.storeAsset(req);
     }
 

@@ -4,7 +4,7 @@ import { sha256 } from 'crypto-hash';
 
 const valid = new Validator();
 
-enum AssetType {
+export enum AssetType {
     Stock = "stock",
     Bond = "bond",
     Fund = "fund",
