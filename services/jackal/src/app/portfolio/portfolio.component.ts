@@ -4,7 +4,7 @@ import { Asset } from '@root/common/models/Asset';
 import { lorem, LSK } from '@root/common/models/Utils';
 import { assetDetails } from '../shared/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { CreateAssetComponent } from './create-asset/create-asset.component';
 import { User } from '@root/common/models/User';
 import { AssetManager } from '../core/asset-management.service';
