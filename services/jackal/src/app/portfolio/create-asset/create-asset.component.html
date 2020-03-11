@@ -18,14 +18,8 @@
                         formControlName="issuedControl">
                     </mat-form-field>
 
-                    <mat-form-field class="inline-form-field col">
-                        <mat-label>No. Selling</mat-label>
-                        <input matInput type="number"
-                        [max]="issued.value"
-                        formControlName="sellingSharesControl">
-                    </mat-form-field>
-
-                    <mat-form-field class="inline-form-field col">
+                    <mat-form-field class="inline-form-field col"
+                    style="margin-left: 25px;">
                         <mat-label>Value</mat-label>
                         <input matInput type="number"
                         formControlName="valueControl">
@@ -43,7 +37,13 @@
             </div>
 
             <div class="col">
-                <input type="file" name="profile" (change)="handleFileInput($event.target.files)" />
+              <div class="upload-block">
+                <input type="file" name="profile" (change)="handleFileInput($event.target.files)"/>
+                <button mat-raised-button class="box-button" class="upload-button" style="width: 100%;">Upload File</button>
+                <span class="file-name">
+                 Content file: {{ file?.name }}
+                </span>
+              </div>
             </div>
         </div>
         </div>

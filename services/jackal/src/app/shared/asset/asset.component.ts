@@ -22,6 +22,8 @@ export class AssetComponent implements OnInit {
 
   @Input() asset: Asset;
   @Input() index: number;
+  ipfsEndpoint: string;
+  imageDataUrl: string;
   isShown = false;
   isPortfolio = false;
   LSK = LSK;
@@ -36,6 +38,13 @@ export class AssetComponent implements OnInit {
 
   ngOnInit() {
     this.isPortfolio = this.router.url == '/portfolio';
+    this.ipfsEndpoint = `${backend}/ipfs/asset/${this.asset.cid}`;
+    console.log(this.ipfsEndpoint);
+    this.http.get(this.ipfsEndpoint, {responseType: 'text'})
+    .subscribe(data => {
+      console.log(data);
+      // this.imageDataUrl = data;
+    }, console.error);
   }
 
   async destroyAsset() {

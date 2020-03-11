@@ -18,10 +18,20 @@ export class IpfsService {
     for await (const chunk of ipfs.cat(cid)) {
       chunks.push(chunk)
     }
+    
     return Buffer.concat(chunks).toString();
   }
 
-  storeAsset(content) {
-    return 'Added ';
+  async storeAsset(content: Buffer) {
+    let path: string;
+    try {
+      for await (const result of ipfs.add(content.toString())) {
+        path = result.path;
+      }
+    } catch(e) {
+      console.error(e);
+    }
+    
+    return path;
   }
 }

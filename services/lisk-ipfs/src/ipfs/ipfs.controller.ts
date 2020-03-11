@@ -9,19 +9,15 @@ export class IpfsController {
         private ipfsService: IpfsService
     ) {}
 
-    @Get('asset')
-    getAsset(@Query('cid') cid) {
+    @Get('asset/:cid')
+    getAsset(@Param('cid') cid) {
       return this.ipfsService.getAsset(cid);
     }
 
     @Post('store')
-    storeAsset(@Request() req) {
-      const buffer = Buffer.from(req.body.data.split(',')[1], 'base64');
-      const content = buffer.toString('utf-8');
-
-      console.log(content);
-
-      return this.ipfsService.storeAsset(req);
+    async storeAsset(@Request() req) {
+      const buffer = Buffer.from(req.body.data);
+      return await this.ipfsService.storeAsset(buffer);
     }
 
 }
