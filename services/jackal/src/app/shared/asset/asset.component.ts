@@ -42,7 +42,6 @@ export class AssetComponent implements OnInit {
     console.log(this.ipfsEndpoint);
     this.http.get(this.ipfsEndpoint, {responseType: 'text'})
     .subscribe(data => {
-      console.log(data);
       this.imageDataUrl = data;
     }, console.error);
   }

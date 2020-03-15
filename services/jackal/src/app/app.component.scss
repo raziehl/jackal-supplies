@@ -4,8 +4,7 @@
 
 .app-toolbar {
     // background-color: white;
-    background-color: #262626;
-    // background: transparent;
+    background: transparent;
     z-index: 1;
 }
 
@@ -16,7 +15,8 @@
 .drawer {
     position: fixed;
     border: none;
-    background-color: #262626;
+    // background-color: #262626;
+    background-color: transparent;
     z-index: 0;
 }
 

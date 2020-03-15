@@ -7,6 +7,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
+    min-width: 298px;
 
    -moz-box-shadow:    0 3px 7px #000000;
    -webkit-box-shadow: 0 3px 7px #000000;
@@ -60,6 +61,7 @@
 .box-btn {
     width: 100%;
     background-color: transparent;
+    color: white!important;
 }
 
 .asset:hover {
