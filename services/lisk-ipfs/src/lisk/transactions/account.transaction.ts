@@ -17,7 +17,6 @@ export class AccountTransaction extends BaseTransaction {
 
   constructor(transObj) {
     super(transObj);
-    console.log('UPDATE ACCOUNT TRANSACTION')
   }
 
   static get TYPE() {

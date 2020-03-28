@@ -1,31 +1,52 @@
 import { Injectable } from '@nestjs/common';
-import { Asset } from '@root/common/models/Asset';
-import IpfsHttpClientLite = require('ipfs-http-client-lite');
-const ipfsClient = require('ipfs-http-client')
-
-
-let ipfs: any;
+import { LoggerService } from '../util/logger.module';
+import IPFS = require('ipfs');
+import Repo = require('ipfs-repo');
 
 @Injectable()
 export class IpfsService {
 
-  constructor() {
-    ipfs = ipfsClient('http://localhost:5001');
+  ipfs: any;
+
+  constructor(
+    private log: LoggerService
+  ) {
+    this.init();
+  }
+
+  async init() {
+    try {
+      // const repo = new Repo('/tmp/ipfs-repo');
+      // await repo.init({cool: 'config'});
+      // await repo.open();
+      this.ipfs = await IPFS.create({
+        pass: "01234567890123456789",
+      });
+      // const res = await this.ipfs.key.list();
+      const res = await this.ipfs.repo.stat();
+      this.log.info(res)
+    } catch(e) {
+      this.log.error("Failed to start IPFS node", e);
+    }
   }
 
   async getAsset(cid: string) {
     const chunks = [];
-    for await (const chunk of ipfs.cat(cid)) {
+    for await (const chunk of this.ipfs.cat(cid)) {
       chunks.push(chunk)
     }
     
     return Buffer.concat(chunks).toString();
   }
 
+  async destroyAsset(cid: string) {
+
+  }
+
   async storeAsset(content: Buffer) {
     let path: string;
     try {
-      for await (const result of ipfs.add(content.toString())) {
+      for await (const result of this.ipfs.add(content.toString())) {
         path = result.path;
       }
     } catch(e) {
@@ -34,4 +55,5 @@ export class IpfsService {
     
     return path;
   }
+
 }

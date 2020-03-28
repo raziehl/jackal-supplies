@@ -39,7 +39,6 @@ export class AssetComponent implements OnInit {
   ngOnInit() {
     this.isPortfolio = this.router.url == '/portfolio';
     this.ipfsEndpoint = `${backend}/ipfs/asset/${this.asset.cid}`;
-    console.log(this.ipfsEndpoint);
     this.http.get(this.ipfsEndpoint, {responseType: 'text'})
     .subscribe(data => {
       this.imageDataUrl = data;
@@ -47,6 +46,8 @@ export class AssetComponent implements OnInit {
   }
 
   async destroyAsset() {
+    await this.manager.destroyAsset(this.asset.cid);
+
     this.auth.user.asset.portfolio.splice(this.index, 1);
     await this.manager.updateUserData();
   }

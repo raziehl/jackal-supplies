@@ -7,7 +7,7 @@ export class Logger {
   private readonly winston: WinstonLogger;
 
   constructor(
-    readonly level: LogLevel = 'info',
+    readonly level: LogLevel = 'info'
   ) {
     this.winston = createLogger({
       transports: [
@@ -65,7 +65,22 @@ export class Logger {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   protected serialize(arg: any): string {
-    if (typeof arg === 'object') {
+    if(!arg) {
+      return String(arg);
+    } else if (arg instanceof Error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const httpError = arg as any;
+      return JSON.stringify({
+        name: arg.name,
+        message: arg.message,
+        response: httpError.response ? {
+          status: httpError.response.status,
+          headers: httpError.response.headers,
+          data: httpError.response.data
+        } : undefined,
+        stack: this.level === 'debug' ? arg.stack : undefined
+      });
+    } else if (typeof arg === 'object') {
       return JSON.stringify(arg)
         .replace(/"(password|apiKey|authToken)":".*?"/g, '"$1":"***"');
     } else {

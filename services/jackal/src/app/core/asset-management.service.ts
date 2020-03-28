@@ -40,6 +40,11 @@ export class AssetManager implements OnInit {
     await this.reloadUserData();
   }
 
+  async destroyAsset(cid: string) {
+    return this.http.get(`${backend}/ipfs/destroyAsset/${cid}`)
+    .subscribe(console.log, console.error);
+  }
+
   async reloadUserData() {
     this.refreshPortfolio();
     this.toast.info('Asset operation in progress...');

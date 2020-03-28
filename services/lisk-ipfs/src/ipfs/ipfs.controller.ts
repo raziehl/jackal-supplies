@@ -15,6 +15,11 @@ export class IpfsController {
       return await this.ipfsService.getAsset(cid);
     }
 
+    @Get('destroyAsset/:cid')
+    async destroyAsset(@Param('cid') cid) {
+      return await this.ipfsService.destroyAsset(cid);
+    }
+
     @Post('store')
     async storeAsset(@Request() req) {
       const buffer = Buffer.from(req.body.data);
