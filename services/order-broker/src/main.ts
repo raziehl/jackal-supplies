@@ -1,10 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api');
+  app.use(bodyParser.json({limit: '50mb'}));
   app.enableCors()
-  await app.listen(process.env.BROKER_PORT || 3000);
+  await app.listen(3000);
 }
+
 bootstrap();

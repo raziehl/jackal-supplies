@@ -1,10 +1,12 @@
-import { BaseTransaction, TransactionError, StateStore, utils } from '@liskhq/lisk-transactions';
+import { BaseTransaction, TransactionError, utils } from '@liskhq/lisk-transactions';
 import { Logger } from '../../../../common/logger';
 import { User } from '../../../../common/models/User';
 
-const log = new Logger('info');
+const logger = new Logger('info');
 
 export class AccountTransaction extends BaseTransaction {
+
+  private accountAsset: any;
 
   protected verifyAgainstTransactions(transactions: readonly import("@liskhq/lisk-transactions").TransactionJSON[]): readonly TransactionError[] {
     throw new Error("Method not implemented.");
@@ -15,15 +17,14 @@ export class AccountTransaction extends BaseTransaction {
 
   constructor(transObj) {
     super(transObj);
-    console.log('UPDATE ACCOUNT TRANSACTION')
   }
 
   static get TYPE() {
-    return 10;
+    return 13;
   }
 
   static get FEE() {
-    return `${0}`;
+    return `0`;
   };
 
   async prepare(store) {
@@ -42,22 +43,30 @@ export class AccountTransaction extends BaseTransaction {
     return errors;
   }
 
-  applyAsset(store: StateStore) {
+  applyAsset(store) {
     const errors = [];
-    // const asset: Partial<User> = this.asset;
-    // let sender: any = store.account.get(this.senderId);
+    const asset: Partial<User> = this.asset;
+    let sender: any = store.account.get(this.senderId);
 
-    // const newObj = { ...sender, asset: asset };
-    // store.account.set(sender.address, newObj);
+    const newObj = { ...sender, asset: asset };
+    store.account.set(sender.address, newObj);
 
     return errors;
   }
 
-  undoAsset(store: StateStore) {
+  undoAsset(store) {
     const sender = store.account.get(this.senderId);
     const nullAssetObj = { ...sender, asset: null };
     store.account.set(sender.address, nullAssetObj);
     return [];
+  }
+
+  assetToBytes() {
+    return Buffer.from(JSON.stringify(this.asset));
+  }
+
+  assetToJSON() {
+    return this.asset;
   }
 
 }
