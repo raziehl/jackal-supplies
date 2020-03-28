@@ -8,7 +8,7 @@
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "start:dev": "tsc-watch --onSuccess \"ts-node dist/lisk-ipfs/src/main.js\"",
+    "start:dev": "tsc-watch --onSuccess \"ts-node dist/order-broker/src/main.js\"",
     "start:prod": "node dist/main"
   },
   "author": "",

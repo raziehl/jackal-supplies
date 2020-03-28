@@ -13,6 +13,7 @@ import { AccountTransaction } from './transactions/account.transaction';
 import { DEVNET_URL } from '../../../common/env_vars';
 
 configDevnet.components.logger.consoleLogLevel = process.env.LISK_LOG_LEVEL || 'error';
+configDevnet.app.label = 'order-broker';
 // configDevnet.components.logger.logFileName = './lisk.log';
 
 genesisBlockDevnet.transactions[0] = {
