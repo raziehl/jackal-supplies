@@ -9,7 +9,7 @@ csl: cite-style.csl
 documentclass: article
 classoption: a4paper
 # nocite: |
-#   @chomsky45, @chomsky2
+#   @empty, @empty
 ---
 
 \fontsize{12pt}{20pt}\selectfont
@@ -106,11 +106,87 @@ Patru elemente de design esențial al unui site Web 1.0 includ:
 
 - Pagini statice
 - Conținut servit direct de pe *file system*-ul serverului
-- Pagini construite folosind *Server Side Includes* [@ssi] sau *Common Gateway Interface* [@cgi]
+- Pagini construite folosind *SSI* [@ssi] sau *CGI* [@cgi]
+- Tabelele și Ramele erau folosite pentru aliniareapoziționarea și aliniarea elementelor în pagină
 
-[@web-x, par. 1]
+[@web-x par. 1]
 
+Modelele de monetizare folosite în vremea asta, dacă există, sunt primitive și specifice fiecăruia, nu există servicii comune de monetizare sofisticate.
 
+\clearpage
+
+### Web 2.0
+
+*Web 2.0* e paradigma care a dat naștere internetului și aplicațiilor în felul în care le cunoaștem în ziua de astăzi. O poreclă pentru *Web 2.0* este *The participative social web*. Această perioadă e caracteristică facilizării interacțiunii între utilizatori prin platforme sociale robuste care permit persistența acțiunilor, dar mai important decât asta este normalizarea interacțiunilor intre servicii și standardizarea consumției și controlului datelor. 
+[@web-x par. 2]
+
+În această perioadă se popularizează conceptul de *Application Programming Interface* (API) care prin *Data Interchange Formats* comune pot deschide accesul oricui la izvoare aproape nelimitate de date brute care pot fi manipulate în varii scopuri nepredeterminate.
+
+Browserele Web evoluează să permită utilizarea de metodologii precum *Asynchornous JavaScript and XML* [@ajax] care permit unei pagini web să ceară date de la servicii externe fără să blocheze întreg procesul și șă aștepte rezultatul asincron, lucru care determină dezvoltarea *Framework*-urilor complexe JavaScript și în final dezvoltării de aplicații web dinamice care nu mai sunt dependente de server pentru generarea paginilor. Se trece de la *Multi Page Applications* la *Single Page Applications* (SPA) unde clientul încarcă conținutul static și codul sursă al aplicației, iar conținutul dinamic este cerut doar în momentul în care este consumat.
+
+Cinci caracteristici tehnologice importante ale *Web 2.0* sunt:
+
+- Organizarea, clasificarea și consumția libera a informației în manieră colectivă
+- Conținut dinamic
+- Utilizarea de API-uri externe
+- Applicații *responsive* de *social media*
+- Interactivitatea
+
+Pe lăngă dezvoltările tehnologice ale vremii la fel de importante au fost dezvoltările în modelele de business și vectorii de monetizare. Putem în sfărșit să vedem o serie de modele de monetizare standardizate și servicii externe care facilitează procesul de monetizare:
+
+- Targeted Advertising via Google Ads (aka AdWords)
+- Crowdfunding via servicii precum Kickstarter sau Indigogo pentru generarea de fonduri inițiale și Patreon pentru donări recurente direct către firme și creatori
+- Plată directă prin transfer bancar sau printr-un serviciu ca PayPal sau Stripe cu modele de business precum (Pay2Play sau Free2Play) pentru accesarea unui bun sau serviciu sau pentru efectuarea tranzacțiilor între terțe părți pe platforme cu această menire
+- *Data Mining*-ul devine prolific ca manieră de a monetiza activitatea utilizatorilor prin tracking efectuat la nivel meta între toate site-urile și aplicațiile web folosite de utilizatori;
+Site-urile participă voluntar în piața de date brute punănd *cookie*-uri care permit identificarea utilizatorilor șî raportarea către Brokeri de Date care remunerează datele culese
+- Brokerii de Date agregă date de la toate site-urile și aplicațiile web care participă în procesul de *data mining* pentru a le vinde în variantă brută sau prelucrată deja în profile psihologice mai departe în principal, dar non-exclusiv, la firme de marketing care îsi adaptează strategiile și la servicii precum Google Ads pentru a arăta reclame de interes pentru fiecare utilizator în parte
+
+Toate acestea au dus la sporirea dezvoltării de aplicații web și site-uri într-o lume post *Dot-com bubble* și la resurgența creatorilor independenți care ajung să fie în sine motorul economiei Web.
+
+### Web 3.0 
+
+*Web 3.0* este cel mai recent val tehnologic care încă este în procesul de definire. Aflându-ne încă în mijlocul evenimentului elementele caracteristice sunt încă în discuție, nu o să avem un răspuns clar a ceea ce va reprezenta noua paradigmă pană în momentul cristalizării. Există multă suprapunere cu penultimul val al cărui caracteristici apar parțial și în definițiile celui curent. 
+
+Dat fiind că multe dintre elementele *Web 2.0* vor fi rădăcinile pentru multiplele mutații în diferitele directii pe care le va lua acest val acest lucru nu e surprinzător, astfel încât diferențierea se va face pe de-o parte la nivel de nuanță în abordare și implicații sociale, politice și economice.
+
+O serie de caracterstici populare sunt:
+
+- *Semantic Web*, ideea de dezvoltare a soluțiilor într-o manieră care permite interacțiunea la nivel semantic cu informația
+- Prolifierea Inteligenței Artificiale în sistemele care croiesc colecția de conținut pe care o consumă utilizatorul în sine folosindu-se de *folksnonomia* creeată prin utilizarea organică a aplicațiilor chiar de către utilizatori
+- WebAssembly
+- Omniprezența datelor și a tehnologiilor Web în toate dispozitivele
+
+>``I have a dream for the Web [in which computers] become capable of analyzing all the data on the Web – the content, links, and transactions between people and computers. A “Semantic Web”, which makes this possible, has yet to emerge, but when it does, the day-to-day mechanisms of trade, bureaucracy, and our daily lives will be handled by machines talking to machines. The “intelligent agents” people have touted for ages will finally materialize.''
+
+> `r tufte::quote_footer('--- Sir Tim Berners-Lee')`
+
+Dar pe lângă cele menționate mai sus este discutabil faptul că cea mai importantă caracteristică a valului *Web 3.0* și cea care va fi amintită de istorie în viitor ca fiind determinantă pentru această perioadă va fi prolifierea conceptului de *Descentralized Application* (dApp), mișcarea către a dezvolta aplicații într-o arhitectură descentralizată bazată pe implementări *Blockchain*.
+
+Crypto-monedele au reprezentat prima implementare a tehnologiei *Blockchain* care au popularizat conceptul și au dovedit că infrastructura modernă poate în sfârșit șă-l suporte, în schimb lucrurile nu se termină aici.
+
+Blockchain este o formă de bază de date distribuită și descentralizată care printr-un mecanism de rezoluție a consensului între agenții participanți poate să garanteze intrinsec identitatea și validitatea operațiunilor pe care le înscrie și replică pe toate dispozitivele participante.
+
+Un *dApp* este un tip de applicație care la suprafață funcționează la fel ca oricare alta, dar nu este dependentă de niciun server central, conexiunile dintre client și rețea fiind de tip Peer-to-Peer, conținutul persistent dinamic fiind reținut în Blockchain-ul comun tuturor nodurilor din rețea.
+
+La finalul erei *Web 2.0* deja devenau evidente anumite probleme cu felul în care se face business-ul pe web. Principalele fiind:
+
+- Consolidarea tuturor resurselor informatice într-un număr foarte redus de servicii monolit deținute de agenți economici cu prea multă putere
+- Lipsa de autoritate asupra informației publicate pe servicii în sensul in care deșii proprietatea intelectuală a unui creator îi aparține, orice firmă are puterea de a controla dacă acea proprietate este accesibilă sau nu pe platforma respectivă
+- Cenzura selectivă după discreția firmelor și manipularea trendurilor
+- Colectarea clandestină de date fără remunerarea utilizatorilor
+
+În ultimii 3-4 ani eforturile oamenilor concentrați pe problemele menționate mai sus s-au manifestat în direcția eliminării complete a oricărei entități centrale care să poată să controleze conținutul, dând înapoi puterea cibernetică utilizatorilor care acum vor avea să fie atât clientul căt și serviciul în sine.
+
+O altă problemă evidentă a lumii vechi este dependența față de *advertising* ca vector financiar principal. Cănd au început să devină populare soluții precum AdBlock, apăruseră atăt în răndul creatorilor căt și al firmelor frici legate de sustenabilitatea modelului economic web și dacă procesul poate să continue. 
+
+Gaura lăsată de *ads*-urile în minus a fost din fericire umplută de soluțiile de crowdfunding care au apărut, lucru care a fost benefic din multe puncte de vedere, nu cel din urmă fiind faptul că acum tabla de joc începe să dea semne de normalizare a distribuției de valoare asupra conținutului informatic creeat doar prin simplul fapt că acum oamenii pot să aleagă voluntar pe cine să plătească după gust, lucru care a creeat o formă de clasă de mijloc între creatorii de pe internet.
+
+*Web 3.0* construiește mai departe pe conceptul de crowdfunding și vine și cu soluții noi. Brave este un browser lansat în 2019 care include nativ toate facilitățile necesare pentru funcționarea dApp-urilor, el în sine fiind un dApp cu propriul lui sistem *Blockchain* cu cripto-monedă.
+Brave va permite tuturor dApp-urilor care se integrează cu standardul prezent să primească bani direct de la utilizatorii care vor să plătească cu crypto-moneda brave într-un mod foarte intuitiv direct din browser.
+
+Cănd vine vorba de locul *advertising*-ului în lumea *Web 3.0*, avănd în vedere că deja browser-ele încep să blocheze *ads*-urile implicit este destul de clar că nu vor mai fi la fel de intrusive și lumea va continua trendul către alte modele de monetizare. Chiar și așa ele nu vor dispărea complet, o altă funcționalitate a browser-ului Brave este vizualizarea voluntară remunerată a *ads*-urilor, modelul de *advertising* devenind mai sofisticat prin faptul că acum utilizatorul trebuie luat în calculul marginilor financiare împarțite pe lăngă serviciul care ține *ads*-urile în discuție și evident *advertiserul* care deține *ads*-urile și contractele cu firmele ale căror produse și servicii sunt prezentate. Utilizatorii finali vor trebui insentivați direct să consume reclame.
+
+Acesta este contextul tehnologic în care a fost dezvoltată aplicația prezentată mai departe în lucrare.
 
 # Fluxul de Valoare \
 
