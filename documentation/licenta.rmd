@@ -1,0 +1,119 @@
+---
+title: 
+author: 
+output: pdf_document
+fontsize: 12pt
+geometry: margin=1in
+bibliography: ./biblo.bib
+csl: cite-style.csl
+documentclass: article
+classoption: a4paper
+# nocite: |
+#   @chomsky45, @chomsky2
+---
+
+\fontsize{12pt}{20pt}\selectfont
+\setlength\parindent{24pt}
+
+\begin{center}
+
+  \includegraphics[width=0.3\textwidth]{images/Logo_ASE.png}
+
+  Academia de Studii Economice din București\\
+  Facultatea de Cibernetică, Statistică și Informatică Economică\\
+  Specializarea Informatică Economică
+  \vspace*{1cm}
+  
+
+  \Large
+  \textbf{Platformă Speculativă de\\ cripto-active generate ad hoc}
+
+  \normalsize
+  \vspace{0.5cm}
+  Lucrare de Licență
+      
+  \vspace{1.5cm}
+
+  \vfill
+      
+  \begin{flushleft}
+  \textbf{Coordonator Științific:} \hfill \textbf{Absolvent:}\\
+  dr. Claudiu Vinte \hfill Petroschi Matei
+  \end{flushleft}
+
+  \vspace{5cm}
+
+  București\\
+  2020
+        
+\end{center}
+
+\clearpage
+
+\renewcommand*\contentsname{Cuprins}
+\tableofcontents
+\clearpage
+
+\begin{center}
+\section{Abstract}
+\end{center}
+\
+
+Lucrarea curentă descrie intreg procesul de funcționare al unei platforme de tranzacționare de cripto-active valorificate printr-un sistem blockchain folosit de o rețea distribuită de clienți conectați direct între ei. Lucrarea încearcă să demonstreze cum valoarea reală și cuantificabilă poate fi atribuită oricărei bucăți specifice de informțaie arbitrară indiferent de natura ei și că acea valoare este transferabilă între entități corelată perfect cu conținutul transferat.
+
+Un obiectiv secundar este cel de arăta procesul de dezvoltare a unui sistem descentralizat în paradigma *Web 3.0* cvasi autosuficient care este intrinsec rezistent cenzurii si entropiei generale prin independența față de o entitate centrală oarecare care controlează și facilitează sistemul.
+
+\clearpage
+
+\begin{center}
+\section{Introducere}
+\end{center}
+\
+
+Menirea platformei este să permită oricărui participant să încare conținut informatic arbitrar (e.g. imagini, videouri, clipuri audio, text etc.) într-o rețea descentralizată în care aceste bucăți de conținut informatic să poată să aibă valoare recunoscută de ceilalți participanți.\
+\indent În momentul încarcării utilizatorii vor putea să declare două lucruri fundamentale despre activul pe care îl creează:
+
+  - Numarul de unități finite de activ care există și pot fi transacționate
+  - Valoarea inițială per unitate exprimată în *cripto-monedă* (LSK)
+
+Rezultatul final este un activ împărțit într-un număr fixat de copii unice care acum se află în portofoliul utilizatorului. Acesta poate mai departe să creeze oferte de vănzare pentru căteva sau toate instanțele din activul respectiv, iar participanții la piață vor decide dacă valoare atribuită inițial conținutului este corelată precis și în caz pozitiv vor alege să cumpere activul respectiv.\
+\indent Sistemul de vănzare-cumpărare va funcționa pe bază de licitație astfel încăt să permită fluctuația valorii tuturor activelor tranzacționate astfel încăt în timp valoarea să fie rafinată și determinată în întregime de către piață.\
+\indent În cel mai practic sens acest activ generat de către utilizator devine în final un *Store of Value* [@def-sov] transferabil în interiorul sistemului.
+
+Un obiectiv secundar al platformei în sine este și transferul de proprietate intelectuală de la un participant la altul cu aplicabilitate legală și în exteriorul sistemului în condițiile în care proprietarul inițial în interiotul platformei este proprietarul sau creatorul original al conținutului și în exteriorul platformei.
+
+#### Note \
+Cuantificarea Valorii Ideilor in Bani
+
+\clearpage
+
+\begin{center}
+\section{Capitolul 1: Istorie și mediul curent}
+\end{center}
+\
+
+## Contextul Tehnologic
+
+Evolutia tehnologiei relevante contextului modern în care toate unitățile computaționale sunt interconectate este marcată de trei paradigme importante: Web 1.0, Web 2.0 și Web 3.0.
+
+### Web 1.0
+
+Web 1.0 se refera la primul stadiu al evoluției *World Wide Web*. În vremurile astea erau puțini creatori cu o majoritate de utilizatori care consumau conținut. Pagini Web personale erau comune și erau reprezentate în principal de pagini statice hostate pe webservere facilitate direct de către ISP-uri (Internet Service Provider), prin alte servicii de hostare web sau chiar direct pe o mașină deținută de creator.
+
+Un fel de a vedea web-ul în timpul acela era ca un simplu CDN (Content Delivery Network) care permitea utilizatorilor să consume o bucată de conținut și atăt.
+
+Patru elemente de design esențial al unui site Web 1.0 includ:
+
+- Pagini statice
+- Conținut servit direct de pe *file system*-ul serverului
+- Pagini construite folosind *Server Side Includes* [@ssi] sau *Common Gateway Interface* [@cgi]
+
+[@web-x, par. 1]
+
+
+
+# Fluxul de Valoare \
+
+\clearpage
+
+# Bibliografie

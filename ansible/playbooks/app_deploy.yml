@@ -50,6 +50,8 @@
           - "--rsh=ssh -F {{ playbook_dir }}/../ssh.cfg"
           - "--exclude=node_modules"
           - "--exclude=dist"
+          - "--compress=no"
+          - "-zz"
         set_remote_user: false
       when: env_name == 'dev'
 
@@ -91,6 +93,7 @@
         cd /opt/{{ app }}
         rm -rf node_modules
         npm install
+      ignore_errors: true
       when: env_name == 'dev'
 
     - name: "Build {{ app }}"
@@ -104,22 +107,17 @@
     - name: Set permissions
       file:
         path: "/opt/"
-        owner: ubuntu
-        group: ubuntu
+        owner: root
+        group: root
         recurse: true
       when: env_name == 'dev'
       # We want to ignore errors when permissions are set for symlinks (e.g. dashboard)
       ignore_errors: true
 
-    - name: Prepare credentials
-      shell: "$(aws ecr get-login --region {{ aws.region }} --no-include-email)"
-      environment:
-        HOME: /root
-
     # https://docs.ansible.com/ansible/latest/modules/docker_swarm_service_module.html
     - name: "Update service images {{ app }}"
       shell: |
-        docker-compose -f /opt/{{ app }}/{{ apps[app].compose }} pull {{ app }}
+        docker-compose -f /opt/{{ app }}/{{ apps[app].compose }} build {{ app }}
       environment: "{{ apps[app].env_vars }}"
 
 - name: "Deploy {{ app }}"
@@ -132,11 +130,11 @@
   tasks:
     - name: "Deploy service {{ app }}"
       shell: |
-        docker stack deploy --with-registry-auth --compose-file /opt/{{ app }}/{{ apps[app].compose }} {{ app }}
+        docker stack deploy --compose-file /opt/{{ app }}/{{ apps[app].compose }} {{ app }}
       environment: "{{ apps[app].env_vars }}"
     - name: "Update service {{ app }}"
       shell: |
-        docker service update --with-registry-auth --force {{ app }}_{{ app }}
+        docker service update --force {{ app }}_{{ app }}
       environment: "{{ apps[app].env_vars }}"
       ignore_errors: true
 

@@ -22,10 +22,11 @@
       order-broker:
         repo: git@github.com:raziehl/jackal-supplies.git
         branch: development
-        compose: order-broker.compose.yml
+        compose: docker-compose.yml
         env_vars:
           ENV: "{{ env_name }}"
           NATS_SERVERS: "{{ nats.servers }}"
           REPLICAS: 1
           VOLUME_PATH: "/opt/order-broker"
-        
+          REGISTRY: "{{ docker.registry }}"
+          SERVER_PORT: 3001
