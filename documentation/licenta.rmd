@@ -166,7 +166,7 @@ Crypto-monedele au reprezentat prima implementare a tehnologiei *Blockchain* car
 
 Blockchain este o formă de bază de date distribuită și descentralizată care printr-un mecanism de rezoluție a consensului între agenții participanți poate să garanteze intrinsec identitatea și validitatea operațiunilor pe care le înscrie și replică pe toate dispozitivele participante.
 
-Un *dApp* este un tip de applicație care la suprafață funcționează la fel ca oricare alta, dar nu este dependentă de niciun server central, conexiunile dintre client și rețea fiind de tip Peer-to-Peer, conținutul persistent dinamic fiind reținut în Blockchain-ul comun tuturor nodurilor din rețea.
+Un *dApp* este un tip de applicație care la suprafață funcționează la fel ca oricare alta, dar nu este dependentă de niciun server central, conexiunile dintre client și rețea fiind de tip Peer-to-Peer, conținutul persistent dinamic fiind reținut în blockchain-ul comun tuturor nodurilor din rețea.
 
 La finalul erei *Web 2.0* deja devenau evidente anumite probleme cu felul în care se face business-ul pe web. Principalele fiind:
 
@@ -175,7 +175,7 @@ La finalul erei *Web 2.0* deja devenau evidente anumite probleme cu felul în ca
 - Cenzura selectivă după discreția firmelor și manipularea trendurilor
 - Colectarea clandestină de date fără remunerarea utilizatorilor
 
-În ultimii 3-4 ani eforturile oamenilor concentrați pe problemele menționate mai sus s-au manifestat în direcția eliminării complete a oricărei entități centrale care să poată să controleze conținutul, dând înapoi puterea cibernetică utilizatorilor care acum vor avea să fie atât clientul căt și serviciul în sine.
+În ultimii 3-4 ani eforturile oamenilor concentrați pe problemele menționate mai sus s-au manifestat în direcția eliminării complete la nivel arhitectural a oricărei entități centrale care să poată să controleze conținutul, dând înapoi puterea cibernetică utilizatorilor care acum vor avea să fie atât clientul căt și serviciul în sine.
 
 O altă problemă evidentă a lumii vechi este dependența față de *advertising* ca vector financiar principal. Cănd au început să devină populare soluții precum AdBlock, apăruseră atăt în răndul creatorilor căt și al firmelor frici legate de sustenabilitatea modelului economic web și dacă procesul poate să continue. 
 
@@ -184,11 +184,60 @@ Gaura lăsată de *ads*-urile în minus a fost din fericire umplută de soluții
 *Web 3.0* construiește mai departe pe conceptul de crowdfunding și vine și cu soluții noi. Brave este un browser lansat în 2019 care include nativ toate facilitățile necesare pentru funcționarea dApp-urilor, el în sine fiind un dApp cu propriul lui sistem *Blockchain* cu cripto-monedă.
 Brave va permite tuturor dApp-urilor care se integrează cu standardul prezent să primească bani direct de la utilizatorii care vor să plătească cu crypto-moneda brave într-un mod foarte intuitiv direct din browser.
 
-Cănd vine vorba de locul *advertising*-ului în lumea *Web 3.0*, avănd în vedere că deja browser-ele încep să blocheze *ads*-urile implicit este destul de clar că nu vor mai fi la fel de intrusive și lumea va continua trendul către alte modele de monetizare. Chiar și așa ele nu vor dispărea complet, o altă funcționalitate a browser-ului Brave este vizualizarea voluntară remunerată a *ads*-urilor, modelul de *advertising* devenind mai sofisticat prin faptul că acum utilizatorul trebuie luat în calculul marginilor financiare împarțite pe lăngă serviciul care ține *ads*-urile în discuție și evident *advertiserul* care deține *ads*-urile și contractele cu firmele ale căror produse și servicii sunt prezentate. Utilizatorii finali vor trebui insentivați direct să consume reclame.
+Cănd vine vorba de locul *advertising*-ului în lumea *Web 3.0*, avănd în vedere că deja browser-ele încep să blocheze *ads*-urile implicit este destul de clar că nu vor mai fi la fel de intrusive și lumea va continua trendul către alte modele de monetizare. Chiar și așa ele nu vor dispărea complet, o altă funcționalitate a browser-ului Brave este vizualizarea voluntară remunerată a *ads*-urilor, modelul de *advertising* devenind mai sofisticat prin faptul că acum utilizatorul trebuie luat în calculul marginilor financiare împarțite pe lăngă serviciul care ține *ads*-urile în discuție și evident *advertiserul* care deține *ads*-urile și contractele cu firmele ale căror produse și servicii sunt prezentate. Utilizatorii finali vor trebui insentivați direct să consume ca să participe voluntar în orice mecanism de monetizare, duse sunt zilele suportului involuntar.
 
-Acesta este contextul tehnologic în care a fost dezvoltată aplicația prezentată mai departe în lucrare.
+Acesta este contextul tehnologic în care a fost dezvoltată aplicația prezentată mai departe în această lucrare.
+
+## Contextul Politic
+
+Dat fiind gradul de consolidare mediatică din prezent devine din ce în ce mai aparent că infrastructura curentă este prea vulnerabilă controlului de către firmele care dețin platformele folosite de populație și de către actori statali care influențează direcția discursului politic digital prin mecanisme externe platformelor în sine. În alte cuvinte este aparent faptul că fluxul informatic este prea ușor influențat de legile și ordonanțele statelor lumii și a moderării draconice efectuate de firme pentru a limita selectiv accesul la informație.
+
+Lucrarea de față invocă anumite presupoziții filosofice în sensul ăsta:
+
+1. Într-o lume *post-adevăr* gradul de entropie informatică trebuie mărit, nu micșorat
+2. Heterogenitatea naturii entităților care pot să impacteze semnificant cursul informatic trebuie maximizat
+3. Orice agent economic sau actor statal trebuie să subscrie aceluiaș set de reguli ca oricare alt subset de indivizi care participă colectiv la producerea conținutului, altfel spus *software*-ul trebuie construit în așa fel încăt să nu poată fi controlat prin alte maniere în afară de propriile lui mecanisme organice interne
+
+În momentul scrierii lucrării, în mijlocul pandemiei COVID-19, Congresul american dezbate *Eliminating Abusive and Rampant Neglect of Interactive Technologies (“EARN IT”) Act*, care urmăreșțe să încarce firmele private cu mai multă responsabilitate legală de a preveni utilizatorii din a încărca material ilegal, în specific legat de prostituție. Legea nu face distincție între canale publice și private în interiorul unei aplicații avănd ca potențial rezultat forțarea firmelor să creeze *backdoor*-uri sau să renunțe complet la sistemele lor de end-to-end encryption pe care le folosesc utilizatorii lor pentru a putea să monitorizeze activitatea în întregime pentru a o modera.
+[@earn-it]
+
+Combinația cu *European Union Directive on Copyright in the Digital Single Market* care includea infamul *Articol 13* care responsabilizează legal firmele să prevină încărcarea ilegală de proprietate intelectuală face ca firmele să fie obligate să implementeze măsuri draconice de control informatic pe lăngă cele pe care chiar ele ar fi vrut să le implementeze, lucru care are ca potențial rezultat un grad de sterilitate informatică contraproductiv presupunerilor menționate mai sus. [@article-13]
+
+\clearpage
+
+Scopul acestei secțiuni nu este menit activismmului politic, în schimb este pentru a prezenta o secțiune verticală a motorului ideologic care conduce eforturile de reconstrucție infrastructurală și arhitecturală avănd ca unul dintre obiectivele centrale libertatea și autodeterminarea informatică.
+
+\clearpage
+
+\begin{center}
+\section{Arhitectura Software}
+\end{center}
+\
+
+![Arhitectura Generală\label{fig-1}](images/ArchitectureDiagram.png)
+
+1. Applicație Angular 2+ folosită pentru interacțiunea la nivel de peer cu rețțeaua sistemului, folosită de utilizatorul final pentru a creea, vinde și cumpăra crypto-active
+2. Instața locală a *sidechain*-ului Lisk în care se înregistrează informațiile despre crypto-active, date despre utilizator și în cazul OrderBroker-ului validarea unui ordin de vânzare spre a fi transferat efectiv
+3. Protocolul de consens este procesul prin care toate adăugirile la blockchain sunt agregate, validate și propagate înapoi în rettea ca noua versiune de blockchain comuna tuturor nodurilor
+4. Instața de IPFS (InterplanetaryFileSystem) prin care se stochează local conținutul bogat corelat cu crypto-activul creeat de utilizator și îl expune la internet
+5. Componenta din Lisk care deservește drept *Seed Peer* și înregistrează nodurile conectate
+6. Serviciul de licitație de crypto-active
+
+\clearpage
+
+\begin{center}
+\section{Tehnologii utilizate}
+\end{center}
+\
+
+
+\clearpage
 
 # Fluxul de Valoare \
+
+\clearpage
+
+# Concluzii
 
 \clearpage
 
