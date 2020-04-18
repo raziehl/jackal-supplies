@@ -10,6 +10,8 @@ documentclass: article
 classoption: a4paper
 # nocite: |
 #   @empty, @empty
+# preamble: |
+#   \usepackage[nottoc]{tocbibind}
 ---
 
 \fontsize{12pt}{20pt}\selectfont
@@ -164,7 +166,7 @@ Dar pe lângă cele menționate mai sus este discutabil faptul că cea mai impor
 
 Crypto-monedele au reprezentat prima implementare a tehnologiei *Blockchain* care au popularizat conceptul și au dovedit că infrastructura modernă poate în sfârșit șă-l suporte, în schimb lucrurile nu se termină aici.
 
-Blockchain este o formă de bază de date distribuită și descentralizată care printr-un mecanism de rezoluție a consensului între agenții participanți poate să garanteze intrinsec identitatea și validitatea operațiunilor pe care le înscrie și replică pe toate dispozitivele participante.
+Blockchain este o formă de bază de date distribuită și descentralizată care printr-un mecanism de rezoluție a consensului între agenții participanți poate să garanteze intrinsec identitatea, validitatea și imutabilitatea operațiunilor pe care le înscrie și replică pe toate dispozitivele participante.
 
 Un *dApp* este un tip de applicație care la suprafață funcționează la fel ca oricare alta, dar nu este dependentă de niciun server central, conexiunile dintre client și rețea fiind de tip Peer-to-Peer, conținutul persistent dinamic fiind reținut în blockchain-ul comun tuturor nodurilor din rețea.
 
@@ -225,19 +227,236 @@ Scopul acestei secțiuni nu este menit activismmului politic, în schimb este pe
 
 \clearpage
 
+![Diagrama de activitate\label{fig-2}](images/ActivityDiagram.png)
+
+\clearpage
+
+## Descrierea funcțiilor principale
+
+#### Login
+\
+În comparație cu aplicațiile normale, acest tip de aplicație nu necesită un proces separat de înregistrare, în momentul primei utilizări, utilizatorul poate să genereze pe pagina de login *passphrase*-ul unic cu care se va identifica de acum în colo.\
+Exemplu de *passphrase*:
+```
+horn future wife theme inherit ice buffalo drop chimney forum boss educate
+```
+
+Acest *passphrase* este spart de modulul `@liskhq/lisk-cryptography` în perechea de chei unice asociate utilizatorului care sunt folosite pentru autorizarea tuturor acțiunilor legate de utilizatorul respectiv.
+
+Nimic alceva nu este necesar în afară de acest *passphrase* care trebuie ținut minte de utilizator și nu va putea niciodată fi schimbat fără a pierde întreagă activitatea din sistem.
+
+În cel mai practic sens 'contul' utilizatorului este creeat de abia în momentul în care se înregistrează prima tranzacție cu adresa și cheia publică expusă în blockchain fie că există date asociate sau e o transacție nulă.
+
+#### Creearea de crypto-active
+\
+Pe pagina cu portofoliul utilizatorului acesta este capabil să creeze un crypto-activ cu printr-un modal în care poate să introducă datele relevante și să încarce conținutul bogat asociat activului respectiv.
+
+Conținutul bogat poate să fie de orice natură (text, photo, video, audio etc.) și în momentul încărcării pe platformă este defapt înregistrat pe instața locală de IPFS pentru a fi expus internetului.
+În momentul în care cineva vizualizează crypto-activul de pe alt dispozitiv acela este de abia momentul când conținutul este citit de pe dispozitivul origine și *cache*-uit pe dispozitivul consumator.
+
+\clearpage
+
 \begin{center}
 \section{Tehnologii utilizate}
 \end{center}
 \
 
+Dată fiind amploarea proiectului colecția de tehnologii utilizate pentru atingerea fiecărui obiectiv este relativ largă:
+
+## Angular 2+ 
+
+Framework-ul de frontend utilizat pentru realizarea componentei interactive a proiectului,
+Angular 2+ este un framework SPA (Single Page Application) care funcționează pe bază de componentă.
+
+Componentele în Angular sunt făcute în așa fel încât să fie bucățî modulare care conțin atât elementele necesare pentru stilizare cât și codul sursă care va fi să fie executat în relație cu componenta respectivă și componentele înconjurătoare. 
+Ele pot fi creeate într-o formă cât de atomică sau complexă este nevoie astfel încât să poată fi folosite ca orice tip de element de UI autoconținut în interiorul unui șablon HTML dinamic.
+
+Angular 2+ este gândit în jurul unui pattern arhitectural la nivel de aplicație cunoscut în accepțiunea comună curentă sub denumirea de MVW (Model-View-Whatever, Where Whatever stands for "whatever works for you"). În perioada de tranziție între Angular.js șî Angular 2+ era pusă în discuție de către comunitate clasificarea lui Angular ca framework într-una dintre *pattern*-urile următoare:
+
+- MVC\ \ \ \ (Model-View-Controller)
+- MVVM (Model-View-ViewModel)
+- MVP\ \ \ \ (Model-View-Prezenter)
+
+În final dat fiind faptul că important era partea comună între aceste *pattern*-uri și anume ideea de decuplare a *View*-ului (Partea structurală și stilistică), Model (Structura de date arbitrară asociată *View*-ului) și logica efectivă, eticheta de MVW a devenit un descriptor popular.
+Folosirea componentelor reutilizabile făcute accesibile prin sistemul de dependency injection în combinație cu o multitudine de feluri în care se poate obține *data-binding* între elementele din *View* Și model determină o practică mai scalabilă în comparație cu oricare dintre *pattern*-urile vechi privite izolat.
+
+Angular 2+ vine cu o suită de abstracții fundamentale care fluidizează procesul de dezvoltare dramatic, printre ele numărându-se și sistemul robust de routing și HttpClient-ul puse la dispoziție.
+
+## NestJS
+\
+NestJS este un framework de *backend* care a fost dezvoltat de la început să fie foarte similar cu Angular dată fiind popularitatea percepută și scalabilitatea efectivă a *pattern*-ului arhitectural implementat.
+
+Aceleași principii de design din Angular se aplică și în NestJS lucru care facilitează un proces de dezvoltare în oglindă între porțiunea de *frontend* și *backend*, iar sistemul de *dependency injection* și *design pattern*-urile native precum *Interceptor*, *Guard* și *Factory* au ajuns să fie standard și în lumea *backend*-ului bazat pe Node.js.
+
+NestJS folosește Express ca motor de abstracție HTTP implicit, dar poate fi înlocuit cu Fastify.
+
+Ambele *framework*-uri folosesc TypeScript ca limbaj de programare efectiv.
+
+#### Node.js
+\
+Node.js este un *runtime environment* de JavaScript care folosește motorul V8 original creeat și menținut de Google și implementează standardul ECMA.
+
+#### TypeScript 
+\
+Este un superset de JavaScript care este transpilat de *TypeScript Compiler* în orice versiune de  JavaScript și poate să fie rulat în aceleași condiții.
+\
+TypeScript a fost creeat pentru a ameliora problemele care au apărut în evolutia limbajului pe care se bazează în lunga lui istorie plină de evenimente care au cerut noi funcționalități pentru care nu fusese inițial menit.
+
+#### Express
+\
+Este un *framework* de abstracție HTTP bazat pe sistemtul de server și socket nativ Node.js.
 
 \clearpage
 
-# Fluxul de Valoare \
+## Lisk
+
+Lisk este un sistem de blockchain construit pe Node.js care manifestă o funcționare foarte performantă în comparație cu majoritatea soluțiilor de pe piață și a fost construit de încă de la început cu obiectivul de a servi drept o platformă largă pe care să se integreze *dApp*-uri care să se folosească de *Mainnet* pentru a vira valoare reală în interiorul rețelei lor private respective și ca framwork de *sidechain*-uri cu propria logică de proprietate.
+
+În comparație cu Ethereum, cel mai mare sistem *blockchain* care e menit dezvoltării *dApp*-urilor, Lisk este construit în întregime folosind JavaScript executat pe Node.js și își concentrează filosofia de dezvoltare pe conceptul de tranzacții personalizate în pofida unui limbaj propriu precum Solidity și a conceptului de *smart contract* și folosește PostgreSQL ca bază de date pentru menținerea persistenței locale a *blockchain*-ului.
+
+Această configurație garantează un prag de cunoaștere necesar pentru lucrul cu sistemul Lisk foarte scăzut și permite un volum potențial mai mare de ingineri care pot să înceapă imediat să construiască *dApp*-uri fără a pierde timpul învâțând un limbaj nou de programare sau un sistem de gestionare ale bazelor de date nou. Proiectul Lisk a putut să ajungă în starea în care este astăzi de stabilitate atât la nivel tehnic cât și la nivel de securitate financiară pentru că încă de la început a putut să se folosească de inerția și bogăția tehnologică a ecosistemului Node.js, fapt ce a determinat o evolutie foarte agresivă într-un timp foarte scurt.
+
+### Sidechains
+
+![Sidechains [@lisk-article-1]\label{fig-3}](images/Sidechains.jpeg)
+
+Lisk permite dezvoltarea de *dApp*-uri independente care pot să efectueze operațiuni arbitrare personalizate după discreția inginerilor participanți folosind ideea de *Sidechain*.
 
 \clearpage
 
-# Concluzii
+Un *sidechain* este o instană independentă de blockchain compatibilă la nivel fundamental cu *mainchain*-ul Lisk. Faptul că *dApp*-urile folosesc *sidechain*-uri proprii pentru operațiunile care necesită logică proprie are mai multe avantaje în comparație cu alte sisteme  ale căror aplicații conectate trebuie toate să utilizeze același *blockchain* comun în aceeași rețea printre care și:
+
+- Abilitatea de a creea tranzacții personalizate care nu trebuie să respecte standarde predefinite comun de comunitate
+- *Mainnet*-ul fiind complet separat nu este încărcat suplimentar nici la nivel de rețea și nici la nivel de informație irelevantă pentru majoritatea participanților care trebuie stocată
+- Inginerii pot să vină cu soluții ineficiente fără să afecteze negativ performanța sistemului întreg
+
+### Delegatated Proof of Stake
+
+*Delegated Proof of Stake* sau DPoS este protocolul de rezoluție a consensului folosit de proiectul Lisk și este lucrul care a permis atingerea performanței ridicate manifestată în prezent.
+
+Metrica principală de performanță pentru sistemele *blockchain* este *block time*, timpul necesar pentru ca un set de tranzacții să fie agregate și validate de protocolul de consens pentru a fi înscrise ca un nou *block* în *blockchain*.
+
+Pentru comparație:
+
+- Bitcoin block time: ~10min [@block-time]
+- Ethereum block time: ~20s  [@block-time]
+- Lisk block time: ~10s
+
+Majoritatea sistemelor de până acum foloseau mecanisme de consens de tip *Proof of Work* sau PoW, care necesită rezolvarea unei probleme cryptografice complexe pentru a da dreptul unui nod din rețea să înscrie un *block* nou în blockchain, acest lucru înseamnă că un mecanism de acest tip va necesita mereu putere computațională relativă foarte ridicată cu un consum real de energie electrică corelat și deci cu costuri foarte mari asociate, iar *block time*-ul va fi foarte lung.
+Acest procest mai este cunoscut și sub numele de *mining*.
+
+*Proof of Stake* sau PoS este cea mai comună alternativă pentru PoW. Sistemele de tip PoS au fost dezboltate să rezolve o parte dintre ineficiențele și problemele care reies din mecanismul PoW.
+În contextul sistemelor de tip PoS nu se mai discută de *mining* în sensul vechi, securizarea versiunii fiind deterministă prin faptul că nodul care înscrie noul *block* este ales în baza cantităților de crypto-monedă pe care le pun la dispoziție participanții, unde cei ce dispun mai mult au șanse mai mari să fie aleși.
+Procesul prin care nodul din rețea ales înscrie noul *block* este cunoscut ca *forging*. 
+
+Este considerat de asemenea că acest mecanism este potențial mai rezistent la *51% attacks* deoarece un agent rău intenționat trebuie să aibă în proprietatea lui cel puțin 51% din cantitatea totală de crypto-monedă de pe piață și eșecul atacului implică pierderi financiare imense.
+
+*Delegated Proof of Stake* sau DPoS este un algoritm de conses dezvoltat de Daniel Larimer în 2014  prin care participanții votează pentru alegerea delegațiilor care securizează rețeaua în locul lor.  Delegații, cunoscuți și sub denumirea de martori, sunt responsabili pentru atingerea consensului în timpul generării și validării noilor *block*-uri. Puterea votului este proporțională cu cantitatea de crypto-monedă deținută.
+
+![Elecția Delegațiilor [@lisk-article-2]\label{fig-4}](images/lisk-voting.png)
+
+\clearpage
+
+În prezent numărul de delegați este fixat la 101, dar acest număr va fi mărit în viitor.
+
+![Propoția Elecției [@lisk-article-2]\label{fig-5}](images/lisk-proportional-voting.png)
+
+## IPFS
+
+*Interplanetary File System* sau IPFS este un protocol de rețea peer-to-peer pentru stocarea și diseminarea datelor de orice natură într-un sistem de fișiere distribuit folosind principiul de *content-addressing* pentru a identifica unic fiecare fișier într-un *namespace* global care conectează toate dispozitivele participante.
+
+IPFS este construit în jurul unui sistem descentralizat de utilizatori operatori care dețin o porțiune din toate datele stocate în rețea, astfel creeând un sistem rezilient de stocare și disminare de fișiere. Orice utilizator din rețea poate să servească un fișier și oricare alt utilizator poate să acceseze fișierul respectiv în rețea prin adresa de conținut care este regăsită folosind un *Distributed Hash Table* sau DHT.
+
+IPFS devine unul dintre subsistemele majore ale internetului și dacă este construit și împlementat cum trebuie în timp poate să complementeze sau chiar să înlocuiască HTTP. Obiectivul principal al proiectului este să elimine dependența față de *backbone*-ul internetului pentru a creea o infrastructură complet descentralizată și rezilientă care să nu piardă informație pentru că unul dintre sistemele centrale care ține o bucată de conținut pică.
+
+<!-- ![](images/ipfs-illustration-centralized.svg) -->
+
+### Perspective
+
+Acest sistem poate fi considerat mai multe lucruri:
+
+IPFS ca protocol:
+
+- Definește un sistem de fișiere adresabil prin hash-ul conținutului efectiv 
+- Coordonează livrarea conținutului
+- Combină conceptual Kademlia + BitTorrent + Git
+
+\clearpage
+
+IPFS ca sistem de fișiere:
+
+- Are directoare și fișiere
+- Este montabil la alte sisteme de fișiere (via FUSE)
+
+IPFS ca sistem web:
+
+- Poate fi folosit pentru a consuma documente ca web-ul convențional
+- Fișierele sunt accesibile via HTTP prin gateway-uri publice sau private care fac conversia între protocolul standard HTTP și IPFS
+- Poate fi folosit pentru a hosta și disemina aplicații statice
+- Browserele pot fi extinse pentru a suporta protocolul via ipfs-companion
+- Garantează autenticitatea conținutului prin addresarea bazată pe hash-uri
+
+IPFS ca CDN (Content Delivery Network):
+
+- Un fișier adăugat în nodul local este accesibil la nivel mondial
+- Implementează un sistem de distribuție de lățime de bandă ca BitTorrent
+- Aplică caching în puncte critice sau local pentru a permite conținutului să fie accesibil mai rapid la a doua descărcare
+
+\clearpage
+
+### Crypto-adresare
+
+IPFS se folosețe de conceptul de *Merkle Directed Acyclic Graphs* sau *MerkleDAG* ca să adreseze criptografic fișierele. Un MerkleDAG este un sistem criptografic prin care *hash*-urile 'părinte' își modifică signatura în baza *hash*-urilor 'copil' rezultatul fiind o structură arborescentă care poate să fie parcursă într-o manieră scalabilă.
+
+![DAG Filesystem [@ipfs-article-1]\label{fig-6}](images/dag-structure.jpeg)
+
+Din exemplul de mai sus conținutul fișierului de mai sus *my_file.txt* poate să fie adresat în două moduri:
+
+- Fie direct prin *Content Identifier*-ul sau CID-ul lui propriu
+
+```
+#!/bin/sh
+ipfs cat QmfM2r8seH2GiRaC4esTjeraXEachRt8ZsSeGaWTPLyMoG
+Hello World!
+```
+
+- Ori prin CID-ul unui director arbitrar cu *path*-ul relativ concatenat la final
+
+```
+#!/bin/sh
+ipfs cat Qma3qbWDGJc6he3syLUTaRkJD3vAq1k5569tNMbUtjAZjf/my_dir/my_file.txt
+Hello World!
+```
+
+\clearpage
+
+\begin{center}
+\section{Implementarea soluției}
+\end{center}
+\
+
+\clearpage
+
+\begin{center}
+\section{Fluxul de Valoare}
+\end{center}
+
+\clearpage
+
+\begin{center}
+\section{Strategii de desfășurare}
+\end{center}
+
+\clearpage
+
+\begin{center}
+\section{Concluzii}
+\end{center}
+
+\clearpage
+
+\renewcommand*\listfigurename{Lista figurilor utilizate}
+\listoffigures
 
 \clearpage
 
