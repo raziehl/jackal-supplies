@@ -1,3 +1,15 @@
-<div class="home-container">
+<div class="home-container" [hidden]="util.isGlobalLoading">
+  
+  <div *ngIf="!offers" style="text-align: center; position: relative; top: 500px">
+      There are no offers available 
+  </div>
+
+  <mat-grid-list [cols]="(isHandset | async).matches ? 1 : 4"
+  rowHeight="5:7" gutterSize="7px">
+      <mat-grid-tile *ngFor="let offer of offers; let i=index">
+          <app-offer [offer]="offer" [index]="i" *ngIf="!offer.fulfilled"></app-offer>
+      </mat-grid-tile>
+  </mat-grid-list>
     
+
 </div>

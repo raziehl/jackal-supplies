@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import { AuthService } from '../core/auth.service';
 import { Asset } from '../../../../common/models/Asset';
 import { SellOrder, BuyOrder } from '../../../../common/models/Orders';
+import { UtilService } from '../core/util.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 const backend = environment.backend;
 
 @Component({
@@ -13,14 +15,21 @@ const backend = environment.backend;
 })
 export class HomeComponent implements OnInit {
 
-  sellOrders: SellOrder[];
+  offers: SellOrder[];
+
+  isHandset = this.breakpointObserver
+  .observe('(max-width: 768px)');
 
   constructor(
     public http: HttpClient,
-    public auth: AuthService
+    public auth: AuthService,
+    public util: UtilService,
+    public breakpointObserver: BreakpointObserver
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getOffers();
+  }
 
   testLogin() {
     this.http.post(`${backend}/lisk/login`, this.auth.user)
@@ -30,9 +39,9 @@ export class HomeComponent implements OnInit {
   }
 
   getOffers() {
-    this.http.get(`${backend}/lisk/offers`)
+    this.http.get(`${backend}/lisk/orders`)
     .subscribe((sellOrders: SellOrder[]) => {
-      this.sellOrders = sellOrders;
+      this.offers = sellOrders;
     },console.error);
   }
 }

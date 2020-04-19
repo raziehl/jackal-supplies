@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { timeout } from './util.service';
+import { SellOrder } from '@root/common/models/Orders';
 
 const backend: string = environment.backend;
 

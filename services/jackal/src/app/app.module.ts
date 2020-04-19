@@ -44,6 +44,9 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
 import { AssetComponent } from './shared/asset/asset.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CreateAssetComponent } from './portfolio/create-asset/create-asset.component';
+import { CreateSellOrderComponent } from './shared/create-sell-order/create-sell-order.component';
+import { CreateBuyOrderComponent } from './shared/create-buy-order/create-buy-order.component';
+import { OfferComponent } from './shared/offer/offer.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,10 @@ import { CreateAssetComponent } from './portfolio/create-asset/create-asset.comp
     SpinnerComponent,
     PortfolioComponent,
     AssetComponent,
-    CreateAssetComponent
+    CreateAssetComponent,
+    CreateSellOrderComponent,
+    CreateBuyOrderComponent,
+    OfferComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +108,8 @@ import { CreateAssetComponent } from './portfolio/create-asset/create-asset.comp
   ],
   entryComponents: [
     CreateAssetComponent,
+    CreateSellOrderComponent,
+    CreateBuyOrderComponent,
     SpinnerComponent
   ],
   bootstrap: [AppComponent]

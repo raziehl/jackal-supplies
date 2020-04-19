@@ -9,6 +9,8 @@ import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { AssetManager } from 'src/app/core/asset-management.service';
 import { UtilService } from 'src/app/core/util.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateSellOrderComponent } from '../create-sell-order/create-sell-order.component';
 
 const backend = environment.backend;
 
@@ -33,7 +35,8 @@ export class AssetComponent implements OnInit {
     public http: HttpClient,
     public router: Router,
     public manager: AssetManager,
-    public util: UtilService
+    public util: UtilService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -43,6 +46,15 @@ export class AssetComponent implements OnInit {
     .subscribe(data => {
       this.imageDataUrl = data;
     }, console.error);
+  }
+
+  async createSellOrder() {
+    const dialogRef = this.dialog.open(CreateSellOrderComponent, {
+      // width: '250px',
+      data: this.asset,
+    });
+
+    dialogRef.afterClosed().subscribe();
   }
 
   async destroyAsset() {

@@ -1,0 +1,38 @@
+<div class="offer"
+    (click)="showDetails(offer)"
+    [style.background]="'url('+imageDataUrl+')'"
+    [style.backgroundSize]="'cover'">
+    <div class="offer-header"></div>
+
+    
+    <div class="offer-info"
+    [@assetDetails]="isShown ? 'shown' : 'hidden'">
+        <div class="offer-title">
+            {{offer.assetData.name}}
+        </div>
+        <div class="flex-container">
+            <div class="offer-left col-2x3">
+                <div class="offer-description">
+                    {{offer.assetData.description}}
+                </div>
+
+                <div class="offer-details">
+                    <div class="offer-price">
+                        Price: {{offer.askingPrice}}{{LSK}}
+                    </div>
+                    <!-- <div class="offer-shares">
+                        Issued: {{offer.noSell}}
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-1x3">
+              <button mat-raised-button class="box-btn" (click)="createBuyOrder()">
+                  <i class="far fa-plus-square"></i>
+              </button>
+              <button mat-raised-button class="box-btn">
+                <i class="fas fa-heart"></i>
+              </button>
+            </div>
+        </div>
+    </div>
+</div>

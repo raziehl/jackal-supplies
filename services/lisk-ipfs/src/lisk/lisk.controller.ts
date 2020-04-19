@@ -2,6 +2,7 @@ import { Controller, Get, Post, Request } from '@nestjs/common';
 import { CryptoService } from './crypto.service';
 import { User } from '@root/common/models/User';
 import { LiskService } from './lisk.service';
+import { SellOrder } from '@root/common/models/Orders';
 
 @Controller('lisk')
 export class LiskController {
@@ -34,6 +35,24 @@ export class LiskController {
     let user: User = req.body;
     return await this.lisk.updateAccount(user);
   }
+
+  @Post('sell-order')
+  async addSellOrder(@Request() req) {
+    let { sellOrder, passphrase } = req.body;
+    return await this.lisk.addSellOrder(sellOrder);
+  }
+
+  @Post('buy-order')
+  async addBuyOrder(@Request() req) {
+    let { buyOrder, passphrase } = req.body;
+    return await this.lisk.addBuyOrder(buyOrder, passphrase);
+  }
+
+  @Get('orders')
+  async getAllSellOrders() {
+    return (await this.lisk.getOrderAccount()).asset.sellOrders;
+  }
+
 
   @Post('addCash')
   async createUser(@Request() req) {

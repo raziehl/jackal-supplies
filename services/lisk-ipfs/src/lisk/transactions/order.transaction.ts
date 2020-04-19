@@ -1,12 +1,20 @@
 import { BaseTransaction, TransactionError, utils } from '@liskhq/lisk-transactions';
 import { Logger } from '../../../../common/logger';
 import { User } from '../../../../common/models/User';
+import { Orders } from '../../../../common/models/Orders';
 
 const logger = new Logger('info');
 
-export class AccountTransaction extends BaseTransaction {
+interface TransactionInfo {
+  timestamp: number,
+  networkIdentifier: string,
+  targetAccountAddress: string,
+  asset: any
+}
 
-  private accountAsset: any;
+export class OrderTransaction extends BaseTransaction {
+
+  targetAccountAddress: string;
 
   protected verifyAgainstTransactions(transactions: readonly import("@liskhq/lisk-transactions").TransactionJSON[]): readonly TransactionError[] {
     throw new Error("Method not implemented.");
@@ -15,8 +23,9 @@ export class AccountTransaction extends BaseTransaction {
     throw new Error("Method not implemented.");
   }
 
-  constructor(transObj) {
-    super(transObj);
+  constructor(transInfo: TransactionInfo) {
+    super(transInfo);
+    this.targetAccountAddress = transInfo.targetAccountAddress;
   }
 
   static get TYPE() {
@@ -48,7 +57,7 @@ export class AccountTransaction extends BaseTransaction {
     const asset: Partial<User> = this.asset;
     let sender: any = store.account.get(this.senderId);
 
-    const newObj = { ...sender, asset: asset };
+    const newObj = { ...sender, asset: this.asset };
     store.account.set(sender.address, newObj);
 
     return errors;

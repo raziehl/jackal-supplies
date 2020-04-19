@@ -1,0 +1,22 @@
+<div class="create-sell-order-container">
+
+  <form [formGroup]="sellOrderForm" (ngSubmit)="onSubmit(sellOrderForm.value)" style="width: 100%">
+    <div class="form-container">
+      <mat-form-field class="inline-form-field col" style="width: 100%">
+        <mat-label>No. to Sell</mat-label>
+        <input matInput type="number"
+        formControlName="noSellControl">
+      </mat-form-field>
+
+      <mat-form-field class="inline-form-field col" style="width: 100%">
+        <mat-label>Asking Price</mat-label>
+        <input matInput type="number"
+        formControlName="valueControl">
+      </mat-form-field>
+    </div>
+
+    <button mat-button class="box-button">
+      Create Sell Order
+    </button>
+  </form>
+</div>
