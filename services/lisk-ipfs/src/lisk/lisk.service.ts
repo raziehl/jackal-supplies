@@ -39,12 +39,18 @@ export class LiskService {
 
   constructor(
     public http: HttpService
-  ) {  
-    this.test();
-  }
+  ) {}
 
-  async test() {
-    
+  async getAccount(userAddress: string): Promise<User> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const account: Partial<User> = (await devnet.accounts.get({ address: userAddress })).data[0];
+        return resolve(new User(account));
+      } catch (err) {
+        log.error(err);
+        return reject(err);
+      }
+    });
   }
 
   async updateAccount(user: User) {
@@ -56,21 +62,14 @@ export class LiskService {
     });
     tx.sign(user.passphrase);
 
-    await devnet.transactions.broadcast(tx.toJSON())
-    .then(data => log.info('Transaction result: ', data))
-    .catch(err => log.error(err));
-  }
-
-  async getAccount(userAddress: string): Promise<User> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const account: Partial<User> = (await devnet.accounts.get({ address: userAddress })).data;
-        return resolve(new User(account));
-      } catch (err) {
-        log.error(err);
-        return reject(err);
-      }
-    });
+    try {
+      const result = await devnet.transactions.broadcast(tx.toJSON())
+      log.info('Transaction result: ', result);
+      return result;
+    } catch(err) {
+      log.error(err);
+      throw new Error("Failed to update account");
+    }
   }
 
   async addCash(user: User) {
@@ -96,7 +95,7 @@ export class LiskService {
   }
 
   async account(user: User) {
-    let account: User = (await this.getAccount(user.address) as Partial<User>)[0];
+    let account: User = await this.getAccount(user.address);
     user = new User({ ...user, ...account });
     if (account)
       return user;
@@ -108,7 +107,7 @@ export class LiskService {
 
   async addAssetToUserPortfolio(asset: Asset, passphrase: string) {
     const address = getAddressFromPassphrase(passphrase);
-    const user: Partial<User> = (await this.getAccount(address))[0];
+    const user: User = await this.getAccount(address);
     user.asset.portfolio.push(asset);
     user.passphrase = passphrase;
     this.updateAccount(user as User);
