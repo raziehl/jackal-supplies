@@ -68,7 +68,7 @@ export class LiskService {
       return result;
     } catch(err) {
       log.error(err);
-      throw new Error("Failed to update account");
+      throw new Error("Something is wrong with the update account process");
     }
   }
 
@@ -88,10 +88,6 @@ export class LiskService {
     .catch(err => {
       console.error(err.errors[0].errors)
     });
-  }
-
-  async initialization() {
-    
   }
 
   async account(user: User) {
