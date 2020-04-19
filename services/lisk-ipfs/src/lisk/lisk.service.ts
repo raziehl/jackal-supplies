@@ -121,7 +121,7 @@ export class LiskService {
       await devnet.transactions.broadcast(tx);
     } catch(err) {
       log.error(err);
-      throw new Error("Not enought funds, or something else");
+      log.error("Not enought funds, or something else");
     }
 
     try {
