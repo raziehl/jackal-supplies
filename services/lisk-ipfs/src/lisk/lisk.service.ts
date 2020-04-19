@@ -61,11 +61,11 @@ export class LiskService {
     .catch(err => log.error(err));
   }
 
-  async getAccount(userAddress: string): Promise<Partial<User>> {
+  async getAccount(userAddress: string): Promise<User> {
     return new Promise(async (resolve, reject) => {
       try {
         const account: Partial<User> = (await devnet.accounts.get({ address: userAddress })).data;
-        return resolve(account);
+        return resolve(new User(account));
       } catch (err) {
         log.error(err);
         return reject(err);
@@ -124,13 +124,25 @@ export class LiskService {
 
     try {
       await devnet.transactions.broadcast(tx);
-      await this.addAssetToUserPortfolio(asset, passphrase);
-      await this.removeSellOrder(buyOrder.sellOrderId);
-      return;
     } catch(err) {
       log.error(err);
       throw new Error("Not enought funds, or something else");
     }
+
+    try {
+      await this.addAssetToUserPortfolio(asset, passphrase);
+    } catch(err) {
+      log.error(err);
+      throw new Error("Failed to transfer asset to portfolio")
+    }
+
+    try {
+      await this.removeSellOrder(buyOrder.sellOrderId);
+    } catch(err) {
+      log.error(err);
+      throw new Error("Failed to remove sell order");
+    }
+    return;
   }
 
   async getOrderAccount(): Promise<OrderAccount> {
