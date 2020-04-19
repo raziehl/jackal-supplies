@@ -27,8 +27,8 @@ export class HomeComponent implements OnInit {
     public breakpointObserver: BreakpointObserver
   ) {}
 
-  ngOnInit() {
-    this.getOffers();
+  async ngOnInit() {
+    await this.getOffers();
   }
 
   testLogin() {
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     }, () => {});
   }
 
-  getOffers() {
+  async getOffers() {
     this.http.get(`${backend}/lisk/orders`)
     .subscribe((sellOrders: SellOrder[]) => {
       this.offers = sellOrders;

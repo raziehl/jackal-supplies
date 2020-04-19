@@ -7,7 +7,7 @@
   <mat-grid-list [cols]="(isHandset | async).matches ? 1 : 4"
   rowHeight="5:7" gutterSize="7px">
       <mat-grid-tile *ngFor="let offer of offers; let i=index">
-          <app-offer [offer]="offer" [index]="i" *ngIf="!offer.fulfilled"></app-offer>
+          <app-offer [offer]="offer" [index]="i"></app-offer>
       </mat-grid-tile>
   </mat-grid-list>
     
