@@ -2,7 +2,7 @@
     <form [formGroup]="assetForm" (ngSubmit)="onSubmit(assetForm.value)">
         <div class="asset-block">
         <div class="flex-container">
-            <div class="col">
+            <div class="col" style="padding: 10px">
                 <mat-form-field>
                     <mat-label>Asset Name</mat-label>
                     <input matInput 
@@ -36,7 +36,7 @@
 
             </div>
 
-            <div class="col">
+            <div class="col" style="padding: 10px">
               <div class="upload-block">
                 <input type="file" name="profile" (change)="handleFileInput($event.target.files)"/>
                 <button mat-raised-button class="box-button" class="upload-button" style="width: 100%;">Upload File</button>

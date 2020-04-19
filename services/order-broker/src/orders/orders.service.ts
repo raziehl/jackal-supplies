@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { NatsService } from '../nats/nats.service';
 import { Logger } from '../../../common/logger';
 import { lisknet } from '../lisk/lisk.module';
-import { SellOrder } from './entities/sell-order.entity';
 
 // const beddows2l = utils.convertBeddowsToLSK;
 

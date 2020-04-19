@@ -369,7 +369,9 @@ IPFS este construit în jurul unui sistem descentralizat de utilizatori operator
 
 IPFS devine unul dintre subsistemele majore ale internetului și dacă este construit și împlementat cum trebuie în timp poate să complementeze sau chiar să înlocuiască HTTP. Obiectivul principal al proiectului este să elimine dependența față de *backbone*-ul internetului pentru a creea o infrastructură complet descentralizată și rezilientă care să nu piardă informație pentru că unul dintre sistemele centrale care ține o bucată de conținut pică.
 
-<!-- ![](images/ipfs-illustration-centralized.svg) -->
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/ipfs-illustration-centralized.png}
+\end{center}
 
 ### Perspective
 
@@ -380,8 +382,6 @@ IPFS ca protocol:
 - Definește un sistem de fișiere adresabil prin hash-ul conținutului efectiv 
 - Coordonează livrarea conținutului
 - Combină conceptual Kademlia + BitTorrent + Git
-
-\clearpage
 
 IPFS ca sistem de fișiere:
 
@@ -417,7 +417,7 @@ Din exemplul de mai sus conținutul fișierului de mai sus *my_file.txt* poate s
 ```
 #!/bin/sh
 ipfs cat QmfM2r8seH2GiRaC4esTjeraXEachRt8ZsSeGaWTPLyMoG
-Hello World!
+#Result: Hello World!
 ```
 
 - Ori prin CID-ul unui director arbitrar cu *path*-ul relativ concatenat la final
@@ -425,7 +425,7 @@ Hello World!
 ```
 #!/bin/sh
 ipfs cat Qma3qbWDGJc6he3syLUTaRkJD3vAq1k5569tNMbUtjAZjf/my_dir/my_file.txt
-Hello World!
+#Result: Hello World!
 ```
 
 \clearpage
@@ -434,6 +434,27 @@ Hello World!
 \section{Implementarea soluției}
 \end{center}
 \
+
+Cum a fost descris în introducere, aplicația prezentată permite utilizatorului să creeze cripto-active care pot fi valorificate speculativ în interiorul rețelei.
+
+![Login](images/app-screens/login.png)
+
+
+
+Poate să introducă *passphrase*-ul lui personal pentru a intra în aplicațîe cu contul lor asociat sau pot să genereze un passphrase nou dacă nu au mai folosit aplicația până acum.
+
+![Login: Generare Passphrase](images/app-screens/login-generated.png) \
+
+După logare utilizatorul poate să intre pe pagina portofoliului lor personal și de acolo au posibilitatea să creeze, modifice, distrugă crypto-active sau să creeze oferte de vânzare cu ele. 
+
+![Portofoliolul utilizatorului](images/app-screens/portfolio.png)
+
+![Creeare Crypto-Activ](images/app-screens/create-asset.png)
+
+![Crypto-Activ nou](images/app-screens/new-asset.png)
+
+![Informații Cripto-Activ](images/app-screens/new-asset-information.png)
+
 
 \clearpage
 
