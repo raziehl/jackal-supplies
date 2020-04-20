@@ -36,14 +36,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login() {
+  async login() {
     const val = this.loginForm.value;
  
     this.user.passphrase = val.passwordControl;
     
     if (val.passwordControl) {
       localStorage.setItem('passphrase', this.user.passphrase);
-      this.auth.login(this.user);
+      await this.auth.login(this.user);
       this.loading = true;
     }
   }

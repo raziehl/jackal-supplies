@@ -27,7 +27,7 @@
   </mat-toolbar>
 
   <mat-drawer-container class="drawer-container">
-      <mat-drawer #drawer mode="side" position="start" [opened]="auth.isLoggedIn()"
+      <mat-drawer #drawer mode="side" position="start" [closed]="!auth.isLoggedIn()" [opened]="auth.isLoggedIn()"
       style="position: fixed; z-index: 0" class="drawer">
 
         <i class="fas fa-bars drawer-icon" (click)="sidenav.toggle()"

@@ -44,8 +44,9 @@ export class LiskService {
   async getAccount(userAddress: string): Promise<User> {
     return new Promise(async (resolve, reject) => {
       try {
-        const account: Partial<User> = (await devnet.accounts.get({ address: userAddress })).data[0];
-        return resolve(new User(account));
+        const user: User = new User((await devnet.accounts.get({ address: userAddress })).data[0]);
+        user.address = userAddress;
+        return resolve(user);
       } catch (err) {
         log.error(err);
         return reject(err);
@@ -92,6 +93,7 @@ export class LiskService {
 
   async account(user: User) {
     let account: User = await this.getAccount(user.address);
+    console.log(account)
     user = new User({ ...user, ...account });
     if (account)
       return user;
@@ -121,7 +123,7 @@ export class LiskService {
       await devnet.transactions.broadcast(tx);
     } catch(err) {
       log.error(err);
-      log.error("Not enought funds, or something else");
+      throw new Error("Not enought funds, or something else");
     }
 
     try {

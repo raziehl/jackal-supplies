@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SellOrder } from '@root/common/models/Orders';
 import { Asset } from '@root/common/models/Asset';
 import { environment } from '../../../environments/environment';
+import { AssetManager } from 'src/app/core/asset-management.service';
 
 const backend = environment.backend;
 
@@ -26,10 +27,11 @@ export class CreateSellOrderComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreateSellOrderComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Asset,
+    @Inject(MAT_DIALOG_DATA) public data: {asset: Asset, index: number},
     private fb: FormBuilder,
     private http: HttpClient,
     private auth: AuthService,
+    private manager: AssetManager,
     private toast: ToastrService
    ) { }
 
@@ -48,20 +50,34 @@ export class CreateSellOrderComponent implements OnInit {
   }
 
 
-  createSellOrder(formValue: FormObject) {
+  async createSellOrder(formValue: FormObject) {
     const sellOrder: SellOrder = new SellOrder({
       askingPrice: formValue.valueControl,
-      assetId: this.data.assetHash,
-      cid: this.data.cid,
+      assetId: this.data.asset.assetHash,
+      cid: this.data.asset.cid,
       created_at: new Date(),
       sellerId: this.auth.user.address,
       id: this.auth.user.address + (+new Date()),
-      assetData: this.data,
+      assetData: this.data.asset,
       fulfilled: false
     });
 
-    this.http.post(`${backend}/lisk/sell-order`, { sellOrder, passphrase: this.auth.user.passphrase })
-    .subscribe(console.log, console.error);
+    try {
+      await this.http.post(`${backend}/lisk/sell-order`, { sellOrder, passphrase: this.auth.user.passphrase })
+      .toPromise();
+      await this.removeAsset(this.data.asset.cid);
+    } catch(err) {
+      console.error(err);
+    }
+    this.dialogRef.close();
+  }
+
+  async removeAsset(assetCid: string) {
+    await this.manager.destroyAsset(assetCid);
+
+    this.auth.user.asset.portfolio.splice(this.data.index, 1);
+    await this.manager.updateUserData();
+    this.auth.refresh(this.auth.user);
   }
 
 }

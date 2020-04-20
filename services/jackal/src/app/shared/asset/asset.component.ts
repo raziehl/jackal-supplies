@@ -51,7 +51,7 @@ export class AssetComponent implements OnInit {
   async createSellOrder() {
     const dialogRef = this.dialog.open(CreateSellOrderComponent, {
       // width: '250px',
-      data: this.asset,
+      data: { asset: this.asset, index: this.index },
     });
 
     dialogRef.afterClosed().subscribe();

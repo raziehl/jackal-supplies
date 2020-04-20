@@ -14,6 +14,7 @@ const backend: string = environment.backend;
 export class AuthService implements OnInit {
 
   user: User;
+  passphrase: string;
 
   constructor(
     private http: HttpClient,
@@ -21,35 +22,33 @@ export class AuthService implements OnInit {
     private toast: ToastrService
   ) { this.ngOnInit() }
   
-  ngOnInit() {
+  async ngOnInit() {
     this.user = new User();
+    this.passphrase = localStorage.getItem('passphrase');
     const user = localStorage.getItem('user');
-    const passphrase = localStorage.getItem('passphrase');
     if(user) {
       this.user = new User(JSON.parse(user));
-      this.refresh(this.user);
+      this.user.passphrase = this.passphrase;
+      await this.refresh(this.user);
     }
   }
 
-  login(user: User) {
-    this.http.post(`${backend}/lisk/account`, user)
-    .subscribe((user: User) => {
-      this.user = new User(user);
-      const expiresAt = moment().add(user.expiresIn, 'second');
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('expires_at', expiresAt.valueOf().toString());
-      this.router.navigate(['/home']);
-    },() => {});
+  async login(user: User) {
+    await this.refresh(user);
+    this.router.navigate(['/home']);
   }
 
-  refresh(user: User) {
-    this.http.post(`${backend}/lisk/account`, user)
-    .subscribe((user: User) => {
+  async refresh(user: User) {
+    return this.http.post(`${backend}/lisk/account`, user)
+    .toPromise()
+    .then((user: User) => {
+      console.log(this.user)
       this.user = new User(user);
+      this.user.passphrase = this.passphrase;
       const expiresAt = moment().add(user.expiresIn, 'second');
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('expires_at', expiresAt.valueOf().toString());
-    },() => {});
+    }).catch(console.error);
   }
 
   logout() {
@@ -60,7 +59,7 @@ export class AuthService implements OnInit {
   }
 
   public isLoggedIn() {
-    return moment().isBefore(this.getExpiration());
+    return moment().isBefore(this.getExpiration()) && JSON.parse(localStorage.getItem('user')).address;
   }
 
   getExpiration() {
