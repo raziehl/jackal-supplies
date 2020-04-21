@@ -11,6 +11,7 @@ import { Logger } from '../../../common/logger';
 import { AccountTransaction } from './transactions/account.transaction';
 
 import { DEVNET_URL } from '../../../common/env_vars';
+import { OrderTransaction } from './transactions/order.transaction';
 
 configDevnet.components.logger.consoleLogLevel = process.env.LISK_LOG_LEVEL || 'error';
 // configDevnet.components.logger.logFileName = './lisk.log';
@@ -44,6 +45,7 @@ export const networkIdentifier = getNetworkIdentifier(
       useFactory: () => {
         const app = new Application(genesisBlockDevnet, configDevnet);
         app.registerTransaction(AccountTransaction);
+        app.registerTransaction(OrderTransaction);
         app
         .run()
         .then(() => console.log('Lisk Connected'))
