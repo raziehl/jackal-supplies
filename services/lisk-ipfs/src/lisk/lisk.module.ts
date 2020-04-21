@@ -14,6 +14,7 @@ import { DEVNET_URL } from '../../../common/env_vars';
 import { OrderTransaction } from './transactions/order.transaction';
 
 configDevnet.components.logger.consoleLogLevel = process.env.LISK_LOG_LEVEL || 'error';
+configDevnet.modules.chain.forging.force = true;
 // configDevnet.components.logger.logFileName = './lisk.log';
 
 genesisBlockDevnet.transactions[0] = {
