@@ -22,7 +22,7 @@ const sellAddress = '11225201565141563944L';
 const buyAddress = '11898602431065133374L';
 
 const log = new Logger('info');
-
+4
 function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -30,7 +30,7 @@ function timeout(ms) {
 export function timestamp() {
     const millisSinceEpoc = Date.now() - Date.parse(EPOCH_TIME.toString());
     const inSeconds = ((millisSinceEpoc) / 1000).toFixed(0);
-    return  parseInt(inSeconds);
+    return  parseInt(inSeconds)-1;
 }
 
 
