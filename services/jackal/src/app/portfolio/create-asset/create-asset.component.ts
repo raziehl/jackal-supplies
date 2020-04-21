@@ -93,7 +93,6 @@ export class CreateAssetComponent implements OnInit {
       await this.http.post(`${backend}/lisk/updateUser`, this.user).toPromise();
 
       this.dialogRef.close();
-      await this.manager.updateUserData();
     } catch(e) {
       console.log(e.body);
       console.error(e);

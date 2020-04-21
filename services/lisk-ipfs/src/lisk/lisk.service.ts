@@ -55,6 +55,7 @@ export class LiskService {
   }
 
   async updateAccount(user: User) {
+    log.info("UpdateAccount Method")
     const tx = new AccountTransaction({
       timestamp: timestamp(),
       networkIdentifier: networkIdentifier,

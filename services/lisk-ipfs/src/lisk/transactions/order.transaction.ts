@@ -29,7 +29,7 @@ export class OrderTransaction extends BaseTransaction {
   }
 
   static get TYPE() {
-    return 13;
+    return 20;
   }
 
   static get FEE() {
