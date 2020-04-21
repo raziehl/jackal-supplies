@@ -84,7 +84,7 @@ export class LiskService {
     });
 
     try {
-      const result = devnet.transactions.broadcast(tx)
+      const result = await devnet.transactions.broadcast(tx);
       log.info(result);
       return result;
     } catch(err) {
