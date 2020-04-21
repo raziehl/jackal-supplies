@@ -34,8 +34,8 @@ export class AssetManager implements OnInit {
     this.portfolioSubject.next(this.auth.user.asset.portfolio);
   }
 
-  async updateUserData() {
-    this.http.post(`${backend}/lisk/updateUser`, this.auth.user)
+  async updateUserData(user: User = null) {
+    this.http.post(`${backend}/lisk/updateUser`, user || this.auth.user)
     .subscribe(console.log, console.error);
 
     await this.reloadUserData();

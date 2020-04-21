@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SellOrder, BuyOrder } from '@root/common/models/Orders';
 import { LSK } from '@root/common/models/Utils';
 import { assetDetails } from '../animations';
+import { ToastrService } from 'ngx-toastr';
 
 const backend = environment.backend;
 
@@ -31,7 +32,8 @@ export class OfferComponent implements OnInit {
     public auth: AuthService,
     public http: HttpClient,
     public util: UtilService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toast: ToastrService
   ) { }
 
   ngOnInit() {
@@ -54,7 +56,10 @@ export class OfferComponent implements OnInit {
     });
 
     this.http.post(`${backend}/lisk/buy-order`, { buyOrder, passphrase: this.auth.user.passphrase })
-    .subscribe(console.log, console.error);
+    .toPromise()
+    .then((res) => this.toast.success('Valid'))
+    .catch(err => {console.log(err)
+      this.toast.error(err.error.message)})
   }
 
   showDetails() {

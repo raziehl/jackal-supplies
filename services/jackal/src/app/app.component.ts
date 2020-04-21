@@ -4,6 +4,8 @@ import { AuthService } from './core/auth.service';
 import { Router } from '@angular/router';
 import { UtilService } from './core/util.service';
 
+import { LSK } from '../../../common/models/Utils';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,6 +13,8 @@ import { UtilService } from './core/util.service';
 })
 export class AppComponent {
   @ViewChild('drawer', {static: false}) public sidenav: MatSidenav;
+
+  LSK = LSK;
 
   constructor(
     public auth: AuthService,

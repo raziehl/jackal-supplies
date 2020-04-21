@@ -10,6 +10,7 @@
 
           <div class="col user-icon">
               <a [matMenuTriggerFor]="menu" style="cursor:pointer">
+                  <span *ngIf="auth.isLoggedIn()">{{auth.user.balance/10000000}}{{LSK}}</span>
                   <span *ngIf="auth.isLoggedIn()">
                       {{auth.user.asset.userInfo.username}} 
                   </span>

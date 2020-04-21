@@ -57,10 +57,6 @@ export class CreateAssetComponent implements OnInit {
     });
 
     this.user = this.auth.user;
-    this.test();
-  }
-
-  async test() {
   }
 
   onSubmit(formValue: FormObject) {
@@ -90,9 +86,8 @@ export class CreateAssetComponent implements OnInit {
       const portfolioSize = this.auth.user.asset.portfolio.length;
       this.auth.user.asset.portfolio[portfolioSize - 1].cid = cidPath;
 
-      await this.http.post(`${backend}/lisk/updateUser`, this.user).toPromise();
-
       this.dialogRef.close();
+      await this.manager.updateUserData(this.user);
     } catch(e) {
       console.log(e.body);
       console.error(e);

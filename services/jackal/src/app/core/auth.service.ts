@@ -75,7 +75,7 @@ export class AuthService implements OnInit {
   addCash() {
     this.http.post(`${backend}/lisk/addCash`, this.user)
     .subscribe(() => {
-      console.log('Cash added')
+      this.toast.info('Adding mash money to account...')
     }, () => {});
   }
 

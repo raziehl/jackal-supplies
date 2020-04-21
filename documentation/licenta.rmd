@@ -223,7 +223,7 @@ Scopul acestei secțiuni nu este menit activismmului politic, în schimb este pe
 3. Protocolul de consens este procesul prin care toate adăugirile la blockchain sunt agregate, validate și propagate înapoi în rettea ca noua versiune de blockchain comuna tuturor nodurilor
 4. Instața de IPFS (InterplanetaryFileSystem) prin care se stochează local conținutul bogat corelat cu crypto-activul creeat de utilizator și îl expune la internet
 5. Componenta din Lisk care deservește drept *Seed Peer* și înregistrează nodurile conectate
-6. Serviciul de licitație de crypto-active
+(Singura componentă centrală din arhitectură)
 
 \clearpage
 
@@ -253,6 +253,10 @@ Pe pagina cu portofoliul utilizatorului acesta este capabil să creeze un crypto
 
 Conținutul bogat poate să fie de orice natură (text, photo, video, audio etc.) și în momentul încărcării pe platformă este defapt înregistrat pe instața locală de IPFS pentru a fi expus internetului.
 În momentul în care cineva vizualizează crypto-activul de pe alt dispozitiv acela este de abia momentul când conținutul este citit de pe dispozitivul origine și *cache*-uit pe dispozitivul consumator.
+
+#### Vânzarea și cumpărarea de cripto-active
+
+Principala activitate realizată pe platformă este cea de vânzare și cumpărare de cripto-active generate de utilizator. Acest lucru se realizează descentralizat prin intermediul unui cont virtual terță parte care înregistrează toate tranzacțiile de pe platformă. Rezultatul final este o logică transacțională de tip *reverse-escrow* pentru a asigura securitatea tranzacțiilor între participanții la piață prin care cripto-activul este mutat în posesia contului terț până în momentul în care un participant este capabil să satisfacă condițiile tranzacției.
 
 \clearpage
 
@@ -386,7 +390,7 @@ IPFS ca protocol:
 IPFS ca sistem de fișiere:
 
 - Are directoare și fișiere
-- Este montabil la alte sisteme de fișiere (via FUSE)
+- Este montabil la alte sisteme de fișiere via FUSE (*FileSystem in Userspace*)
 
 IPFS ca sistem web:
 
@@ -437,15 +441,16 @@ ipfs cat Qma3qbWDGJc6he3syLUTaRkJD3vAq1k5569tNMbUtjAZjf/my_dir/my_file.txt
 
 Cum a fost descris în introducere, aplicația prezentată permite utilizatorului să creeze cripto-active care pot fi valorificate speculativ în interiorul rețelei.
 
-![Login](images/app-screens/login.png)
-
-
 
 Poate să introducă *passphrase*-ul lui personal pentru a intra în aplicațîe cu contul lor asociat sau pot să genereze un passphrase nou dacă nu au mai folosit aplicația până acum.
 
-![Login: Generare Passphrase](images/app-screens/login-generated.png) \
-
 După logare utilizatorul poate să intre pe pagina portofoliului lor personal și de acolo au posibilitatea să creeze, modifice, distrugă crypto-active sau să creeze oferte de vânzare cu ele. 
+
+Pe pagina de explorare utilizatorul poate să vadă toate ofertele de vânzare de cripto-activ valabile pe platformă.
+
+![Login](images/app-screens/login.png)
+
+![Login: Generare Passphrase](images/app-screens/login-generated.png) 
 
 ![Portofoliolul utilizatorului](images/app-screens/portfolio.png)
 
@@ -455,6 +460,7 @@ După logare utilizatorul poate să intre pe pagina portofoliului lor personal �
 
 ![Informații Cripto-Activ](images/app-screens/new-asset-information.png)
 
+![Pagina de explorare](images/app-screens/explore.png)
 
 \clearpage
 
@@ -462,13 +468,21 @@ După logare utilizatorul poate să intre pe pagina portofoliului lor personal �
 \section{Fluxul de Valoare}
 \end{center}
 
+![Lisk Protocol Roadmap [@lisk-roadmap]](images/ibc.png)
+
+Momentan Lisk de abia a ieșit din stadiul de Alpha și nu are toate funcționalitățile necesare pentru a completa întreg procesul necesar pentru introducerea de valoare în interiorul pieței descrise în lucrarea prezetă, în schimb acestea sunt planificate, iar având în vedere progresul constant pe care l-a manifestat Lisk ca organizațîe în decursul a patru ani este legitim presupus că nu o să lase proiectul să moară.
+
+Fluxul general de valoare pe care îl va avea *dApp*-ul va fi acesta:
+
+![Fluxul de Valoare](images/fluxul-de-valoare.png)
+
 \clearpage
 
-\begin{center}
+<!-- \begin{center}
 \section{Strategii de desfășurare}
 \end{center}
 
-\clearpage
+\clearpage -->
 
 \begin{center}
 \section{Concluzii}

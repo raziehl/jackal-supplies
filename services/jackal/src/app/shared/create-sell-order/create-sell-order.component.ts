@@ -62,14 +62,15 @@ export class CreateSellOrderComponent implements OnInit {
       fulfilled: false
     });
 
+    this.dialogRef.close();
     try {
       await this.http.post(`${backend}/lisk/sell-order`, { sellOrder, passphrase: this.auth.user.passphrase })
       .toPromise();
       await this.removeAsset(this.data.asset.cid);
     } catch(err) {
       console.error(err);
+      this.toast.error(err.message);
     }
-    this.dialogRef.close();
   }
 
   async removeAsset(assetCid: string) {
