@@ -56,6 +56,8 @@ export class CreateBuyOrderComponent implements OnInit {
     });
 
     this.http.post(`${backend}/lisk/buy-order`, { buyOrder, passphrase: this.auth.user.passphrase })
-    .subscribe(console.log, console.error);
+    .toPromise()
+    .then(data => this.toast.success("Buy order created"))
+    .catch(err => this.toast.error(err, err.name))
   }
 }

@@ -13,6 +13,7 @@ import { SellOrder, BuyOrder, Orders, OrderAccount } from '../../../common/model
 import { getAddressFromPassphrase } from '@liskhq/lisk-cryptography';
 import { convertBeddowsToLSK, convertLSKToBeddows } from '@liskhq/lisk-transactions/dist-node/utils';
 
+import { InsufficientFunds } from '../../../common/errors/lisk.error';
 
 const richPass = 'wagon stock borrow episode laundry kitten salute link globe zero feed marble';
 
@@ -82,19 +83,17 @@ export class LiskService {
       passphrase: richPass
     });
 
-    devnet.transactions.broadcast(tx)
-    .then(async (msg) => {
-      console.log(msg);
-      const account = await this.getAccount(user.address);
-    })
-    .catch(err => {
-      console.error(err.errors[0].errors)
-    });
+    try {
+      const result = devnet.transactions.broadcast(tx)
+      log.info(result);
+      return result;
+    } catch(err) {
+      log.error(err.errors[0].errors)
+    };
   }
 
   async account(user: User) {
     let account: User = await this.getAccount(user.address);
-    console.log(account)
     user = new User({ ...user, ...account });
     if (account)
       return user;
@@ -123,21 +122,18 @@ export class LiskService {
     try {
       await devnet.transactions.broadcast(tx);
     } catch(err) {
-      log.error(err);
-      throw new Error("Not enought funds, or something else");
+      throw new InsufficientFunds("That wasn't very cash money of you");
     }
 
     try {
       await this.addAssetToUserPortfolio(asset, passphrase);
     } catch(err) {
-      log.error(err);
       throw new Error("Failed to transfer asset to portfolio")
     }
 
     try {
       await this.removeSellOrder(buyOrder.sellOrderId);
     } catch(err) {
-      log.error(err);
       throw new Error("Failed to remove sell order");
     }
     return;
@@ -179,10 +175,14 @@ export class LiskService {
     let asset: Orders = orderAccount.asset;
     asset.buyOrders.push(buyOrder);
 
-    console.log(buyOrder.sellOrderId);
-
     const relevantSellOrder = asset.sellOrders.filter((sellOrder) => sellOrder.id == buyOrder.sellOrderId)[0];
-    await this.transact(buyOrder, passphrase, relevantSellOrder.assetData);
+
+    try {
+      await this.transact(buyOrder, passphrase, relevantSellOrder.assetData);
+    } catch(err) {
+      log.error(err);
+      throw new HttpException(err.message, 400);
+    }
 
     const tx = new OrderTransaction({
       timestamp: timestamp(),
@@ -198,7 +198,7 @@ export class LiskService {
       return result;
     } catch(err) {
       log.error(err);
-      return { status: 400, message: "Please try again" };
+      return { statusCode: 400, message: "Please try again" };
     }
   }
 
