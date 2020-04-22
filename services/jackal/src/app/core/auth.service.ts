@@ -42,7 +42,6 @@ export class AuthService implements OnInit {
     return this.http.post(`${backend}/lisk/account`, user)
     .toPromise()
     .then((user: User) => {
-      console.log(this.user)
       this.user = new User(user);
       this.user.passphrase = this.passphrase;
       const expiresAt = moment().add(user.expiresIn, 'second');
@@ -75,7 +74,7 @@ export class AuthService implements OnInit {
   addCash() {
     this.http.post(`${backend}/lisk/addCash`, this.user)
     .subscribe(() => {
-      this.toast.info('Adding mash money to account...')
+      this.toast.info('Adding cash money to account...')
     }, () => {});
   }
 
