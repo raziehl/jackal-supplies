@@ -64,7 +64,7 @@ classoption: a4paper
 
 Lucrarea curentă descrie intreg procesul de funcționare al unei platforme de tranzacționare de cripto-active valorificate printr-un sistem blockchain folosit de o rețea distribuită de clienți conectați direct între ei. Lucrarea încearcă să demonstreze cum valoarea reală și cuantificabilă poate fi atribuită oricărei bucăți specifice de informțaie arbitrară indiferent de natura ei și că acea valoare este transferabilă între entități corelată perfect cu conținutul transferat.
 
-Un obiectiv secundar este cel de arăta procesul de dezvoltare a unui sistem descentralizat în paradigma *Web 3.0* cvasi autosuficient care este intrinsec rezistent cenzurii si entropiei generale prin independența față de o entitate centrală oarecare care controlează și facilitează sistemul.
+Un obiectiv secundar este cel de arăta procesul de dezvoltare a unui sistem descentralizat în paradigma *Web 3.0* autosuficient care este intrinsec rezistent cenzurii si entropiei generale prin independența față de o entitate centrală oarecare care controlează și facilitează sistemul.
 
 \clearpage
 
@@ -80,7 +80,6 @@ Menirea platformei este să permită oricărui participant să încare conținut
   - Valoarea inițială per unitate exprimată în *cripto-monedă* (LSK)
 
 Rezultatul final este un activ împărțit într-un număr fixat de copii unice care acum se află în portofoliul utilizatorului. Acesta poate mai departe să creeze oferte de vănzare pentru căteva sau toate instanțele din activul respectiv, iar participanții la piață vor decide dacă valoare atribuită inițial conținutului este corelată precis și în caz pozitiv vor alege să cumpere activul respectiv.\
-\indent Sistemul de vănzare-cumpărare va funcționa pe bază de licitație astfel încăt să permită fluctuația valorii tuturor activelor tranzacționate astfel încăt în timp valoarea să fie rafinată și determinată în întregime de către piață.\
 \indent În cel mai practic sens acest activ generat de către utilizator devine în final un *Store of Value* [@def-sov] transferabil în interiorul sistemului.
 
 Un obiectiv secundar al platformei în sine este și transferul de proprietate intelectuală de la un participant la altul cu aplicabilitate legală și în exteriorul sistemului în condițiile în care proprietarul inițial în interiotul platformei este proprietarul sau creatorul original al conținutului și în exteriorul platformei.
@@ -488,7 +487,7 @@ Fluxul general de valoare pe care îl va avea *dApp*-ul va fi acesta:
 
 Platforma a fost inițial planificată ca o piață liberă de conținut a cărui valoare este securizată de mecanismele intrinseci unui sistem blockchain. Potențialul platformei este mai larg de atât. 
 
-Platforma în starea curentă este capabilă de distribuire informațională complet descentralizată. Toate componentele necesare funcționării apicației ca nod în rețea sunt cuprinse într-un singur pachet distribuibil într-o formă ușor de instalat pe orice dispozitiv uzual, iar acest lucru va fi singurul lucru pe care un prospectiv participant îl va trebui face pentru a deveni un nod în rețea și a participa pe platformă. Toate nodurile din rețea au celeași drepturi la nivel de logică relevantă platformei, nu există noduri speciale care să aibă mai mult control asupra proceselor specificate, nici măcar creatorul platformei nu va avea mai multe drepturi decât utilizatorul normal.
+Platforma în starea curentă este capabilă de distribuire informațională complet descentralizată. Toate componentele necesare funcționării apicației ca nod în rețea sunt cuprinse într-un singur pachet distribuibil într-o formă ușor de instalat pe orice dispozitiv uzual, iar acesta va fi singurul lucru pe care un prospectiv participant îl va trebui face pentru a deveni un nod în rețea și a participa pe platformă. Toate nodurile din rețea au celeași drepturi la nivel de logică relevantă platformei, nu există noduri speciale care să aibă mai mult control asupra proceselor specificate, nici măcar creatorul platformei nu va avea mai multe drepturi decât utilizatorul normal.
 
 Într-o lume în care oligopolul companiilor care dețin puținele aplicații sociale, care au ajuns să reprezinte surse primare de informație pentru mare parte din public, a ajuns să se manifeste prin cenzură selectivă și colectare clandistină de date fie prin propria lor voință sau împinse de forțele coercitive ale statelor lumii, foamea de transparență, anonimitate și independență creșțe în zeitgeistul contemporan pe zi ce trece.
 
@@ -693,7 +692,7 @@ async addBuyOrder(buyOrder: BuyOrder, passphrase: string) {
 
 ```
 
-# Exemplu transacție personalizată
+## Exemplu transacție personalizată
 
 ```{js}
 export class AccountTransaction extends BaseTransaction {
