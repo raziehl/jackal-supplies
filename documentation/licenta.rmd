@@ -41,7 +41,7 @@ classoption: a4paper
       
   \begin{flushleft}
   \textbf{Coordonator Științific:} \hfill \textbf{Absolvent:}\\
-  dr. Claudiu Vinte \hfill Petroschi Matei
+  dr. Vințe Claudiu \hfill Petroschi Matei
   \end{flushleft}
 
   \vspace{5cm}
@@ -62,7 +62,7 @@ classoption: a4paper
 \end{center}
 \
 
-Lucrarea curentă descrie intreg procesul de funcționare al unei platforme de tranzacționare de cripto-active valorificate printr-un sistem blockchain folosit de o rețea distribuită de clienți conectați direct între ei. Lucrarea încearcă să demonstreze cum valoarea reală și cuantificabilă poate fi atribuită oricărei bucăți specifice de informțaie arbitrară indiferent de natura ei și că acea valoare este transferabilă între entități corelată perfect cu conținutul transferat.
+Lucrarea curentă descrie intreg procesul de funcționare al unei platforme de tranzacționare de cripto-active valorificate printr-un sistem blockchain folosit de o rețea distribuită de clienți conectați direct între ei. Lucrarea încearcă să demonstreze cum valoarea reală și cuantificabilă poate fi atribuită oricărei bucăți specifice de informație arbitrară indiferent de natura ei și că acea valoare este transferabilă între entități corelată perfect cu conținutul transferat.
 
 Un obiectiv secundar este cel de arăta procesul de dezvoltare a unui sistem descentralizat în paradigma *Web 3.0* autosuficient care este intrinsec rezistent cenzurii si entropiei generale prin independența față de o entitate centrală oarecare care controlează și facilitează sistemul.
 
@@ -76,13 +76,13 @@ Un obiectiv secundar este cel de arăta procesul de dezvoltare a unui sistem des
 Menirea platformei este să permită oricărui participant să încare conținut informatic arbitrar (e.g. imagini, videouri, clipuri audio, text etc.) într-o rețea descentralizată în care aceste bucăți de conținut informatic să poată să aibă valoare recunoscută de ceilalți participanți.\
 \indent În momentul încarcării utilizatorii vor putea să declare două lucruri fundamentale despre activul pe care îl creează:
 
-  - Numarul de unități finite de activ care există și pot fi transacționate
+  - Numarul de unități finite de activ care există și pot fi tranzacționate
   - Valoarea inițială per unitate exprimată în *cripto-monedă* (LSK)
 
 Rezultatul final este un activ împărțit într-un număr fixat de copii unice care acum se află în portofoliul utilizatorului. Acesta poate mai departe să creeze oferte de vănzare pentru căteva sau toate instanțele din activul respectiv, iar participanții la piață vor decide dacă valoare atribuită inițial conținutului este corelată precis și în caz pozitiv vor alege să cumpere activul respectiv.\
 \indent În cel mai practic sens acest activ generat de către utilizator devine în final un *Store of Value* [@def-sov] transferabil în interiorul sistemului.
 
-Un obiectiv secundar al platformei în sine este și transferul de proprietate intelectuală de la un participant la altul cu aplicabilitate legală și în exteriorul sistemului în condițiile în care proprietarul inițial în interiotul platformei este proprietarul sau creatorul original al conținutului și în exteriorul platformei.
+Un obiectiv secundar al platformei în sine este și transferul de proprietate intelectuală de la un participant la altul cu aplicabilitate legală și în exteriorul sistemului în condițiile în care proprietarul inițial în interiorul platformei este proprietarul sau creatorul original al conținutului și în exteriorul platformei.
 
 \clearpage
 
@@ -106,7 +106,7 @@ Patru elemente de design esențial al unui site Web 1.0 includ:
 - Pagini statice
 - Conținut servit direct de pe *file system*-ul serverului
 - Pagini construite folosind *SSI* [@ssi] sau *CGI* [@cgi]
-- Tabelele și Ramele erau folosite pentru aliniareapoziționarea și aliniarea elementelor în pagină
+- Tabelele și Ramele erau folosite pentru poziționarea și aliniarea elementelor în pagină
 
 [@web-x par. 1]
 
@@ -116,7 +116,7 @@ Modelele de monetizare folosite în vremea asta, dacă există, sunt primitive �
 
 ### Web 2.0
 
-*Web 2.0* e paradigma care a dat naștere internetului și aplicațiilor în felul în care le cunoaștem în ziua de astăzi. O poreclă pentru *Web 2.0* este *The participative social web*. Această perioadă e caracteristică facilizării interacțiunii între utilizatori prin platforme sociale robuste care permit persistența acțiunilor, dar mai important decât asta este normalizarea interacțiunilor intre servicii și standardizarea consumției și controlului datelor. 
+*Web 2.0* e paradigma care a dat naștere internetului și aplicațiilor în felul în care le cunoaștem în ziua de astăzi. O poreclă pentru *Web 2.0* este *The participative social web*. Această perioadă e caracteristică facilizării interacțiunii între utilizatori prin platforme sociale robuste care permit persistența acțiunilor, dar mai important decât asta este normalizarea interacțiunilor intre servicii și standardizarea consumului și controlului datelor. 
 [@web-x par. 2]
 
 În această perioadă se popularizează conceptul de *Application Programming Interface* (API) care prin *Data Interchange Formats* comune pot deschide accesul oricui la izvoare aproape nelimitate de date brute care pot fi manipulate în varii scopuri nepredeterminate.
@@ -125,7 +125,7 @@ Browserele Web evoluează să permită utilizarea de metodologii precum *Asyncho
 
 Cinci caracteristici tehnologice importante ale *Web 2.0* sunt:
 
-- Organizarea, clasificarea și consumția libera a informației în manieră colectivă
+- Organizarea, clasificarea și consumarea liberă a informației în manieră colectivă
 - Conținut dinamic
 - Utilizarea de API-uri externe
 - Applicații *responsive* de *social media*
@@ -170,7 +170,7 @@ Un *dApp* este un tip de applicație care la suprafață funcționează la fel c
 La finalul erei *Web 2.0* deja devenau evidente anumite probleme cu felul în care se face business-ul pe web. Principalele fiind:
 
 - Consolidarea tuturor resurselor informatice într-un număr foarte redus de servicii monolit deținute de agenți economici cu prea multă putere
-- Lipsa de autoritate asupra informației publicate pe servicii în sensul in care deșii proprietatea intelectuală a unui creator îi aparține, orice firmă are puterea de a controla dacă acea proprietate este accesibilă sau nu pe platforma respectivă
+- Lipsa de autoritate asupra informației publicate pe servicii în sensul in care deși proprietatea intelectuală a unui creator îi aparține, orice firmă are puterea de a controla dacă acea proprietate este accesibilă sau nu pe platforma respectivă
 - Cenzura selectivă după discreția firmelor și manipularea trendurilor
 - Colectarea clandestină de date fără remunerarea utilizatorilor
 
@@ -178,7 +178,7 @@ La finalul erei *Web 2.0* deja devenau evidente anumite probleme cu felul în ca
 
 O altă problemă evidentă a lumii vechi este dependența față de *advertising* ca vector financiar principal. Cănd au început să devină populare soluții precum AdBlock, apăruseră atăt în răndul creatorilor căt și al firmelor frici legate de sustenabilitatea modelului economic web și dacă procesul poate să continue. 
 
-Gaura lăsată de *ads*-urile în minus a fost din fericire umplută de soluțiile de crowdfunding care au apărut, lucru care a fost benefic din multe puncte de vedere, nu cel din urmă fiind faptul că acum tabla de joc începe să dea semne de normalizare a distribuției de valoare asupra conținutului informatic creeat doar prin simplul fapt că acum oamenii pot să aleagă voluntar pe cine să plătească după gust, lucru care a creeat o formă de clasă de mijloc între creatorii de pe internet.
+Golul lăsat de *ads*-urile în minus a fost din fericire umplută de soluțiile de crowdfunding care au apărut, lucru care a fost benefic din multe puncte de vedere, nu cel din urmă fiind faptul că acum tabla de joc începe să dea semne de normalizare a distribuției de valoare asupra conținutului informatic creeat doar prin simplul fapt că acum oamenii pot să aleagă voluntar pe cine să plătească după gust, lucru care a creeat o formă de clasă de mijloc între creatorii de pe internet.
 
 *Web 3.0* construiește mai departe pe conceptul de crowdfunding și vine și cu soluții noi. Brave este un browser lansat în 2019 care include nativ toate facilitățile necesare pentru funcționarea dApp-urilor, el în sine fiind un dApp cu propriul lui sistem *Blockchain* cu cripto-monedă.
 Brave va permite tuturor dApp-urilor care se integrează cu standardul prezent să primească bani direct de la utilizatorii care vor să plătească cu crypto-moneda brave într-un mod foarte intuitiv direct din browser.
@@ -189,12 +189,12 @@ Acesta este contextul tehnologic în care a fost dezvoltată aplicația prezenta
 
 ## Contextul Politic
 
-Dat fiind gradul de consolidare mediatică din prezent devine din ce în ce mai aparent că infrastructura curentă este prea vulnerabilă controlului de către firmele care dețin platformele folosite de populație și de către actori statali care influențează direcția discursului politic digital prin mecanisme externe platformelor în sine. În alte cuvinte este aparent faptul că fluxul informatic este prea ușor influențat de legile și ordonanțele statelor lumii și a moderării draconice efectuate de firme pentru a limita selectiv accesul la informație.
+Dat fiind gradul de consolidare mediatică din prezent devine din ce în ce mai evident că infrastructura curentă este prea vulnerabilă controlului de către firmele care dețin platformele folosite de populație și de către actori statali care influențează direcția discursului politic digital prin mecanisme externe platformelor în sine. În alte cuvinte este aparent faptul că fluxul informatic este prea ușor influențat de legile și ordonanțele statelor lumii și a moderării draconice efectuate de firme pentru a limita selectiv accesul la informație.
 
 Lucrarea de față invocă anumite presupoziții filosofice în sensul ăsta:
 
-1. Într-o lume *post-adevăr* gradul de entropie informatică trebuie mărit, nu micșorat
-2. Heterogenitatea naturii entităților care pot să impacteze semnificant cursul informatic trebuie maximizat
+1. Într-o lume *post-adevăr* gradul de entropie informațională trebuie mărit, nu micșorat
+2. Heterogenitatea naturii entităților care pot să impacteze semnificativ cursul informatic trebuie maximizată
 3. Orice agent economic sau actor statal trebuie să subscrie aceluiaș set de reguli ca oricare alt subset de indivizi care participă colectiv la producerea conținutului, altfel spus *software*-ul trebuie construit în așa fel încăt să nu poată fi controlat prin alte maniere în afară de propriile lui mecanisme organice interne
 
 În momentul scrierii lucrării, în mijlocul pandemiei COVID-19, Congresul american dezbate *Eliminating Abusive and Rampant Neglect of Interactive Technologies (“EARN IT”) Act*, care urmăreșțe să încarce firmele private cu mai multă responsabilitate legală de a preveni utilizatorii din a încărca material ilegal, în specific legat de prostituție. Legea nu face distincție între canale publice și private în interiorul unei aplicații avănd ca potențial rezultat forțarea firmelor să creeze *backdoor*-uri sau să renunțe complet la sistemele lor de end-to-end encryption pe care le folosesc utilizatorii lor pentru a putea să monitorizeze activitatea în întregime pentru a o modera.
@@ -204,7 +204,7 @@ Combinația cu *European Union Directive on Copyright in the Digital Single Mark
 
 \clearpage
 
-Scopul acestei secțiuni nu este menit activismmului politic, în schimb este pentru a prezenta o secțiune verticală a motorului ideologic care conduce eforturile de reconstrucție infrastructurală și arhitecturală avănd ca unul dintre obiectivele centrale libertatea și autodeterminarea informatică.
+Scopul acestei secțiuni nu este menit activismului politic, în schimb este de a prezenta o secțiune verticală a motorului ideologic care conduce eforturile de reconstrucție infrastructurală și arhitecturală avănd ca unul dintre obiectivele centrale libertatea și autodeterminarea informatică.
 
 \clearpage
 
@@ -215,9 +215,9 @@ Scopul acestei secțiuni nu este menit activismmului politic, în schimb este pe
 
 ![Arhitectura Generală\label{fig-1}](images/ArchitectureDiagram.png)
 
-1. Applicație Angular 2+ folosită pentru interacțiunea la nivel de peer cu rețțeaua sistemului, folosită de utilizatorul final pentru a creea, vinde și cumpăra crypto-active
+1. Applicație Angular 2+ folosită pentru interacțiunea la nivel de peer cu rețeaua sistemului, folosită de utilizatorul final pentru a creea, vinde și cumpăra crypto-active
 2. Instața locală a *sidechain*-ului Lisk în care se înregistrează informațiile despre crypto-active, date despre utilizator și în cazul OrderBroker-ului validarea unui ordin de vânzare spre a fi transferat efectiv
-3. Protocolul de consens este procesul prin care toate adăugirile la blockchain sunt agregate, validate și propagate înapoi în rettea ca noua versiune de blockchain comuna tuturor nodurilor
+3. Protocolul de consens este procesul prin care toate adăugirile la blockchain sunt agregate, validate și propagate înapoi în rețea ca noua versiune de blockchain comuna tuturor nodurilor
 4. Instața de IPFS (InterplanetaryFileSystem) prin care se stochează local conținutul bogat corelat cu crypto-activul creeat de utilizator și îl expune la internet
 5. Componenta din Lisk care deservește drept *Seed Peer* și înregistrează nodurile conectate
 (Singura componentă centrală din arhitectură)
@@ -240,7 +240,7 @@ horn future wife theme inherit ice buffalo drop chimney forum boss educate
 
 Acest *passphrase* este spart de modulul `@liskhq/lisk-cryptography` în perechea de chei unice asociate utilizatorului care sunt folosite pentru autorizarea tuturor acțiunilor legate de utilizatorul respectiv.
 
-Nimic alceva nu este necesar în afară de acest *passphrase* care trebuie ținut minte de utilizator și nu va putea niciodată fi schimbat fără a pierde întreagă activitatea din sistem.
+Nimic altceva nu este necesar în afară de acest *passphrase* care trebuie ținut minte de utilizator și nu va putea niciodată fi schimbat fără a pierde întreagă activitatea din sistem.
 
 În cel mai practic sens 'contul' utilizatorului este creeat de abia în momentul în care se înregistrează prima tranzacție cu adresa și cheia publică expusă în blockchain fie că există date asociate sau e o transacție nulă.
 
@@ -248,7 +248,7 @@ Nimic alceva nu este necesar în afară de acest *passphrase* care trebuie ținu
 \
 Pe pagina cu portofoliul utilizatorului acesta este capabil să creeze un crypto-activ cu printr-un modal în care poate să introducă datele relevante și să încarce conținutul bogat asociat activului respectiv.
 
-Conținutul bogat poate să fie de orice natură (text, photo, video, audio etc.) și în momentul încărcării pe platformă este defapt înregistrat pe instața locală de IPFS pentru a fi expus internetului.
+Conținutul bogat poate să fie de orice natură (text, photo, video, audio etc.) și în momentul încărcării pe platformă este de fapt înregistrat pe instața locală de IPFS pentru a fi expus internetului.
 În momentul în care cineva vizualizează crypto-activul de pe alt dispozitiv acela este de abia momentul când conținutul este citit de pe dispozitivul origine și *cache*-uit pe dispozitivul consumator.
 
 #### Vânzarea și cumpărarea de cripto-active
@@ -269,7 +269,7 @@ Dată fiind amploarea proiectului colecția de tehnologii utilizate pentru ating
 Framework-ul de frontend utilizat pentru realizarea componentei interactive a proiectului,
 Angular 2+ este un framework SPA (Single Page Application) care funcționează pe bază de componentă.
 
-Componentele în Angular sunt făcute în așa fel încât să fie bucățî modulare care conțin atât elementele necesare pentru stilizare cât și codul sursă care va fi să fie executat în relație cu componenta respectivă și componentele înconjurătoare. 
+Componentele în Angular sunt făcute în așa fel încât să fie bucăți modulare care conțin atât elementele necesare pentru stilizare cât și codul sursă care va fi să fie executat în relație cu componenta respectivă și componentele înconjurătoare. 
 Ele pot fi creeate într-o formă cât de atomică sau complexă este nevoie astfel încât să poată fi folosite ca orice tip de element de UI autoconținut în interiorul unui șablon HTML dinamic.
 
 Angular 2+ este gândit în jurul unui pattern arhitectural la nivel de aplicație cunoscut în accepțiunea comună curentă sub denumirea de MVW (Model-View-Whatever, Where Whatever stands for "whatever works for you"). În perioada de tranziție între Angular.js șî Angular 2+ era pusă în discuție de către comunitate clasificarea lui Angular ca framework într-una dintre *pattern*-urile următoare:
@@ -376,7 +376,7 @@ IPFS devine unul dintre subsistemele majore ale internetului și dacă este cons
 
 ### Perspective
 
-Acest sistem poate fi considerat mai multe lucruri:
+Acest sistem poate fi privit în mai multe chei:
 
 IPFS ca protocol:
 
@@ -411,7 +411,7 @@ IPFS se folosețe de conceptul de *Merkle Directed Acyclic Graphs* sau *MerkleDA
 
 ![DAG Filesystem [@ipfs-article-1]\label{fig-6}](images/dag-structure.jpeg)
 
-Din exemplul de mai sus conținutul fișierului de mai sus *my_file.txt* poate să fie adresat în două moduri:
+Din exemplul de mai sus conținutul fișierului *my_file.txt* poate să fie adresat în două moduri:
 
 - Fie direct prin *Content Identifier*-ul sau CID-ul lui propriu
 
@@ -487,12 +487,12 @@ Fluxul general de valoare pe care îl va avea *dApp*-ul va fi acesta:
 
 Platforma a fost inițial planificată ca o piață liberă de conținut a cărui valoare este securizată de mecanismele intrinseci unui sistem blockchain. Potențialul platformei este mai larg de atât. 
 
-Platforma în starea curentă este capabilă de distribuire informațională complet descentralizată. Toate componentele necesare funcționării apicației ca nod în rețea sunt cuprinse într-un singur pachet distribuibil într-o formă ușor de instalat pe orice dispozitiv uzual, iar acesta va fi singurul lucru pe care un prospectiv participant îl va trebui face pentru a deveni un nod în rețea și a participa pe platformă. Toate nodurile din rețea au celeași drepturi la nivel de logică relevantă platformei, nu există noduri speciale care să aibă mai mult control asupra proceselor specificate, nici măcar creatorul platformei nu va avea mai multe drepturi decât utilizatorul normal.
+Platforma în starea curentă este capabilă de distribuire informațională complet descentralizată. Toate componentele necesare funcționării apicației ca nod în rețea sunt cuprinse într-un singur pachet distribuibil într-o formă ușor de instalat pe orice dispozitiv uzual, iar acesta va fi singurul lucru pe care un prospectiv participant îl va trebui face pentru a deveni un nod în rețea și a participa pe platformă. Toate nodurile din rețea au aceleași drepturi la nivel de logică relevantă platformei, nu există noduri speciale care să aibă mai mult control asupra proceselor specificate, nici măcar creatorul platformei nu va avea mai multe drepturi decât utilizatorul normal.
 
-Într-o lume în care oligopolul companiilor care dețin puținele aplicații sociale, care au ajuns să reprezinte surse primare de informație pentru mare parte din public, a ajuns să se manifeste prin cenzură selectivă și colectare clandistină de date fie prin propria lor voință sau împinse de forțele coercitive ale statelor lumii, foamea de transparență, anonimitate și independență creșțe în zeitgeistul contemporan pe zi ce trece.
+Într-o lume în care oligopolul companiilor care dețin puținele aplicații sociale, care au ajuns să reprezinte surse primare de informație pentru mare parte din public, tinde să se manifeste prin cenzură selectivă și colectare clandistină de date fie prin propria lor voință sau împinse de forțele coercitive ale statelor lumii, foamea de transparență, anonimitate și independență creșțe în zeitgeistul contemporan pe zi ce trece.
 
 Aplicația prezentată poate să fie ușor extinsă pentru a cuprinde toate funcționalitățiile tuturor *site*-urilor și aplicațiilor pe care le folosește publicul în mod uzual, iar faptul că acest lucru se poate realiza fără niciun cost de mentenanță pentru complexul de servere mari care trebuie să conțină toată informația distribuită pe platformă face ca acest lucru să fie mai mult decât facil.
-Costul este distribuit uniform între utilizatori și nu există nicio entitate centrală care este necesară pentru a ține platforma în picioare, rețeaua întreagă are potențial de autosuficiență deplină.
+Costul este distribuit uniform între utilizatori și nu există nicio entitate centrală care să fie necesară pentru a ține platforma în picioare, rețeaua întreagă având potențial de autosuficiență deplină.
 
 În afara unei serii de evenimente dramatice care să schimbe masiv cursul istoriei, este foarte probabil că aceasta va fi direcția generală a dezvoltărilor tehnologice în cea de a treia eră Web.
 
@@ -692,7 +692,7 @@ async addBuyOrder(buyOrder: BuyOrder, passphrase: string) {
 
 ```
 
-## Exemplu transacție personalizată
+## Exemplu tranzacție personalizată
 
 ```{js}
 export class AccountTransaction extends BaseTransaction {
